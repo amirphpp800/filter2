@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>پنل مدیریت - فیلتربین</title>
+    <link rel="stylesheet" href="/assets/Font/fontiran.css">
+    <link rel="stylesheet" href="admin-style.css">
+</head>
+<body>
+    <div class="admin-wrapper">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <div class="sidebar-header">
+                <div class="admin-logo">
+                    <span class="logo-icon">📊</span>
+                    <span class="logo-text">پنل مدیریت</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item active">
+                    <span class="nav-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                        </svg>
+                    </span>
+                    <span class="nav-text">داشبورد</span>
+                </a>
+                <a href="articles.html" class="nav-item">
+                    <span class="nav-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                            <line x1="16" y1="13" x2="8" y2="13"></line>
+                            <line x1="16" y1="17" x2="8" y2="17"></line>
+                            <polyline points="10 9 9 9 8 9"></polyline>
+                        </svg>
+                    </span>
+                    <span class="nav-text">مقالات</span>
+                </a>
+                <a href="add-article.html" class="nav-item">
+                    <span class="nav-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                    </span>
+                    <span class="nav-text">افزودن مقاله</span>
+                </a>
+                <a href="templates.html" class="nav-item">
+                    <span class="nav-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
+                            <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
+                        </svg>
+                    </span>
+                    <span class="nav-text">تمپلیت‌ها</span>
+                </a>
+                <a href="media.html" class="nav-item">
+                    <span class="nav-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                            <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                            <polyline points="21 15 16 10 5 21"></polyline>
+                        </svg>
+                    </span>
+                    <span class="nav-text">رسانه‌ها</span>
+                </a>
+                <a href="/index.html" class="nav-item" target="_blank">
+                    <span class="nav-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="2" y1="12" x2="22" y2="12"></line>
+                            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                        </svg>
+                    </span>
+                    <span class="nav-text">مشاهده سایت</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button class="logout-btn" onclick="logout()">
+                    <span>🚪</span>
+                    خروج
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <header class="admin-header">
+                <h1>داشبورد</h1>
+                <div class="admin-user">
+                    <span class="user-icon">👤</span>
+                    <span class="user-name">مدیر</span>
+                </div>
+            </header>
+
+            <div class="dashboard-content">
+                <!-- Stats Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: rgba(157, 9, 19, 0.1);">
+                            <span style="color: #9D0913;">📝</span>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="totalArticles">0</h3>
+                            <p>مقالات منتشر شده</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: rgba(34, 197, 94, 0.1);">
+                            <span style="color: #22c55e;">✅</span>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="publishedArticles">0</h3>
+                            <p>مقالات فعال</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: rgba(234, 179, 8, 0.1);">
+                            <span style="color: #eab308;">⏳</span>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="draftArticles">0</h3>
+                            <p>پیش‌نویس</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: rgba(59, 130, 246, 0.1);">
+                            <span style="color: #3b82f6;">🖼️</span>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="totalImages">0</h3>
+                            <p>تصاویر</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Articles -->
+                <div class="dashboard-section">
+                    <div class="section-header">
+                        <h2>آخرین مقالات</h2>
+                        <a href="add-article.html" class="btn-primary">افزودن مقاله جدید</a>
+                    </div>
+
+                    <div class="articles-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>عنوان</th>
+                                    <th>وضعیت</th>
+                                    <th>تاریخ</th>
+                                    <th>عملیات</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recentArticles">
+                                <tr>
+                                    <td colspan="4" style="text-align: center; padding: 2rem; color: rgba(255,255,255,0.5);">
+                                        هنوز مقاله‌ای ثبت نشده است
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="dashboard-section">
+                    <h2>دسترسی سریع</h2>
+                    <div class="quick-actions">
+                        <a href="add-article.html" class="action-card">
+                            <span class="action-icon">➕</span>
+                            <h3>مقاله جدید</h3>
+                            <p>افزودن مقاله با ویرایشگر پیشرفته</p>
+                        </a>
+
+                        <a href="templates.html" class="action-card">
+                            <span class="action-icon">📋</span>
+                            <h3>تمپلیت‌ها</h3>
+                            <p>استفاده از تمپلیت‌های آماده</p>
+                        </a>
+
+                        <a href="media.html" class="action-card">
+                            <span class="action-icon">🖼️</span>
+                            <h3>مدیریت رسانه</h3>
+                            <p>آپلود و مدیریت تصاویر</p>
+                        </a>
+
+                        <a href="articles.html" class="action-card">
+                            <span class="action-icon">📚</span>
+                            <h3>همه مقالات</h3>
+                            <p>مشاهده و ویرایش مقالات</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Mobile Sidebar Toggle -->
+    <button class="mobile-sidebar-toggle" id="mobileSidebarToggle" aria-label="منوی کناری">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+    </button>
+
+    <script src="/admin-auth.js"></script>
+    <script src="/admin-dashboard.js"></script>
+    <script>
+        // Mobile sidebar toggle
+        const mobileSidebarToggle = document.getElementById('mobileSidebarToggle');
+        const adminSidebar = document.querySelector('.admin-sidebar');
+        
+        if (mobileSidebarToggle && adminSidebar) {
+            mobileSidebarToggle.addEventListener('click', function() {
+                adminSidebar.classList.toggle('active');
+            });
+
+            // Close sidebar when clicking outside
+            document.addEventListener('click', function(event) {
+                if (!adminSidebar.contains(event.target) && !mobileSidebarToggle.contains(event.target)) {
+                    adminSidebar.classList.remove('active');
+                }
+            });
+        }
+    </script>
+</body>
+</html>

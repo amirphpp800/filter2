@@ -1,0 +1,85 @@
+
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="article-title">در حال بارگذاری...</title>
+    <meta name="description" content="مقالات تخصصی فیلتربین">
+    
+    <!-- PWA -->
+    <link rel="manifest" href="/pwa/manifest.json">
+    <meta name="theme-color" content="#9D0913">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/assets/logo/logo.svg">
+    <link rel="apple-touch-icon" href="/assets/logo/favicon.svg">
+    <link rel="shortcut icon" href="/assets/logo/favicon.svg">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="/assets/Font/fontiran.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/layout.css">
+    <link rel="stylesheet" href="/css/components.css">
+    <link rel="stylesheet" href="/css/dropdown.css">
+    <link rel="stylesheet" href="/css/ai-notification.css">
+    <link rel="stylesheet" href="/css/search.css">
+    <link rel="stylesheet" href="/css/article.css">
+    <link rel="stylesheet" href="/css/article-template.css">
+    <link rel="stylesheet" href="/css/responsive.css">
+</head>
+<body>
+    <!-- Header Placeholder -->
+    <div id="header-placeholder"></div>
+
+    <!-- Search Modal Placeholder -->
+    <div id="search-modal-placeholder"></div>
+
+    <!-- Article Container -->
+    <div class="article-container">
+        <div class="container">
+            <div class="article-layout">
+                <!-- Loading state -->
+                <div class="content-loading" id="articleLoading" style="text-align: center; padding: 4rem 2rem; min-height: 60vh; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                    <div class="loading-spinner" style="width: 50px; height: 50px; border: 4px solid rgba(157, 9, 19, 0.1); border-top: 4px solid #9D0913; border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 1.5rem;"></div>
+                    <p style="color: var(--text-secondary); font-size: 1.1rem; margin: 0;">در حال بارگذاری مقاله...</p>
+                </div>
+                <!-- Article content will be injected here by JavaScript -->
+            </div>
+        </div>
+    </div>
+    
+    <style>
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .content-loading {
+            transition: opacity 0.3s ease;
+        }
+        
+        .content-loading.fade-out {
+            opacity: 0;
+        }
+    </style>
+
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+
+    <!-- Scripts -->
+    <script src="/js/component-loader.js"></script>
+    <script src="/js/ai-notification.js"></script>
+    <script src="/js/page-transitions.js"></script>
+    <script src="/js/notifications.js"></script>
+    <script src="/js/auto-optimize.js"></script>
+    <script src="/js/article.js"></script>
+    <script src="/js/components.js"></script>
+    <script src="/js/search.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/pwa/pwa-init.js"></script>
+    
+    <!-- Twitter Widgets -->
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</body>
+</html>

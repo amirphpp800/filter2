@@ -1,0 +1,13 @@
+# CloudFlare Pages Redirects
+# SPA Routing
+/*    /index.html   200
+
+# Redirect old URLs
+/index.html   /   301
+/pages/index.html   /pages/   301
+
+# Force HTTPS
+http://*   https://:splat   301!
+
+# Custom 404
+/404.html   404

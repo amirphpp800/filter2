@@ -1,0 +1,246 @@
+/* Accessibility Enhancements */
+
+/* Skip to main content link */
+.skip-to-main {
+    position: absolute;
+    left: -10000px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    background: var(--primary-color, #9D0913);
+    color: #fff;
+    padding: 1rem 2rem;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 0 0 8px 0;
+    transition: all 0.3s ease;
+    z-index: 10000;
+}
+
+.skip-to-main:focus {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    clip: auto;
+}
+
+/* Focus visible styles */
+*:focus-visible {
+    outline: 3px solid var(--primary-color, #9D0913);
+    outline-offset: 2px;
+}
+
+/* Remove outline for mouse users but keep for keyboard */
+*:focus:not(:focus-visible) {
+    outline: none;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    * {
+        border-width: 2px !important;
+    }
+    
+    button,
+    a,
+    input,
+    select,
+    textarea {
+        border: 2px solid currentColor !important;
+    }
+}
+
+/* Reduced motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* Screen reader only content */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+.sr-only-focusable:active,
+.sr-only-focusable:focus {
+    position: static;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+}
+
+/* Ensure sufficient color contrast */
+a {
+    color: inherit;
+    text-decoration: underline;
+}
+
+a:hover,
+a:focus {
+    text-decoration: none;
+    background-color: rgba(157, 9, 19, 0.1);
+}
+
+/* Better focus styles for interactive elements */
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[role="button"]:focus-visible,
+[tabindex]:focus-visible {
+    outline: 3px solid var(--primary-color, #9D0913);
+    outline-offset: 2px;
+}
+
+/* Improve text readability */
+p,
+li,
+td,
+th {
+    line-height: 1.6;
+}
+
+/* Ensure clickable areas are large enough (minimum 44x44px) */
+button,
+a,
+input[type="button"],
+input[type="submit"],
+input[type="reset"],
+[role="button"] {
+    min-height: 44px;
+    min-width: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 1rem;
+}
+
+/* Print styles for better accessibility */
+@media print {
+    .no-print,
+    nav,
+    footer,
+    .sidebar,
+    .search-modal,
+    button {
+        display: none !important;
+    }
+    
+    a[href]:after {
+        content: " (" attr(href) ")";
+    }
+    
+    abbr[title]:after {
+        content: " (" attr(title) ")";
+    }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --text-color: #ffffff;
+        --bg-color: #0a0a0a;
+        --link-color: #ff6b6b;
+    }
+}
+
+/* Light mode support (for users who prefer it) */
+@media (prefers-color-scheme: light) {
+    :root {
+        --text-color: #1a1a1a;
+        --bg-color: #ffffff;
+        --link-color: #9D0913;
+    }
+}
+
+/* Language-specific improvements for Persian/RTL */
+[dir="rtl"] {
+    text-align: right;
+}
+
+[dir="rtl"] .skip-to-main {
+    left: auto;
+    right: -10000px;
+}
+
+[dir="rtl"] .skip-to-main:focus {
+    left: auto;
+    right: 0;
+    border-radius: 0 0 0 8px;
+}
+
+/* Ensure form labels are associated properly */
+label {
+    cursor: pointer;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+/* Required field indicator */
+.required::after,
+[required] + label::after {
+    content: " *";
+    color: var(--primary-color, #9D0913);
+    font-weight: bold;
+}
+
+/* Error states */
+.error,
+[aria-invalid="true"] {
+    border-color: var(--primary-color, #9D0913) !important;
+    background-color: rgba(157, 9, 19, 0.05);
+}
+
+.error-message {
+    color: var(--primary-color, #9D0913);
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+    display: block;
+}
+
+/* Loading states */
+[aria-busy="true"] {
+    opacity: 0.6;
+    pointer-events: none;
+    position: relative;
+}
+
+[aria-busy="true"]::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 24px;
+    height: 24px;
+    border: 3px solid rgba(157, 9, 19, 0.3);
+    border-top-color: var(--primary-color, #9D0913);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}

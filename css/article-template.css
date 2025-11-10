@@ -1,0 +1,661 @@
+
+/* CSS for HTML Article Templates */
+
+.article-template {
+    font-family: var(--font-persian);
+    background: var(--dark-bg);
+    color: var(--text-primary);
+    line-height: 1.6;
+    direction: rtl;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    min-height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+/* Header fixes for article pages */
+.top-header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: #000000;
+}
+
+.article-container {
+    padding-top: 0;
+}
+
+/* Main Content Container */
+.article-content-container {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: stretch;
+    gap: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem 2rem 3rem;
+    overflow: visible;
+}
+
+/* Main Article Content */
+.article-main-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.article-body-card {
+    background: var(--card-bg);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-color);
+    padding: 0;
+    overflow: hidden;
+    max-width: 100%;
+}
+
+.article-body-card .article-image {
+    width: calc(100% - 3rem);
+    height: 350px;
+    object-fit: cover;
+    display: block;
+    margin: 1.5rem 1.5rem 0;
+    border-radius: var(--radius-md);
+}
+
+.article-body-content {
+    padding: 2.5rem 2rem;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.article-body-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    line-height: 1.4;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.article-lede {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+    line-height: 1.6;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* Article Body Content Styling */
+.article-body-content h2 {
+    color: var(--text-primary);
+    font-size: 1.8rem;
+    margin: 2rem 0 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border-color);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+.article-body-content h3 {
+    color: var(--text-primary);
+    font-size: 1.4rem;
+    margin: 1.5rem 0 1rem;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+.article-body-content p {
+    margin-bottom: 1.5rem;
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    line-height: 1.8;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+.article-body-content ul,
+.article-body-content ol {
+    margin: 1rem 0 1.5rem 2rem;
+    color: var(--text-secondary);
+    word-break: break-word;
+}
+
+.article-body-content li {
+    margin-bottom: 0.5rem;
+}
+
+.article-body-content blockquote {
+    background: var(--dark-bg);
+    border-right: 4px solid var(--primary-color);
+    padding: 1.5rem;
+    margin: 2rem 0;
+    border-radius: var(--radius-md);
+    font-style: italic;
+    color: var(--text-primary);
+}
+
+.article-body-content strong {
+    color: var(--text-primary);
+    font-weight: bold;
+}
+
+.article-body-content code {
+    background: var(--dark-bg);
+    padding: 0.2rem 0.5rem;
+    border-radius: var(--radius-sm);
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+.article-body-content pre {
+    background: var(--dark-bg);
+    padding: 1.5rem;
+    border-radius: var(--radius-md);
+    overflow-x: auto;
+    margin: 1.5rem 0;
+    border: 1px solid var(--border-color);
+}
+
+.article-body-content img {
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-md);
+    margin: 2rem 0;
+}
+
+/* Article Tags */
+.article-tags {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.article-tags h3 {
+    color: var(--text-primary);
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.tags-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.tag {
+    display: inline-block;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    background: none;
+    border: none;
+    padding: 0;
+}
+
+.tag::before {
+    content: '#';
+    margin-left: 0.25rem;
+}
+
+.tag:hover {
+    color: var(--primary-color);
+}
+
+/* Sidebar */
+.article-sidebar-right {
+    width: 300px;
+    flex-shrink: 0;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 120px;
+    align-self: flex-start;
+    height: fit-content;
+    overflow: visible;
+    will-change: transform;
+    z-index: 10;
+}
+
+.sidebar-card {
+    background: var(--card-bg);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-color);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.sidebar-card h4 {
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+/* Combined Card */
+.combined-card {
+    padding: 0;
+    overflow: hidden;
+}
+
+.share-section,
+.related-section {
+    padding: 1.5rem;
+}
+
+.sidebar-divider {
+    height: 1px;
+    background: var(--border-color);
+    margin: 0;
+}
+
+/* Share Buttons */
+.share-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.share-btn {
+    width: 44px;
+    height: 44px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.share-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.share-btn.linkedin {
+    background: #0077b5;
+    color: white;
+}
+
+.share-btn.whatsapp {
+    background: #25D366;
+    color: white;
+}
+
+.share-btn.telegram {
+    background: #0088cc;
+    color: white;
+}
+
+.share-btn.twitter {
+    background: #000000;
+    color: white;
+}
+
+.share-btn.copy {
+    background: #6c757d;
+    color: white;
+}
+
+/* Related Articles */
+.related-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.related-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+    text-decoration: none;
+    color: var(--text-secondary);
+    position: relative;
+}
+
+.related-item:last-child {
+    border-bottom: none;
+}
+
+.related-item:hover {
+    padding-right: 0.5rem;
+}
+
+.related-item:hover .related-item-title {
+    color: var(--primary-color);
+}
+
+
+.related-item-number {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    flex-shrink: 0;
+    transition: font-size 0.3s ease, font-weight 0.3s ease;
+}
+
+.related-item:hover .related-item-number {
+    font-size: 1.15rem;
+    font-weight: 700;
+}
+
+.related-item-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.related-item-title {
+    font-size: 0.95rem;
+    font-weight: 500;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    transition: color 0.3s ease;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .article-content-container {
+        flex-direction: column;
+        padding: 0 1.5rem 2rem;
+    }
+    
+    .article-sidebar-right {
+        width: 100%;
+        position: relative;
+        top: auto;
+        order: 2;
+        overflow: visible;
+    }
+    
+    .article-main-content {
+        order: 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .article-content-container {
+        padding: 1.5rem 1rem 1.5rem;
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+    
+    .article-body-card {
+        max-width: 100%;
+    }
+    
+    .article-body-card .article-image {
+        width: calc(100% - 2rem);
+        height: 250px;
+        margin: 1rem 1rem 0;
+    }
+    
+    .article-body-content {
+        padding: 2rem 1.25rem;
+        max-width: 100%;
+    }
+    
+    .article-body-title {
+        font-size: 1.75rem;
+        line-height: 1.3;
+    }
+    
+    .article-lede {
+        font-size: 1.1rem;
+    }
+    
+    .article-body-content h2 {
+        font-size: 1.5rem;
+        margin-top: 2rem;
+    }
+    
+    .article-body-content h3 {
+        font-size: 1.2rem;
+    }
+    
+    .article-body-content p {
+        font-size: 1rem;
+    }
+    
+    .article-tags {
+        margin-top: 2rem;
+        padding-top: 1.5rem;
+    }
+    
+    .tags-list {
+        gap: 0.5rem;
+    }
+    
+    .tag {
+        font-size: 0.85rem;
+        padding: 0.4rem 0.8rem;
+    }
+    
+    .share-buttons {
+        gap: 0.75rem;
+    }
+    
+    .share-btn {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .related-item {
+        padding: 0.75rem 0;
+    }
+    
+    .related-item-title {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    * {
+        box-sizing: border-box;
+    }
+    
+    .article-content-container {
+        padding: 0.75rem 0.5rem;
+        max-width: 100vw;
+        overflow-x: hidden;
+        width: 100%;
+    }
+    
+    .article-main-content {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+    
+    .article-body-card {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+        margin: 0;
+    }
+    
+    .article-body-card .article-image {
+        width: calc(100% - 1rem);
+        height: 200px;
+        margin: 0.5rem;
+        border-radius: 8px;
+    }
+    
+    .article-body-content {
+        padding: 1rem 0.75rem;
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+        box-sizing: border-box;
+    }
+    
+    .article-body-title {
+        font-size: 1.4rem;
+        line-height: 1.3;
+    }
+    
+    .article-lede {
+        font-size: 1rem;
+    }
+    
+    .article-body-content h2 {
+        font-size: 1.3rem;
+        margin-top: 1.5rem;
+        max-width: 100%;
+        overflow-wrap: break-word;
+        word-break: break-word;
+    }
+    
+    .article-body-content h3 {
+        font-size: 1.1rem;
+        max-width: 100%;
+        overflow-wrap: break-word;
+        word-break: break-word;
+    }
+    
+    .article-body-content p {
+        font-size: 0.95rem;
+        max-width: 100%;
+        overflow-wrap: break-word;
+        word-break: break-word;
+    }
+    
+    .article-body-content ul,
+    .article-body-content ol {
+        max-width: 100%;
+        padding-right: 1.5rem;
+        margin-right: 0;
+    }
+    
+    .article-body-content li {
+        max-width: 100%;
+        overflow-wrap: break-word;
+        word-break: break-word;
+    }
+    
+    .article-body-content blockquote {
+        max-width: 100%;
+        padding: 1rem;
+        margin: 1rem 0;
+        overflow-wrap: break-word;
+        word-break: break-word;
+    }
+    
+    .article-body-content img {
+        max-width: 100% !important;
+        height: auto !important;
+        margin: 1rem 0;
+    }
+    
+    .article-tags h3 {
+        font-size: 1rem;
+    }
+    
+    .tag {
+        font-size: 0.8rem;
+        padding: 0.35rem 0.7rem;
+    }
+    
+    .article-sidebar-right {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+    
+    .sidebar-card {
+        padding: 1rem;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+        overflow-x: hidden;
+    }
+    
+    .sidebar-card h4 {
+        font-size: 1rem;
+        max-width: 100%;
+    }
+    
+    .share-section,
+    .related-section {
+        padding: 0;
+        width: 100%;
+        max-width: 100%;
+    }
+    
+    .share-buttons {
+        gap: 0.5rem;
+        flex-wrap: wrap;
+    }
+    
+    .share-btn {
+        width: 38px;
+        height: 38px;
+    }
+    
+    .related-item {
+        padding: 0.6rem 0;
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+    
+    .related-item-number {
+        width: 28px;
+        height: 28px;
+        font-size: 0.85rem;
+        flex-shrink: 0;
+    }
+    
+    .related-item:hover .related-item-number {
+        font-size: 1rem;
+    }
+    
+    .related-item-content {
+        flex: 1;
+        min-width: 0;
+        max-width: 100%;
+        overflow: hidden;
+    }
+    
+    .related-item-title {
+        font-size: 0.85rem;
+        line-height: 1.4;
+        max-width: 100%;
+        overflow-wrap: break-word;
+        word-break: break-word;
+    }
+    
+    .article-tags {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+    
+    .tags-list {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+}

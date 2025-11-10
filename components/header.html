@@ -1,0 +1,162 @@
+<!-- Top Header Component -->
+<header class="top-header">
+    <div class="container">
+        <div class="header-content">
+            <div class="header-right">
+                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="منو">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+                <nav class="main-nav" id="mainNav">
+                    <div class="mobile-menu-grid">
+                        <a href="{{basePath}}index.html" class="mobile-menu-card">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                            </svg>
+                            <span>خانه</span>
+                        </a>
+                        <a href="{{basePath}}pages/articles.html" class="mobile-menu-card">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                            </svg>
+                            <span>یادداشت‌ها</span>
+                        </a>
+                        <a href="{{basePath}}pages/podcasts.html" class="mobile-menu-card">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+                                <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                                <line x1="12" y1="19" x2="12" y2="23"></line>
+                                <line x1="8" y1="23" x2="16" y2="23"></line>
+                            </svg>
+                            <span>پادکست‌ها</span>
+                        </a>
+                        <a href="{{basePath}}pages/about.html" class="mobile-menu-card">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 17V11" stroke="#ff4444" stroke-width="1.5" stroke-linecap="round"></path>
+                                <circle cx="1" cy="1" r="1" transform="matrix(1 0 0 -1 11 9)" fill="#ff4444"></circle>
+                                <path d="M7 3.33782C8.47087 2.48697 10.1786 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 10.1786 2.48697 8.47087 3.33782 7" stroke="#ff4444" stroke-width="1.5" stroke-linecap="round"></path>
+                            </svg>
+                            <span>درباره</span>
+                        </a>
+                    </div>
+                    <button class="mobile-search-box" id="mobileSearchBtn">
+                        <span>جستجو</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="m21 21-4.35-4.35"></path>
+                        </svg>
+                    </button>
+                    
+                    <!-- Tools Section in Mobile Menu -->
+                    <div class="mobile-tools-section">
+                        <div class="mobile-tools-title">ابزارهای ما</div>
+                        <div class="mobile-tools-grid">
+                            <a href="{{basePath}}pages/tools.html" class="mobile-tool-card">
+                                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
+                                </svg>
+                                <span>همه ابزارها</span>
+                            </a>
+                            <a href="{{basePath}}pages/bpb-guide.html" class="mobile-tool-card bpb-item">
+                                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"></path>
+                                </svg>
+                                <span>راهنمای BPB Panel</span>
+                            </a>
+                            <a href="{{basePath}}pages/iran-off.html" class="mobile-tool-card iran-off-item">
+                                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <line x1="2" y1="12" x2="22" y2="12"></line>
+                                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                                </svg>
+                                <span>ایران در خاموشی</span>
+                            </a>
+                            <a href="{{basePath}}pages/internet-disruption-toolkit.html" class="mobile-tool-card toolkit-item">
+                                <svg width="28" height="28" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="4.49" y="13.5" width="39" height="27" rx="3"></rect>
+                                    <path d="M31.5,13.5v-3a3,3,0,0,0-3-3h-9a3,3,0,0,0-3,3v3"></path>
+                                    <path d="M27.4593,30.4808a5.3926,5.3926,0,0,0-6.89-.0187v.0187"></path>
+                                    <path d="M24.0008,32.6887A2.1622,2.1622,0,1,0,26.163,34.851v0h0A2.1622,2.1622,0,0,0,24.0008,32.6887Z"></path>
+                                    <path d="M30.7481,26.7426a10.6027,10.6027,0,0,0-13.4946,0"></path>
+                                    <path d="M33.99,22.8185a15.6756,15.6756,0,0,0-20,0"></path>
+                                </svg>
+                                <span>جعبه‌ابزار اختلال</span>
+                            </a>
+                        </div>
+                    </div>
+                    <a href="{{basePath}}index.html" class="nav-item desktop-only">خانه</a>
+                    <div class="dropdown-menu-wrapper desktop-only">
+                        <span class="nav-item dropdown-trigger">
+                            ابزارها
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline-block; margin-right: 4px;">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </span>
+                        <div class="dropdown-menu">
+                            <div class="dropdown-section">
+                                <div class="dropdown-section-title">ابزارهای ما</div>
+                                <a href="{{basePath}}pages/tools.html" class="dropdown-item">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
+                                    </svg>
+                                    <span>همه ابزارها</span>
+                                </a>
+                            </div>
+                            <div class="dropdown-section">
+                                <div class="dropdown-section-title">ابزارهای مهم</div>
+                                <div class="dropdown-section-desc">در شرایط سخت اینترنت با چه برنامه‌هایی متصل بمانیم</div>
+                                <a href="{{basePath}}pages/bpb-guide.html" class="dropdown-item bpb-item">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"></path>
+                                    </svg>
+                                    <span>راهنمای BPB Panel</span>
+                                </a>
+                                <a href="{{basePath}}pages/iran-off.html" class="dropdown-item iran-off-item">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <line x1="2" y1="12" x2="22" y2="12"></line>
+                                        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                                    </svg>
+                                    <span>ایران در خاموشی</span>
+                                </a>
+                                <a href="{{basePath}}pages/internet-disruption-toolkit.html" class="dropdown-item toolkit-item">
+                                    <svg width="18" height="18" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="4.49" y="13.5" width="39" height="27" rx="3"></rect>
+                                        <path d="M31.5,13.5v-3a3,3,0,0,0-3-3h-9a3,3,0,0,0-3,3v3"></path>
+                                        <path d="M27.4593,30.4808a5.3926,5.3926,0,0,0-6.89-.0187v.0187"></path>
+                                        <path d="M24.0008,32.6887A2.1622,2.1622,0,1,0,26.163,34.851v0h0A2.1622,2.1622,0,0,0,24.0008,32.6887Z"></path>
+                                        <path d="M30.7481,26.7426a10.6027,10.6027,0,0,0-13.4946,0"></path>
+                                        <path d="M33.99,22.8185a15.6756,15.6756,0,0,0-20,0"></path>
+                                    </svg>
+                                    <span>جعبه‌ابزار اختلال در اینترنت</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="{{basePath}}pages/articles.html" class="nav-item desktop-only">یادداشت‌ها</a>
+                    <a href="{{basePath}}pages/podcasts.html" class="nav-item desktop-only">پادکست‌ها</a>
+                    <a href="{{basePath}}pages/about.html" class="nav-item desktop-only">درباره</a>
+                    <div class="header-search-wrapper">
+                        <div class="header-search-container" id="headerSearchContainer">
+                            <input type="text" class="header-search-input" id="headerSearchInput" placeholder="جستجو..." readonly>
+                            <button class="header-search-icon" id="headerSearchBtn" aria-label="جستجو">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="11" cy="11" r="8"></circle>
+                                    <path d="m21 21-4.35-4.35"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+            <div class="header-left">
+                <a href="{{basePath}}index.html" class="logo" style="text-decoration: none; display: block;">
+                    <img src="{{basePath}}assets/logo/logotype.svg" alt="فیلتربین" class="logo-icon" style="height: 40px; width: auto; cursor: pointer;">
+                </a>
+            </div>
+        </div>
+    </div>
+</header>

@@ -1,0 +1,1482 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>جعبه‌ابزار پیام‌رسانی - فیلتربین</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/assets/logo/logo.svg">
+    <link rel="apple-touch-icon" href="/assets/logo/favicon.svg">
+    <link rel="shortcut icon" href="/assets/logo/favicon.svg">
+    
+    <!-- PWA -->
+    <link rel="manifest" href="/pwa/manifest.json">
+    
+    <!-- Fonts -->
+    <link rel="stylesheet" href="/assets/Font/fontiran.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'AbarLowFaNum', 'AbarMidFaNum', Arial, sans-serif;
+            background: #000000;
+            color: white;
+            min-height: 100vh;
+            overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Light Mode */
+        body.light-mode {
+            background: #E5E9FF;
+            color: #1a1a1a;
+        }
+
+        body.light-mode .page-wrapper {
+            background: #E5E9FF;
+        }
+
+        body.light-mode .grid-pattern {
+            background-image: 
+                linear-gradient(#2338B7 1px, transparent 1px),
+                linear-gradient(90deg, #2338B7 1px, transparent 1px);
+            opacity: 0.1;
+        }
+
+        body.light-mode .sidebar {
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid rgba(126, 144, 255, 0.2);
+            box-shadow: 0 4px 20px rgba(126, 144, 255, 0.08);
+        }
+
+        body.light-mode .sidebar-header {
+            border-bottom: 2px solid rgba(126, 144, 255, 0.2);
+        }
+
+        body.light-mode .sidebar-link {
+            color: rgba(0, 0, 0, 0.75);
+        }
+
+        body.light-mode .sidebar-link:hover {
+            color: #7E90FF;
+        }
+
+        body.light-mode .sidebar-link.active {
+            color: #7E90FF;
+        }
+
+        body.light-mode .main-content-card {
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid rgba(126, 144, 255, 0.2);
+        }
+
+        body.light-mode .content-card {
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid rgba(126, 144, 255, 0.2);
+        }
+
+        body.light-mode .card-text {
+            color: #1a1a1a;
+        }
+
+        body.light-mode .card-title {
+            color: #7E90FF;
+        }
+
+        body.light-mode .section-subtitle {
+            color: #7E90FF;
+        }
+
+        body.light-mode .messaging-app-card {
+            background: rgba(126, 144, 255, 0.05);
+            border: 1px solid rgba(126, 144, 255, 0.2);
+        }
+
+        body.light-mode .messaging-app-card:hover {
+            background: rgba(126, 144, 255, 0.1);
+        }
+
+        body.light-mode .messaging-app-name {
+            color: #1a1a1a;
+        }
+
+        body.light-mode .messaging-app-desc {
+            color: #666666;
+        }
+
+        body.light-mode .app-section {
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid rgba(126, 144, 255, 0.2);
+        }
+
+        body.light-mode .app-title {
+            color: #5670E8;
+        }
+
+        body.light-mode .app-subtitle {
+            color: rgba(0, 0, 0, 0.6);
+        }
+
+        body.light-mode .app-description {
+            color: #666666;
+        }
+
+        body.light-mode .app-description p {
+            color: #666666;
+        }
+
+        body.light-mode .toosheh-description p {
+            color: #666666 !important;
+        }
+
+        body.light-mode .feature-item {
+            background: rgba(126, 144, 255, 0.05);
+            border: 1px solid rgba(126, 144, 255, 0.2);
+        }
+
+        body.light-mode .feature-item span {
+            color: #1a1a1a;
+        }
+
+        body.light-mode .feature-item svg {
+            stroke: #7E90FF;
+        }
+
+        /* Grid Background Pattern */
+        .page-wrapper {
+            position: relative;
+            min-height: 100vh;
+        }
+
+        .page-wrapper::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-image: 
+                linear-gradient(#7E90FF 1px, transparent 1px),
+                linear-gradient(90deg, #7E90FF 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.15;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Top Bar */
+        .top-bar {
+            padding: 1.5rem 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .top-bar-content {
+            display: inline-flex;
+            align-items: center;
+            gap: 2rem;
+            background: rgba(15, 15, 30, 0.6);
+            border: 1px solid rgba(126, 144, 255, 0.5);
+            border-radius: 12px;
+            padding: 0.75rem 1.5rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .back-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: #7E90FF;
+        }
+
+        .back-link svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .top-divider {
+            width: 1px;
+            height: 30px;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .logo-img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+
+        .logo-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Page Header */
+        .page-header {
+            text-align: center;
+            margin: 3rem 0 2rem;
+        }
+
+        .page-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            background: rgba(126, 144, 255, 0.1);
+            border: 2px solid rgba(126, 144, 255, 0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .page-icon svg {
+            width: 40px;
+            height: 40px;
+            stroke: #7E90FF;
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #7E90FF;
+        }
+
+        .page-description {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.7);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* Content Section */
+        .content-section {
+            background: rgba(15, 15, 30, 0.4);
+            border: 1px solid rgba(126, 144, 255, 0.2);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2rem 0;
+            backdrop-filter: blur(10px);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #7E90FF;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .section-title svg {
+            width: 24px;
+            height: 24px;
+            stroke: #7E90FF;
+        }
+
+        .content-text {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.8;
+            font-size: 1rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 1.8rem;
+            }
+
+            .top-bar-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .top-divider {
+                width: 100%;
+                height: 1px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-wrapper">
+        <div class="container">
+            <!-- Top Bar -->
+            <div class="top-bar">
+                <div class="top-bar-content">
+                    <a href="iran-off.html" class="back-link">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 12H5M12 19l-7-7 7-7"/>
+                        </svg>
+                        بازگشت
+                    </a>
+                    <div class="top-divider"></div>
+                    <div class="logo-container">
+                        <img src="/assets/logo/logo.svg" alt="فیلتربین" class="logo-img">
+                        <span class="logo-text">فیلتربین</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Theme Toggle Button -->
+            <button id="themeToggle" class="theme-toggle" aria-label="تغییر تم">
+                <svg class="theme-icon sun-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"/>
+                    <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                <svg class="theme-icon moon-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+
+            <!-- Main Layout -->
+            <div class="main-layout">
+                <!-- Sidebar -->
+                <aside class="sidebar">
+                    <div class="sidebar-header">
+                        <h2>فهرست</h2>
+                    </div>
+                    <nav class="sidebar-nav">
+                        <a href="#intro" class="sidebar-link">۱. مقدمه</a>
+                        <a href="#messaging" class="sidebar-link">۲. اپلیکیشن‌های پیام‌رسان</a>
+                        <a href="#signal" class="sidebar-link">۲.۱. اپلیکیشن Signal</a>
+                        <a href="#briar" class="sidebar-link">۲.۲. اپلیکیشن Briar</a>
+                        <a href="#jami" class="sidebar-link">۲.۳. اپلیکیشن Jami</a>
+                        <a href="#toosheh" class="sidebar-link">۲.۴. اپلیکیشن توشه</a>
+                    </nav>
+                </aside>
+
+                <!-- Main Content -->
+                <main class="main-content-area">
+                    <!-- Main Content Card -->
+                    <div class="main-content-card">
+                    <!-- Intro Section -->
+                    <section id="intro">
+                        <div class="card-icon">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M10.4606 1.25L13.5 1.25C13.9142 1.25 14.25 1.58579 14.25 2C14.25 2.41421 13.9142 2.75 13.5 2.75H10.5C8.84876 2.75 7.663 2.75079 6.73809 2.83873C5.82434 2.92561 5.24291 3.09223 4.77938 3.37628C4.20752 3.72672 3.72672 4.20752 3.37628 4.77938C3.09223 5.24291 2.92561 5.82434 2.83873 6.73809C2.75079 7.663 2.75 8.84876 2.75 10.5V11.5C2.75 12.6751 2.75041 13.5189 2.79584 14.1847C2.84081 14.8438 2.92737 15.2736 3.07351 15.6264C3.50486 16.6678 4.33223 17.4951 5.3736 17.9265C5.88923 18.1401 6.54706 18.2199 7.8025 18.2416L7.83432 18.2421C8.23232 18.249 8.58109 18.2549 8.87097 18.287C9.18246 18.3215 9.4871 18.3912 9.77986 18.5615C10.0702 18.7304 10.2795 18.9559 10.4621 19.2063C10.6307 19.4378 10.804 19.7306 11.0004 20.0623L11.5587 21.0057C11.7515 21.3313 12.2485 21.3313 12.4412 21.0057L12.9996 20.0623C13.1959 19.7306 13.3692 19.4378 13.5379 19.2063C13.7204 18.9559 13.9298 18.7304 14.2201 18.5615C14.5129 18.3912 14.8175 18.3215 15.129 18.287C15.4189 18.2549 15.7676 18.249 16.1656 18.2421L16.1975 18.2416C17.4529 18.2199 18.1108 18.1401 18.6264 17.9265C19.6678 17.4951 20.4951 16.6678 20.9265 15.6264C21.0726 15.2736 21.1592 14.8438 21.2042 14.1847C21.2496 13.5189 21.25 12.6751 21.25 11.5V10.5C21.25 10.0858 21.5858 9.75 22 9.75C22.4142 9.75 22.75 10.0858 22.75 10.5V11.5278C22.75 12.6691 22.75 13.564 22.7007 14.2868C22.6505 15.0223 22.5468 15.6344 22.3123 16.2004C21.7287 17.6093 20.6093 18.7287 19.2004 19.3123C18.3955 19.6457 17.4786 19.7197 16.2233 19.7413C15.7842 19.7489 15.5061 19.7545 15.2941 19.7779C15.096 19.7999 15.0192 19.832 14.9742 19.8582C14.9268 19.8857 14.8622 19.936 14.7501 20.0898C14.6287 20.2564 14.4916 20.4865 14.2742 20.8539L13.7321 21.7697C12.9585 23.0767 11.0415 23.0767 10.2679 21.7697L9.72579 20.8539C9.50835 20.4865 9.37122 20.2564 9.24985 20.0898C9.13772 19.936 9.07313 19.8857 9.02572 19.8582C8.98078 19.832 8.90399 19.7999 8.70588 19.7779C8.49387 19.7545 8.21575 19.7489 7.77666 19.7413C6.52138 19.7197 5.60454 19.6457 4.79957 19.3123C3.39066 18.7287 2.27128 17.6093 1.68769 16.2004C1.45323 15.6344 1.3495 15.0223 1.29932 14.2868C1.24999 13.564 1.25 12.6691 1.25 11.5278L1.25 10.4606C1.24999 8.85726 1.24999 7.60029 1.34547 6.59611C1.44279 5.57256 1.64457 4.73445 2.09732 3.99563C2.57144 3.22194 3.22194 2.57144 3.99563 2.09732C4.73445 1.64457 5.57256 1.44279 6.59611 1.34547C7.60029 1.24999 8.85726 1.24999 10.4606 1.25ZM19 2.75C17.7574 2.75 16.75 3.75736 16.75 5C16.75 6.24264 17.7574 7.25 19 7.25C20.2426 7.25 21.25 6.24264 21.25 5C21.25 3.75736 20.2426 2.75 19 2.75ZM15.25 5C15.25 2.92893 16.9289 1.25 19 1.25C21.0711 1.25 22.75 2.92893 22.75 5C22.75 7.07107 21.0711 8.75 19 8.75C16.9289 8.75 15.25 7.07107 15.25 5Z" fill="#FFC107"></path> </g></svg>
+                        </div>
+                            <h1 class="card-title">مقدمه</h1>
+                            <p class="card-text">
+                                در دوران‌های بحرانی و قطعی اینترنت، داشتن ابزارهای ارتباطی امن و دسترسی به اطلاعات بسیار حیاتی است. این صفحه شامل اپلیکیشن‌های پیام‌رسان و سرویس‌های امن است که برای محافظت از گفتگوهای شما در برابر نظارت و شنود طراحی شده‌اند.
+                            </p>
+                            <p class="card-text">
+                                این ابزارها با استفاده از رمزنگاری قوی و فناوری‌های نوین، از امنیت شما محافظت می‌کنند و در شرایط قطع یا اختلال اینترنت، دسترسی به اطلاعات و ارتباط با دیگران را فراهم می‌آورند.
+                            </p>
+                        </section>
+
+                        <!-- Messaging Apps Section -->
+                        <section id="messaging">
+                            <div class="card-icon">
+                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M15.0595 10.4995C15.3353 10.1905 15.3085 9.71642 14.9995 9.44055C14.6905 9.16467 14.2164 9.19151 13.9405 9.50049L10.9286 12.8739L10.0595 11.9005C9.78358 11.5915 9.30947 11.5647 9.00049 11.8405C8.69151 12.1164 8.66467 12.5905 8.94055 12.8995L10.3691 14.4995C10.5114 14.6589 10.7149 14.75 10.9286 14.75C11.1422 14.75 11.3457 14.6589 11.488 14.4995L15.0595 10.4995Z" fill="#FFC107"></path> <path fill-rule="evenodd" clip-rule="evenodd" d="M12 1.25C11.0625 1.25 10.1673 1.55658 8.72339 2.05112L7.99595 2.30014C6.51462 2.8072 5.3714 3.19852 4.55303 3.53099C4.14078 3.69846 3.78637 3.86067 3.50098 4.02641C3.22634 4.1859 2.95082 4.38484 2.76363 4.65154C2.5786 4.91516 2.48293 5.23924 2.42281 5.55122C2.36031 5.87556 2.32262 6.26464 2.2983 6.71136C2.25 7.59836 2.25 8.81351 2.25 10.3896V11.9914C2.25 17.1665 6.85803 21.0175 9.59833 22.2146L9.62543 22.2264C9.96523 22.3749 10.2846 22.5144 10.6516 22.6084C11.0391 22.7076 11.4507 22.75 12 22.75C12.5493 22.75 12.9609 22.7076 13.3484 22.6084C13.7154 22.5144 14.0348 22.3749 14.3745 22.2264L14.4017 22.2146C17.142 21.0175 21.75 17.1665 21.75 11.9914V10.3898C21.75 8.81361 21.75 7.5984 21.7017 6.71136C21.6774 6.26464 21.6397 5.87556 21.5772 5.55122C21.5171 5.23924 21.4214 4.91516 21.2364 4.65154C21.0492 4.38484 20.7737 4.1859 20.499 4.02641C20.2136 3.86067 19.8592 3.69846 19.447 3.53099C18.6286 3.19852 17.4854 2.8072 16.004 2.30013L15.2766 2.05112C13.8327 1.55658 12.9375 1.25 12 1.25ZM9.08062 3.5143C10.6951 2.96164 11.3423 2.75 12 2.75C12.6577 2.75 13.3049 2.96164 14.9194 3.5143L15.4922 3.71037C17.0048 4.22814 18.1079 4.60605 18.8824 4.92069C19.269 5.07774 19.5491 5.20935 19.7457 5.32353C19.8428 5.3799 19.9097 5.42642 19.9543 5.46273C19.9922 5.49349 20.0066 5.51092 20.0087 5.51348C20.0106 5.5166 20.0231 5.53737 20.0406 5.58654C20.0606 5.64265 20.0827 5.72309 20.1043 5.83506C20.148 6.06169 20.1811 6.37301 20.2039 6.79292C20.2497 7.63411 20.25 8.80833 20.25 10.4167V11.9914C20.25 17.1665 16.3801 19.7135 13.8012 20.84C13.4297 21.0023 13.2152 21.0941 12.9764 21.1552C12.7483 21.2136 12.47 21.25 12 21.25C11.53 21.25 11.2517 21.2136 11.0236 21.1552C10.7848 21.0941 10.5703 21.0023 10.1988 20.84C7.6199 19.7135 3.75 17.1665 3.75 11.9914V10.4167C3.75 8.80833 3.75028 7.63411 3.79608 6.79292C3.81894 6.37301 3.85204 6.06169 3.89571 5.83506C3.91729 5.72309 3.93944 5.64265 3.95943 5.58654C3.97693 5.5374 3.98936 5.51663 3.99129 5.51349C3.99336 5.51095 4.0078 5.49351 4.04567 5.46273C4.09034 5.42642 4.15722 5.3799 4.25429 5.32353C4.4509 5.20935 4.731 5.07774 5.11759 4.92069C5.8921 4.60605 6.99521 4.22814 8.5078 3.71037L9.08062 3.5143Z" fill="#FFC107"></path> </g></svg>
+                            </div>
+                            <h1 class="card-title">اپلیکیشن‌های پیام‌رسان</h1>
+                            <p class="card-text">
+                                در دوران‌های بحرانی و قطعی اینترنت، داشتن ابزارهای ارتباطی امن بسیار حیاتی است. اپلیکیشن‌های پیام‌رسان زیر با استفاده از رمزنگاری قوی، از گفتگوهای شما در برابر نظارت و شنود محافظت می‌کنند.
+                            </p>
+                        </section>
+
+                    <!-- Messaging Apps Container -->
+                    <div class="apps-container">
+                        <!-- Signal Section -->
+                        <section id="signal" class="app-section">
+                            <div class="app-header">
+                                <div class="app-icon-large">
+                                    <img src="/assets/images/toolkit/signal.png" alt="Signal">
+                                </div>
+                                <div class="app-title-group">
+                                    <a href="https://signal.org/" target="_blank" class="app-title-link">
+                                        <h2 class="app-title">اپلیکیشن Signal</h2>
+                                    </a>
+                                    <p class="app-subtitle">Signal Private Messenger</p>
+                                </div>
+                            </div>
+                            <div class="app-features">
+                                <div class="feature-item">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M9 11l3 3L22 4"></path>
+                                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                                    </svg>
+                                    <span>این ابزار دارای کدگذاری سرتاسری است.</span>
+                                </div>
+                                <div class="feature-item">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M9 11l3 3L22 4"></path>
+                                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                                    </svg>
+                                    <span>این ابزار از طریق شبکه‌های محلی متصل نمی‌شود.</span>
+                                </div>
+                                <div class="feature-item">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M9 11l3 3L22 4"></path>
+                                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                                    </svg>
+                                    <span>این ابزار نمی‌تواند توسط بلوتوث وصل شود.</span>
+                                </div>
+                                <div class="feature-item">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M9 11l3 3L22 4"></path>
+                                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                                    </svg>
+                                    <span>این ابزار متن باز است.</span>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Briar Section -->
+                        <section id="briar" class="app-section">
+                            <div class="app-header">
+                                <div class="app-icon-large">
+                                    <img src="/assets/images/toolkit/briar.jpeg" alt="Briar">
+                                </div>
+                                <div class="app-title-group">
+                                    <a href="https://briarproject.org/" target="_blank" class="app-title-link">
+                                        <h2 class="app-title">اپلیکیشن Briar</h2>
+                                    </a>
+                                    <p class="app-subtitle">Briar Messenger</p>
+                                </div>
+                            </div>
+                            <div class="app-features">
+                                <div class="feature-item">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M9 11l3 3L22 4"></path>
+                                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                                    </svg>
+                                    <span>این ابزار هیچ داده‌ای مربوط به ثبت ‌ورود را جمع‌آوری نمی‌کند.</span>
+                                </div>
+                                <div class="feature-item">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M9 11l3 3L22 4"></path>
+                                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                                    </svg>
+                                    <span>این ابزار هیچ داده‌ای مربوط به ثبت ‌ورود را جمع‌آوری نمی‌کند.</span>
+                                </div>
+                                <div class="feature-item">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M9 11l3 3L22 4"></path>
+                                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                                    </svg>
+                                    <span>این ابزار دارای دارای قابلیت قطع اضطراری است.</span>
+                                </div>
+                                <div class="feature-item">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M9 11l3 3L22 4"></path>
+                                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                                    </svg>
+                                    <span>این ابزار متن باز است.</span>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Jami Section -->
+                        <section id="jami" class="app-section">
+                            <div class="app-header">
+                                <div class="app-icon-large">
+                                    <img src="/assets/images/toolkit/jami.png" alt="Jami">
+                                </div>
+                                <div class="app-title-group">
+                                    <a href="https://jami.net/" target="_blank" class="app-title-link">
+                                        <h2 class="app-title">اپلیکیشن Jami</h2>
+                                    </a>
+                                    <p class="app-subtitle">Jami - Free Communication</p>
+                                </div>
+                            </div>
+                            <div class="app-features">
+                                <div class="feature-item">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M9 11l3 3L22 4"></path>
+                                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                                    </svg>
+                                    <span>این ابزار دارای کدگذاری سرتاسری است.</span>
+                                </div>
+                                <div class="feature-item">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M9 11l3 3L22 4"></path>
+                                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                                    </svg>
+                                    <span>این ابزار از طریق شبکه‌های محلی متصل نمی‌شود.</span>
+                                </div>
+                                <div class="feature-item">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M9 11l3 3L22 4"></path>
+                                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                                    </svg>
+                                    <span>امکان اتصال این ابزار از طریق شبکه ملی اطلاعات مشخص نیست.</span>
+                                </div>
+                                <div class="feature-item">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M9 11l3 3L22 4"></path>
+                                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                                    </svg>
+                                    <span>این ابزار متن باز است.</span>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Toosheh Section -->
+                        <section id="toosheh" class="app-section">
+                            <div class="app-header">
+                                <div class="app-icon-large">
+                                    <img src="/assets/images/toolkit/toosheh.png" alt="توشه">
+                                </div>
+                                <div class="app-title-group">
+                                    <a href="https://www.toosheh.org/" target="_blank" class="app-title-link">
+                                        <h2 class="app-title">اپلیکیشن توشه</h2>
+                                    </a>
+                                    <p class="app-subtitle">Toosheh - Satellite Broadcasting Service</p>
+                                </div>
+                            </div>
+                            <div class="app-description toosheh-description" style="margin-bottom: 1.5rem; padding: 1.5rem; background: rgba(126, 144, 255, 0.05); border: 1px solid rgba(126, 144, 255, 0.2); border-radius: 12px;">
+                                <p style="line-height: 1.8; margin-bottom: 1rem;">
+                                    سرویس پخش ماهواره‌ای «توشه» به احتمال زیاد بهترین فرصت را برای دسترسی به اطلاعات فیلتر نشده و مرتب به‌روزرسانی شده از دنیای بیرون، فراهم می‌کند تا از اخبار مطلع شوید و در زمان بحران امنیت خود را حفظ کنید.
+                                </p>
+                                <p style="line-height: 1.8; margin-bottom: 1rem;">
+                                    در صورت خاموشی کامل، «توشه» علاوه بر بسته‌های محتوای معمول خود، محتوای افزوده‌ای منتشر خواهد کرد، این محتوا شامل به‌روزرسانی درباره وضعیت اینترنت خواهد بود، و همچنین هرگونه توصیه‌‌ای درباره اینکه چطور می‌توانید در زمان بحران به شکلی امن به اطلاعات دسترسی پیدا کنید و با دیگران ارتباط برقرار کنید.
+                                </p>
+                                <p style="line-height: 1.8; color: #FFC107; font-weight: 600;">
+                                    ⚠️ اگر نگران وقوع یک خاموشی کامل هستید، باید به صورت جدی نصب توشه را در اولویت قرار دهید، چون زمانی که خاموشی اتفاق بیفتد دیگر دیر خواهد بود.
+                                </p>
+                            </div>
+                            <div class="app-features">
+                                <div class="feature-item">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M9 11l3 3L22 4"></path>
+                                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                                    </svg>
+                                    <span>دسترسی به اطلاعات فیلتر نشده از طریق ماهواره</span>
+                                </div>
+                                <div class="feature-item">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M9 11l3 3L22 4"></path>
+                                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                                    </svg>
+                                    <span>محتوای ویژه و راهنمای امنیتی در زمان قطع اینترنت</span>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+
+    <style>
+        /* Theme Toggle Button -->
+                    <section id="tools">
+                        <div class="card-icon">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M12 1.25C11.3953 1.25 10.8384 1.40029 10.2288 1.65242C9.64008 1.89588 8.95633 2.25471 8.1049 2.70153L6.03739 3.78651C4.99242 4.33487 4.15616 4.77371 3.51047 5.20491C2.84154 5.65164 2.32632 6.12201 1.95112 6.75918C1.57718 7.39421 1.40896 8.08184 1.32829 8.90072C1.24999 9.69558 1.24999 10.6731 1.25 11.9026V12.0974C1.24999 13.3268 1.24999 14.3044 1.32829 15.0993C1.40896 15.9182 1.57718 16.6058 1.95112 17.2408C2.32632 17.878 2.84154 18.3484 3.51047 18.7951C4.15616 19.2263 4.99241 19.6651 6.03737 20.2135L8.10481 21.2984C8.95628 21.7453 9.64006 22.1041 10.2288 22.3476C10.8384 22.5997 11.3953 22.75 12 22.75C12.6047 22.75 13.1616 22.5997 13.7712 22.3476C14.3599 22.1041 15.0437 21.7453 15.8951 21.2985L17.9626 20.2135C19.0076 19.6651 19.8438 19.2263 20.4895 18.7951C21.1585 18.3484 21.6737 17.878 22.0489 17.2408C22.4228 16.6058 22.591 15.9182 22.6717 15.0993C22.75 14.3044 22.75 13.3269 22.75 12.0975V11.9025C22.75 10.6731 22.75 9.69557 22.6717 8.90072C22.591 8.08184 22.4228 7.39421 22.0489 6.75918C21.6737 6.12201 21.1585 5.65164 20.4895 5.20491C19.8438 4.77371 19.0076 4.33487 17.9626 3.7865L15.8951 2.70154C15.0437 2.25472 14.3599 1.89589 13.7712 1.65242C13.1616 1.40029 12.6047 1.25 12 1.25ZM8.7708 4.04608C9.66052 3.57917 10.284 3.2528 10.802 3.03856C11.3062 2.83004 11.6605 2.75 12 2.75C12.3395 2.75 12.6938 2.83004 13.198 3.03856C13.716 3.2528 14.3395 3.57917 15.2292 4.04608L17.2292 5.09563C18.3189 5.66748 19.0845 6.07032 19.6565 6.45232C19.9387 6.64078 20.1604 6.81578 20.3395 6.99174L17.0088 8.65708L8.50895 4.18349L8.7708 4.04608ZM6.94466 5.00439L6.7708 5.09563C5.68111 5.66747 4.91553 6.07032 4.34352 6.45232C4.06131 6.64078 3.83956 6.81578 3.66054 6.99174L12 11.1615L15.3572 9.48289L7.15069 5.16369C7.07096 5.12173 7.00191 5.06743 6.94466 5.00439ZM2.93768 8.30737C2.88718 8.52125 2.84901 8.76413 2.82106 9.04778C2.75084 9.7606 2.75 10.6644 2.75 11.9415V12.0585C2.75 13.3356 2.75084 14.2394 2.82106 14.9522C2.88974 15.6494 3.02022 16.1002 3.24367 16.4797C3.46587 16.857 3.78727 17.1762 4.34352 17.5477C4.91553 17.9297 5.68111 18.3325 6.7708 18.9044L8.7708 19.9539C9.66052 20.4208 10.284 20.7472 10.802 20.9614C10.9656 21.0291 11.1134 21.0832 11.25 21.1255V12.4635L2.93768 8.30737ZM12.75 21.1255C12.8866 21.0832 13.0344 21.0291 13.198 20.9614C13.716 20.7472 14.3395 20.4208 15.2292 19.9539L17.2292 18.9044C18.3189 18.3325 19.0845 17.9297 19.6565 17.5477C20.2127 17.1762 20.5341 16.857 20.7563 16.4797C20.9798 16.1002 21.1103 15.6494 21.1789 14.9522C21.2492 14.2394 21.25 13.3356 21.25 12.0585V11.9415C21.25 10.6644 21.2492 9.7606 21.1789 9.04778C21.151 8.76412 21.1128 8.52125 21.0623 8.30736L17.75 9.96352V13C17.75 13.4142 17.4142 13.75 17 13.75C16.5858 13.75 16.25 13.4142 16.25 13V10.7135L12.75 12.4635V21.1255Z" fill="#FFC107"></path> </g></svg>
+                        </div>
+                        <h1 class="card-title">ابزار دور زدن</h1>
+                        <p class="card-text">
+                            هر کسی که خواسته به وب‌سایت‌های فیلتر شده روی اینترنت جهانی دسترسی پیدا کند، به این سوال برخورد کرده است که کدام وی‌پی‌ان را باید انتخاب کرد. این‌ها ابزارهایی هستند که برای دسترسی به محتوای فیلترشده بکار شما می‌آیند و همچنین اتصال شما را رمزگذاری می‌کنند تا در برابر ناظران بیرونی امنیت داشته باشید.
+                        </p>
+                        <p class="card-text">
+                            دوستان ما در «پس‌کوچه»، فهرست بسیار خوبی از ابزارهای دور زدن فیلترینگ را به همراه مروری دقیق و کامل بر مزایا و معایب این ابزارها جمع‌آوری کرده‌اند. اگر آنچه به دنبالش هستید را در فهرست منتخب ما پیدا نکردید، «پس‌کوچه» می‌تواند اطلاعات بیشتری درباره ابزارهای دور زدن موجود به شما ارائه دهد.
+                        </p>
+                        <p class="card-text">
+                            تشخیص تیم ما بر این بوده است که نمونه‌های ذیل از موثرترین و قابل اعتمادترین ابزارها برای دور زدن سانسور معمول و هر روزه هستند. همه‌ی مواردی که اینجا جمع‌آوری کرده‌ایم به عنوان ابزارهای حفظ هویت و حریم خصوصی طراحی نشده‌اند، پس حتماً توضیحات هر کدام را بخوانید و متوجه تفاوت‌های بین این ابزارها باشید تا بتوانید امنیت آنلاین خود را حفظ کنید.
+                        </p>
+                    </section>
+
+                    <!-- Apps Container -->
+                    <div class="apps-container">
+                        <!-- Psiphon Section -->
+                        <section id="psiphon" class="app-section">
+                            <div class="app-header">
+                                <div class="app-icon-large">
+                                    <img src="/assets/images/toolkit/psiphon.png" alt="Psiphon">
+                                </div>
+                                <div class="app-title-group">
+                                    <a href="https://psiphon.ca/" target="_blank" class="app-title-link">
+                                        <h2 class="app-title">اپلیکیشن سایفون</h2>
+                                    </a>
+                                    <p class="app-subtitle">Psiphon</p>
+                                </div>
+                            </div>
+                            <div class="app-features">
+                                <div class="feature-item">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M9 11l3 3L22 4"></path>
+                                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                                    </svg>
+                                    <span>این ابزار محدودیت داده ندارد.</span>
+                                </div>
+                                <div class="feature-item">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M9 11l3 3L22 4"></path>
+                                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                                    </svg>
+                                    <span>این ابزار مقداری اطلاعات را ثبت می‌کند.</span>
+                                </div>
+                                <div class="feature-item">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M9 11l3 3L22 4"></path>
+                                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                                    </svg>
+                                    <span>این ابزار متن باز نیست.</span>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Outline Section -->
+                        <section id="outline" class="app-section">
+                            <div class="app-header">
+                                <div class="app-icon-large">
+                                    <img src="/assets/images/toolkit/outline.png" alt="Outline">
+                                </div>
+                                <div class="app-title-group">
+                                    <a href="https://getoutline.org/" target="_blank" class="app-title-link">
+                                        <h2 class="app-title">اپلیکیشن Outline</h2>
+                                    </a>
+                                    <p class="app-subtitle">Outline VPN</p>
+                                </div>
+                            </div>
+                            <div class="app-features">
+                                <div class="feature-item">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M9 11l3 3L22 4"></path>
+                                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                                    </svg>
+                                    <span>این ابزار متن باز است.</span>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Lantern Section -->
+                        <section id="lantern" class="app-section">
+                            <div class="app-header">
+                                <div class="app-icon-large">
+                                    <img src="/assets/images/toolkit/lentern.png" alt="Lantern">
+                                </div>
+                                <div class="app-title-group">
+                                    <a href="https://lantern.io/" target="_blank" class="app-title-link">
+                                        <h2 class="app-title">اپلیکیشن Lantern</h2>
+                                    </a>
+                                    <p class="app-subtitle">Lantern</p>
+                                </div>
+                            </div>
+                            <div class="app-features">
+                                <div class="feature-item">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M9 11l3 3L22 4"></path>
+                                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                                    </svg>
+                                    <span>این ابزار محدودیت داده ندارد.</span>
+                                </div>
+                                <div class="feature-item">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M9 11l3 3L22 4"></path>
+                                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                                    </svg>
+                                    <span>این ابزار متن باز نیست.</span>
+                                </div>
+                                <div class="feature-item">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M9 11l3 3L22 4"></path>
+                                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                                    </svg>
+                                    <span>این ابزار مقداری اطلاعات را ثبت می‌کند.</span>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- ProtonVPN Section -->
+                        <section id="protonvpn" class="app-section">
+                            <div class="app-header">
+                                <div class="app-icon-large">
+                                    <img src="/assets/images/toolkit/protonvpn.png" alt="ProtonVPN">
+                                </div>
+                                <div class="app-title-group">
+                                    <a href="https://protonvpn.com/" target="_blank" class="app-title-link">
+                                        <h2 class="app-title">اپلیکیشن ProtonVPN</h2>
+                                    </a>
+                                    <p class="app-subtitle">ProtonVPN</p>
+                                </div>
+                            </div>
+                            <div class="app-features">
+                                <div class="feature-item">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M9 11l3 3L22 4"></path>
+                                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                                    </svg>
+                                    <span>این ابزار دارای کدگذاری سرتاسری است.</span>
+                                </div>
+                                <div class="feature-item">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M9 11l3 3L22 4"></path>
+                                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                                    </svg>
+                                    <span>این ابزار متن باز است.</span>
+                                </div>
+                                <div class="feature-item">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M9 11l3 3L22 4"></path>
+                                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                                    </svg>
+                                    <span>این ابزار دارای دارای قابلیت قطع اضطراری است.</span>
+                                </div>
+                                <div class="feature-item">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M9 11l3 3L22 4"></path>
+                                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                                    </svg>
+                                    <span>این ابزار هیچ داده‌ای مربوط به ثبت ‌ورود را جمع‌آوری نمی‌کند.</span>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- TunnelBear Section -->
+                        <section id="tunnelbear" class="app-section">
+                            <div class="app-header">
+                                <div class="app-icon-large">
+                                    <img src="/assets/images/toolkit/tunnelbear.png" alt="TunnelBear">
+                                </div>
+                                <div class="app-title-group">
+                                    <a href="https://www.tunnelbear.com/" target="_blank" class="app-title-link">
+                                        <h2 class="app-title">اپلیکیشن TunnelBear</h2>
+                                    </a>
+                                    <p class="app-subtitle">TunnelBear VPN</p>
+                                </div>
+                            </div>
+                            <div class="app-features">
+                                <div class="feature-item">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M9 11l3 3L22 4"></path>
+                                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                                    </svg>
+                                    <span>این ابزار هیچ داده‌ای مربوط به ثبت ‌ورود را جمع‌آوری نمی‌کند.</span>
+                                </div>
+                                <div class="feature-item">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M9 11l3 3L22 4"></path>
+                                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                                    </svg>
+                                    <span>این ابزار دارای دارای قابلیت قطع اضطراری است.</span>
+                                </div>
+                                <div class="feature-item">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M9 11l3 3L22 4"></path>
+                                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                                    </svg>
+                                    <span>این ابزار متن باز است.</span>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Windscribe Section -->
+                        <section id="windscribe" class="app-section">
+                            <div class="app-header">
+                                <div class="app-icon-large">
+                                    <img src="/assets/images/toolkit/windscribe.png" alt="Windscribe">
+                                </div>
+                                <div class="app-title-group">
+                                    <a href="https://windscribe.com/" target="_blank" class="app-title-link">
+                                        <h2 class="app-title">اپلیکیشن Windscribe</h2>
+                                    </a>
+                                    <p class="app-subtitle">Windscribe VPN</p>
+                                </div>
+                            </div>
+                            <div class="app-features">
+                                <div class="feature-item">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M9 11l3 3L22 4"></path>
+                                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                                    </svg>
+                                    <span>این ابزار دارای دارای قابلیت قطع اضطراری است.</span>
+                                </div>
+                                <div class="feature-item">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M9 11l3 3L22 4"></path>
+                                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                                    </svg>
+                                    <span>این ابزار هیچ داده‌ای مربوط به ثبت ‌ورود را جمع‌آوری نمی‌کند.</span>
+                                </div>
+                                <div class="feature-item">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M9 11l3 3L22 4"></path>
+                                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                                    </svg>
+                                    <span>این ابزار محدودیت داده ندارد.</span>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+
+                    <!-- Anonymous Browsing Section -->
+                    <section id="anonymous">
+                        <div class="card-icon">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M12 7.75C11.3787 7.75 10.875 8.25368 10.875 8.875C10.875 9.28921 10.5392 9.625 10.125 9.625C9.71079 9.625 9.375 9.28921 9.375 8.875C9.375 7.42525 10.5503 6.25 12 6.25C13.4497 6.25 14.625 7.42525 14.625 8.875C14.625 9.83834 14.1056 10.6796 13.3353 11.1354C13.1385 11.2518 12.9761 11.3789 12.8703 11.5036C12.7675 11.6246 12.75 11.7036 12.75 11.75V13C12.75 13.4142 12.4142 13.75 12 13.75C11.5858 13.75 11.25 13.4142 11.25 13V11.75C11.25 11.2441 11.4715 10.8336 11.7266 10.533C11.9786 10.236 12.2929 10.0092 12.5715 9.84439C12.9044 9.64739 13.125 9.28655 13.125 8.875C13.125 8.25368 12.6213 7.75 12 7.75Z" fill="#FFC107"></path> <path d="M12 17C12.5523 17 13 16.5523 13 16C13 15.4477 12.5523 15 12 15C11.4477 15 11 15.4477 11 16C11 16.5523 11.4477 17 12 17Z" fill="#FFC107"></path> <path fill-rule="evenodd" clip-rule="evenodd" d="M11.9426 1.25H12.0574C14.3658 1.24999 16.1748 1.24998 17.5863 1.43975C19.031 1.63399 20.1711 2.03933 21.0659 2.93414C21.9607 3.82895 22.366 4.96897 22.5603 6.41371C22.75 7.82519 22.75 9.63423 22.75 11.9426V12.0574C22.75 14.3658 22.75 16.1748 22.5603 17.5863C22.366 19.031 21.9607 20.1711 21.0659 21.0659C20.1711 21.9607 19.031 22.366 17.5863 22.5603C16.1748 22.75 14.3658 22.75 12.0574 22.75H11.9426C9.63423 22.75 7.82519 22.75 6.41371 22.5603C4.96897 22.366 3.82895 21.9607 2.93414 21.0659C2.03933 20.1711 1.63399 19.031 1.43975 17.5863C1.24998 16.1748 1.24999 14.3658 1.25 12.0574V11.9426C1.24999 9.63424 1.24998 7.82519 1.43975 6.41371C1.63399 4.96897 2.03933 3.82895 2.93414 2.93414C3.82895 2.03933 4.96897 1.63399 6.41371 1.43975C7.82519 1.24998 9.63424 1.24999 11.9426 1.25ZM6.61358 2.92637C5.33517 3.09825 4.56445 3.42514 3.9948 3.9948C3.42514 4.56445 3.09825 5.33517 2.92637 6.61358C2.75159 7.91356 2.75 9.62177 2.75 12C2.75 14.3782 2.75159 16.0864 2.92637 17.3864C3.09825 18.6648 3.42514 19.4355 3.9948 20.0052C4.56445 20.5749 5.33517 20.9018 6.61358 21.0736C7.91356 21.2484 9.62177 21.25 12 21.25C14.3782 21.25 16.0864 21.2484 17.3864 21.0736C18.6648 20.9018 19.4355 20.5749 20.0052 20.0052C20.5749 19.4355 20.9018 18.6648 21.0736 17.3864C21.2484 16.0864 21.25 14.3782 21.25 12C21.25 9.62177 21.2484 7.91356 21.0736 6.61358C20.9018 5.33517 20.5749 4.56445 20.0052 3.9948C19.4355 3.42514 18.6648 3.09825 17.3864 2.92637C16.0864 2.75159 14.3782 2.75 12 2.75C9.62177 2.75 7.91356 2.75159 6.61358 2.92637Z" fill="#FFC107"></path> </g></svg>
+                        </div>
+                        <h1 class="card-title">به صورت گمنام از اینترنت استفاده کنید</h1>
+                        
+                        <p class="card-text">
+                            بسیاری از وی‌پی‌ان‌ها قادر هستند تا میزان بالایی حریم خصوصی برای شما فراهم کنند، اما باید این نکته را لحاظ کرد که این ابزارها نمی‌توانند گمنام ماندن شما را به طور کامل تضمین کنند چرا که عوامل دولت شیوه‌هایی برای تشخیص آدرس IP شما در حین استفاده از وی‌پی‌ان، در دست دارند.
+                        </p>
+                        <p class="card-text">
+                            اما گزینه‌های دیگری وجود دارد و اتصال به اینترنت از طریق Tor می‌تواند میزان بالاتری از گمنامی را، نسبت به وی‌پی‌ان‌ها، برای شما فراهم کند. برای رسیدن به این هدف، Tor از روش مسیریابی پیازی 'onion routing' استفاده می‌کند، روشی که اتصال شما را پیش از رسیدن به مقصد منتخب، از چندین پروکسی (یا مسیریاب‌های پیازی) می‌گذراند.
+                        </p>
+                        <p class="card-text">
+                            این پروکسی‌ها فقط می‌توانند یک مرحله را در هر سمت از این زنجیره ببینند، بنابراین هیچ‌کس نمی‌تواند هم نقطه مبدأ ترافیک (یعنی شما) و هم نقطه مقصد (وب‌سایتی که باز می‌کنید) را مشاهده کند.
+                        </p>
+                        <p class="card-text">
+                            توجه کنید که ISP شما می‌فهمد که شما از Tor استفاده می‌کنید، اما هیچ چیز دیگری درباره فعالیت‌های آنلاین شما بدست نخواهد آورد. تمام کاربران Tor به چشم یک ناظر شبیه هم به نظر خواهند رسید.
+                        </p>
+                        <p class="card-text">
+                            خود این موضوع که شما از Tor استفاده می‌کنید می‌تواند موجب سوءظن شود، اما عقیده اکثریت قریب به اتفاق متخصصان امنیت دیجیتال این است که گمنامی بدست آمده از Tor مولفه‌ی مهمی از امنیت دیجیتال روزمره است، حتی اگر سرعت اتصال شما را بیشتر از وی‌پی‌ان‌ها پایین بیاورد.
+                        </p>
+                        <p class="card-text">
+                            اگر فقط می‌خواهید از Tor برای گشت و گذار در اینترنت استفاده کنید، می‌توانید مرورگر Tor را دانلود کنید، و اگر می‌خواهید بقیه اپلیکیشن‌ها روی گوشی همراهتان نیز از طریق شبکه‌ی Tor، پروکسی شوند، Orbot را دانلود کنید.
+                        </p>
+
+                        <div class="apps-container" style="margin-top: 2rem;">
+                            <!-- Tor Browser Section -->
+                            <section id="tor-browser" class="app-section">
+                                <div class="app-header">
+                                    <div class="app-icon-large">
+                                        <img src="/assets/images/toolkit/tor.png" alt="Tor Browser">
+                                    </div>
+                                    <div class="app-title-group">
+                                        <a href="https://www.torproject.org/download/" target="_blank" class="app-title-link">
+                                            <h2 class="app-title">اپلیکیشن Tor Browser</h2>
+                                        </a>
+                                        <p class="app-subtitle">Tor Browser</p>
+                                    </div>
+                                </div>
+                                <div class="app-features">
+                                    <div class="feature-item">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M9 11l3 3L22 4"></path>
+                                            <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                                        </svg>
+                                        <span>این ابزار متن باز است.</span>
+                                    </div>
+                                </div>
+                            </section>
+                            
+                            <!-- Orbot Section -->
+                            <section id="orbot" class="app-section">
+                                <div class="app-header">
+                                    <div class="app-icon-large">
+                                        <img src="/assets/images/toolkit/orbot.png" alt="Orbot">
+                                    </div>
+                                    <div class="app-title-group">
+                                        <a href="https://play.google.com/store/apps/details?id=org.torproject.android&pcampaignid=web_share" target="_blank" class="app-title-link">
+                                            <h2 class="app-title">اپلیکیشن Orbot</h2>
+                                        </a>
+                                        <p class="app-subtitle">Orbot - Tor for Android</p>
+                                    </div>
+                                </div>
+                                <div class="app-features">
+                                    <div class="feature-item">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M9 11l3 3L22 4"></path>
+                                            <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                                        </svg>
+                                        <span>این ابزار متن باز است.</span>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </section>
+                    </div>
+                </main>
+            </div>
+        </div>
+
+    <style>
+        /* Theme Toggle Button */
+        .theme-toggle {
+            position: fixed;
+            bottom: 2rem;
+            left: 2rem;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(126, 144, 255, 0.2);
+            border: 2px solid rgba(126, 144, 255, 0.4);
+            backdrop-filter: blur(10px);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .theme-toggle:hover {
+            background: rgba(126, 144, 255, 0.3);
+            transform: scale(1.1);
+        }
+
+        .theme-icon {
+            width: 28px;
+            height: 28px;
+            position: absolute;
+            transition: all 0.3s ease;
+        }
+
+        .sun-icon {
+            color: #FFC107;
+            opacity: 0;
+            transform: rotate(-90deg) scale(0);
+        }
+
+        .moon-icon {
+            color: #7E90FF;
+            opacity: 1;
+            transform: rotate(0deg) scale(1);
+        }
+
+        body.light-mode .sun-icon {
+            opacity: 1;
+            transform: rotate(0deg) scale(1);
+        }
+
+        body.light-mode .moon-icon {
+            opacity: 0;
+            transform: rotate(90deg) scale(0);
+        }
+
+        body.light-mode .theme-toggle {
+            background: rgba(255, 193, 7, 0.2);
+            border: 2px solid rgba(255, 193, 7, 0.4);
+        }
+
+        body.light-mode .theme-toggle:hover {
+            background: rgba(255, 193, 7, 0.3);
+        }
+
+        /* Main Layout */
+        .main-layout {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+            align-items: start;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: sticky;
+            top: 2rem;
+            background: rgba(15, 15, 30, 0.8);
+            border: 1px solid rgba(126, 144, 255, 0.3);
+            border-radius: 20px;
+            padding: 1.5rem 1.25rem;
+            backdrop-filter: blur(10px);
+            max-height: calc(100vh - 4rem);
+            overflow-y: auto;
+            box-shadow: 0 4px 20px rgba(126, 144, 255, 0.1);
+        }
+
+        /* Hide scrollbar for sidebar */
+        .sidebar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .sidebar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .sidebar-header {
+            text-align: center;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid rgba(126, 144, 255, 0.3);
+            margin-bottom: 1rem;
+        }
+
+        .sidebar-header h2 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #7E90FF;
+        }
+
+        .sidebar-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .sidebar-section-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #7E90FF;
+            padding: 1rem 0.5rem 0.5rem 0.5rem;
+            line-height: 1.5;
+            text-align: right;
+            margin-top: 0.5rem;
+        }
+
+        .sidebar-link {
+            padding: 0.3rem 0.5rem;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            display: block;
+            text-align: right;
+        }
+
+        .sidebar-link:hover {
+            color: #7E90FF;
+            padding-right: 0.75rem;
+        }
+
+        .sidebar-link.active {
+            color: #7E90FF;
+            font-weight: 600;
+            border-right: 3px solid #7E90FF;
+            padding-right: 0.75rem;
+        }
+
+        .sidebar-link.windscribe {
+            color: #5B9BF3;
+        }
+
+        /* Main Content Area */
+        .main-content-area {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .main-content-area > * {
+            animation: fadeInUp 0.6s ease-out;
+            animation-fill-mode: both;
+        }
+
+        .main-content-area > *:nth-child(1) { animation-delay: 0.1s; }
+        .main-content-area > *:nth-child(2) { animation-delay: 0.2s; }
+        .main-content-area > *:nth-child(3) { animation-delay: 0.3s; }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Content Card */
+        .content-card {
+            background: rgba(15, 15, 30, 0.6);
+            border: 1px solid rgba(126, 144, 255, 0.3);
+            border-radius: 16px;
+            padding: 2.5rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 0 1.5rem 0;
+            background: rgba(255, 193, 7, 0.15);
+            border: none;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card-icon svg {
+            width: 32px;
+            height: 32px;
+        }
+
+        .card-icon svg path {
+            fill: #FFC107;
+        }
+
+        .card-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #7E90FF;
+            text-align: right;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-text {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.8;
+            font-size: 1rem;
+            text-align: justify;
+            margin-bottom: 1rem;
+        }
+
+        .card-text:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Apps Grid Section */
+        .apps-grid-section {
+            background: rgba(15, 15, 30, 0.6);
+            border: 1px solid rgba(126, 144, 255, 0.3);
+            border-radius: 16px;
+            padding: 2.5rem;
+            backdrop-filter: blur(10px);
+            margin-bottom: 2rem;
+        }
+
+        .section-main-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #7E90FF;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .section-description {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.8;
+            font-size: 1rem;
+            text-align: center;
+            margin-bottom: 2.5rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .apps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .app-grid-item {
+            background: rgba(20, 20, 40, 0.6);
+            border: 1px solid rgba(126, 144, 255, 0.25);
+            border-radius: 16px;
+            padding: 1.5rem 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .app-grid-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .app-grid-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .app-grid-name {
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-align: center;
+            line-height: 1.4;
+        }
+
+        /* Main Content Card */
+        .main-content-card {
+            background: rgba(15, 15, 30, 0.6);
+            border: 1px solid rgba(126, 144, 255, 0.3);
+            border-radius: 16px;
+            padding: 2.5rem;
+            backdrop-filter: blur(10px);
+        }
+
+
+        .app-features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        /* App Title Link */
+        .app-title-link {
+            text-decoration: none !important;
+            color: inherit;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .app-title-link:hover {
+            text-decoration: none !important;
+        }
+
+        .app-title-link:hover .app-title {
+            color: #94A3FF !important;
+        }
+
+        .app-title-link h2 {
+            text-decoration: none !important;
+        }
+
+        body.light-mode .app-title-link:hover .app-title {
+            color: #94A3FF !important;
+        }
+
+        /* Section Spacing */
+        #intro {
+            margin-bottom: 2rem;
+        }
+
+        #messaging, #tools, #anonymous {
+            margin-top: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .main-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                position: static;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-content-card,
+            .apps-grid-section {
+                padding: 1.5rem;
+            }
+
+            .app-section {
+                padding: 1.25rem;
+            }
+
+            .app-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .card-title,
+            .section-main-title {
+                font-size: 1.5rem;
+            }
+
+            .apps-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+
+            .app-grid-item {
+                padding: 1.25rem 0.75rem;
+            }
+
+            .app-grid-icon {
+                width: 60px;
+                height: 60px;
+            }
+
+            .app-features {
+                grid-template-columns: 1fr;
+            }
+
+            .app-grid-name {
+                font-size: 0.85rem;
+            }
+        }
+
+        /* App Section */
+        .app-section {
+            background: rgba(20, 20, 40, 0.6);
+            border: 1px solid rgba(126, 144, 255, 0.25);
+            border-radius: 16px;
+            padding: 1.5rem;
+        }
+
+        .app-header {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .app-icon-large {
+            width: 80px;
+            height: 80px;
+            border-radius: 16px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .app-icon-large img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .app-title-group {
+            flex: 1;
+        }
+
+        .app-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #7E90FF;
+            margin-bottom: 0.25rem;
+        }
+
+        .app-subtitle {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Apps Container */
+        .apps-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        /* Feature Item */
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            background: rgba(126, 144, 255, 0.08);
+            border: 1px solid rgba(126, 144, 255, 0.2);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .feature-item svg {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+            stroke: #7E90FF;
+            margin-top: 2px;
+        }
+
+        .feature-item span {
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 0.9rem;
+            line-height: 1.5;
+            flex: 1;
+        }
+
+        body.light-mode .feature-item {
+            background: rgba(126, 144, 255, 0.05);
+            border: 1px solid rgba(126, 144, 255, 0.2);
+        }
+
+        body.light-mode .feature-item span {
+            color: #1a1a1a;
+        }
+
+        body.light-mode .feature-item svg {
+            stroke: #5670E8;
+        }
+    </style>
+
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        
+        // Check for saved theme preference or default to dark mode
+        const currentTheme = localStorage.getItem('theme') || 'dark';
+        if (currentTheme === 'light') {
+            body.classList.add('light-mode');
+        }
+        
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('light-mode');
+            
+            // Save theme preference
+            const theme = body.classList.contains('light-mode') ? 'light' : 'dark';
+            localStorage.setItem('theme', theme);
+        });
+
+        // Active link detection on scroll
+        const sections = document.querySelectorAll('.app-section, #intro, #tools, #messaging, #signal, #briar, #jami, #anonymous');
+        const navLinks = document.querySelectorAll('.sidebar-link');
+
+        function setActiveLink() {
+            let currentSection = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (window.pageYOffset >= sectionTop - 150) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + currentSection) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', setActiveLink);
+        window.addEventListener('load', setActiveLink);
+
+        // Smooth scroll with offset
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                if (targetSection) {
+                    window.scrollTo({
+                        top: targetSection.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

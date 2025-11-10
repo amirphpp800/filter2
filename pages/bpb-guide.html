@@ -1,0 +1,1473 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>راهنمای BPB Panel - فیلتربین</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/assets/logo/logo.svg">
+    <link rel="apple-touch-icon" href="/assets/logo/favicon.svg">
+    <link rel="shortcut icon" href="/assets/logo/favicon.svg">
+    
+    <!-- PWA -->
+    <link rel="manifest" href="/pwa/manifest.json">
+    
+    <!-- Fonts -->
+    <link rel="stylesheet" href="/assets/Font/fontiran.css">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/layout.css">
+    <link rel="stylesheet" href="/css/components.css">
+    <link rel="stylesheet" href="/css/dropdown.css">
+    <link rel="stylesheet" href="/css/ai-notification.css">
+    <link rel="stylesheet" href="/css/search.css">
+    <link rel="stylesheet" href="/css/bpb-guide.css">
+    <link rel="stylesheet" href="/css/responsive.css">
+    
+    <!-- Fix mobile menu and sidebar toggle -->
+    <style>
+        .mobile-menu-btn {
+            cursor: pointer;
+            z-index: 10001 !important;
+            position: relative;
+        }
+        
+        .mobile-menu-btn.active .hamburger-line:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+        
+        .mobile-menu-btn.active .hamburger-line:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .mobile-menu-btn.active .hamburger-line:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+        
+        .main-nav {
+            z-index: 10000 !important;
+        }
+        
+        .main-nav.active {
+            right: 0 !important;
+        }
+        
+        /* Hide mobile sidebar toggle on desktop */
+        @media (min-width: 1025px) {
+            .mobile-sidebar-toggle {
+                display: none !important;
+            }
+        }
+        
+        /* Show mobile sidebar toggle only on mobile */
+        @media (max-width: 1024px) {
+            .mobile-sidebar-toggle {
+                cursor: pointer !important;
+                z-index: 1002 !important;
+                position: fixed !important;
+                bottom: 2rem !important;
+                left: 2rem !important;
+                right: auto !important;
+                background: rgba(34, 197, 94, 0.9) !important;
+                color: white !important;
+                width: 50px !important;
+                height: 50px !important;
+                border-radius: 50% !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3) !important;
+                border: none !important;
+                transition: all 0.3s ease !important;
+            }
+        }
+        
+        .bpb-sidebar.active {
+            right: 0 !important;
+            opacity: 1 !important;
+        }
+        
+        .sidebar-overlay.active {
+            display: block !important;
+        }
+        
+        body.sidebar-open {
+            overflow: hidden !important;
+        }
+        
+        /* Termux Arrow Container Hover Effect */
+        #termuxArrowContainer:hover {
+            background: rgba(157, 9, 19, 0.3) !important;
+            border-color: rgba(157, 9, 19, 0.5) !important;
+            transform: scale(1.05);
+        }
+        
+        /* Fix header dropdown display */
+        .dropdown-menu-wrapper {
+            display: inline-flex !important;
+            position: relative !important;
+        }
+        
+        .dropdown-trigger {
+            display: inline-flex !important;
+            align-items: center !important;
+        }
+        
+        .dropdown-menu {
+            display: block !important;
+        }
+        
+        /* Ensure nav items display correctly */
+        .header-right .main-nav {
+            display: flex !important;
+            align-items: center !important;
+        }
+        
+        /* Hide all navigation items in BPB page */
+        .main-nav {
+            display: none !important;
+        }
+        
+        /* Hide mobile menu button */
+        .mobile-menu-btn {
+            display: none !important;
+        }
+        
+        /* Hide search in all viewports */
+        .header-search-wrapper {
+            display: none !important;
+        }
+        
+        /* Hide header completely */
+        .top-header {
+            display: none !important;
+        }
+        
+        /* Back to Home Button Hover */
+        .back-to-home-btn:hover {
+            background: rgba(34, 197, 94, 0.25) !important;
+            border-color: rgba(34, 197, 94, 0.5) !important;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(34, 197, 94, 0.2);
+        }
+        
+        @media (min-width: 769px) {
+            .desktop-only {
+                display: none !important;
+            }
+            
+            .mobile-tools-section {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Placeholder -->
+    <div id="header-placeholder"></div>
+
+    <!-- Search Modal Placeholder -->
+    <div id="search-modal-placeholder"></div>
+
+    <!-- Main Content -->
+    <main class="bpb-guide-page">
+        <!-- Mobile Sidebar Toggle -->
+        <button class="mobile-sidebar-toggle" id="mobileSidebarToggle" aria-label="فهرست">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+            </svg>
+        </button>
+        
+        <div class="container bpb-container" style="overflow: visible !important;">
+            <div class="bpb-guide-layout bpb-layout-sticky" style="overflow: visible !important;">
+                <!-- Sidebar (Right) -->
+                <aside class="bpb-sidebar bpb-sidebar-sticky" id="bpbSidebar" style="position: sticky; top: 2rem; z-index: 10;">
+                    <div class="sidebar-header">
+                        <h3>فهرست مطالب</h3>
+                        <button class="toggle-sidebar" id="toggleSidebar" aria-label="پنهان کردن فهرست">[پنهان]</button>
+                    </div>
+                    
+                    <!-- Back to Home Button -->
+                    <a href="/index.html" class="back-to-home-btn" style="display: flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.75rem 1rem; margin: 0 1rem 1rem; background: rgba(34, 197, 94, 0.15); border: 1px solid rgba(34, 197, 94, 0.3); border-radius: 8px; color: #22c55e; text-decoration: none; font-size: 0.9rem; font-weight: 600; transition: all 0.3s ease;">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                        </svg>
+                        <span>بازگشت به خانه</span>
+                    </a>
+                    
+                    <nav class="sidebar-nav" id="sidebarNav">
+                        <!-- راهنما -->
+                        <div class="nav-section">
+                            <div class="nav-section-title">راهنمای BPB</div>
+                            <a href="#intro" class="sidebar-link" data-scroll="smooth">
+                                <span class="link-number">۱</span>
+                                <span class="link-text">مقدمه</span>
+                            </a>
+                            <a href="#what-is-bpb" class="sidebar-link" data-scroll="smooth">
+                                <span class="link-number">۲</span>
+                                <span class="link-text">پنل BPB چیست</span>
+                            </a>
+                            <a href="#worker-vs-pages" class="sidebar-link" data-scroll="smooth">
+                                <span class="link-number">۲.۱</span>
+                                <span class="link-text">تفاوت Worker و Pages</span>
+                            </a>
+                        </div>
+
+                        <!-- ابزارها -->
+                        <div class="nav-section">
+                            <div class="nav-section-title">ابزارهای دسترسی</div>
+                            <a href="#bpb-wizard" class="sidebar-link" data-scroll="smooth">
+                                <span class="link-number">۳</span>
+                                <span class="link-text">ویزارد</span>
+                            </a>
+                            <a href="#wizard-termux" class="sidebar-link sidebar-sub-link" data-scroll="smooth">
+                                <span class="link-number">۳.۱</span>
+                                <span class="link-text">ویزارد با ترموکس</span>
+                            </a>
+                            <a href="#warp" class="sidebar-link" data-scroll="smooth">
+                                <span class="link-number">۴</span>
+                                <span class="link-text">وارپ</span>
+                            </a>
+                            <a href="#warp-scanner" class="sidebar-link sidebar-sub-link" data-scroll="smooth">
+                                <span class="link-number">۴.۱</span>
+                                <span class="link-text">BPB Warp Scanner</span>
+                            </a>
+                            <a href="#warp-app" class="sidebar-link sidebar-sub-link" data-scroll="smooth">
+                                <span class="link-number">۴.۲</span>
+                                <span class="link-text">اپلیکیشن رسمی وارپ</span>
+                            </a>
+                            <a href="#wireguard-apps" class="sidebar-link sidebar-sub-link" data-scroll="smooth">
+                                <span class="link-number">۴.۳</span>
+                                <span class="link-text">اپلیکیشن‌های WireGuard</span>
+                            </a>
+                            <a href="#ip-scanner" class="sidebar-link" data-scroll="smooth">
+                                <span class="link-number">۵</span>
+                                <span class="link-text">آیپی اسکنر</span>
+                            </a>
+                            <a href="#ip-scanner-termux" class="sidebar-link sidebar-sub-link" data-scroll="smooth">
+                                <span class="link-number">۵.۱</span>
+                                <span class="link-text">آیپی اسکنر با ترموکس</span>
+                            </a>
+                            <a href="#proxy-ip" class="sidebar-link" data-scroll="smooth">
+                                <span class="link-number">۶</span>
+                                <span class="link-text">فیکس آیپی (پروکسی)</span>
+                            </a>
+                        </div>
+
+                        <!-- اپلیکیشن‌ها -->
+                        <div class="nav-section">
+                            <div class="nav-section-title">برنامه‌های مورد نیاز</div>
+                            <a href="#apps" class="sidebar-link" data-scroll="smooth">
+                                <span class="link-number">۷</span>
+                                <span class="link-text">اپلیکیشن‌ها</span>
+                            </a>
+                        </div>
+                    </nav>
+                </aside>
+                
+                <!-- Sidebar Overlay -->
+                <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+                <!-- Content (Left) -->
+                <article class="bpb-content">
+                    <section id="intro" class="content-section">
+                        <div class="section-header-with-icon">
+                            <svg class="section-book-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                            </svg>
+                            <h2>مقدمه</h2>
+                        </div>
+                        <p>شما نباید فقط در درمان‌های حساس و بحرانی نگران امنیت دیجیتال و حریم خصوصی خود باشید.</p>
+                        <p>در حقیقه امروز روزمره ما، توصیه‌هایی در باره‌ی شیوه کار با یک سری ابزار وجود دارد که می‌توانند همیشه، و نه لزوماً زمان به وجود آمدن اختلال در اینترنت، برای امور روزمره از آن‌ها بهره ببرید.</p>
+                        <p>این ابزارها شامل اپلیکیشن‌های مختلف بیمارسان هستند که برای محافظت گفتگوهای شما در برابر دستگاه‌های شنود دولتی و شرکت‌های خصوصی طراحی شده‌اند. همچنین وی‌پی‌ان‌ها و پروکسی‌هایی که می‌توانند در حفظ امنیت شما در فضای آنلاین و گذر از فیلترهای دولتی بکار بیایند.</p>
+                        
+                        <h3>معرفی</h3>
+                        <p>این پروژه یه پنل کاربری برای دسترسی به کانفیگ‌های رایگان، امن و خصوصی VLESS، Trojan و Warp ارائه می‌ده. حتی وقتی دامنه‌ها یا سرویس Warp توسط اپراتورها فیلتر شدن، اتصال رو تضمین می‌کنه. این پنل به دو روش راه‌اندازی می‌شه:</p>
+                        <ul class="feature-list">
+                            <li>
+                                <span class="feature-icon"></span>
+                                <div><strong>با Cloudflare Workers</strong></div>
+                            </li>
+                            <li>
+                                <span class="feature-icon"></span>
+                                <div><strong>با Cloudflare Pages</strong></div>
+                            </li>
+                        </ul>
+
+                        <h3>ویژگی‌ها</h3>
+                        <ul class="feature-list">
+                            <li>
+                                <span class="feature-icon"></span>
+                                <div>
+                                    <strong>رایگان و شخصی:</strong> بدون هیچ هزینه‌ای، سرور شما شخصی هست.
+                                </div>
+                            </li>
+                            <li>
+                                <span class="feature-icon"></span>
+                                <div>
+                                    <strong>پنل کاربری ساده:</strong> کار باهاش راحته و تنظیمات و استفاده ازش خیلی آسونه.
+                                </div>
+                            </li>
+                            <li>
+                                <span class="feature-icon"></span>
+                                <div>
+                                    <strong>پروتکل‌های متنوع:</strong> ارائه کانفیگ‌های VLESS، Trojan و Wireguard (Warp).
+                                </div>
+                            </li>
+                            <li>
+                                <span class="feature-icon"></span>
+                                <div>
+                                    <strong>کانفیگ‌های Warp Pro:</strong> کانفیگ‌های Warp بهینه‌شده برای شرایط خاص ایران.
+                                </div>
+                            </li>
+                            <li>
+                                <span class="feature-icon"></span>
+                                <div>
+                                    <strong>پشتیبانی از Fragment:</strong> اتصال حتی در صورت فیلتر شدن دامنه.
+                                </div>
+                            </li>
+                            <li>
+                                <span class="feature-icon"></span>
+                                <div>
+                                    <strong>قوانین مسیریابی کامل:</strong> دور زدن سایت‌های ایرانی، چینی، روسی و LAN، مسدود کردن QUIC، محتوای پورن، تبلیغات، بدافزارها، فیشینگ و در زدن سایت‌های تحریمی.
+                                </div>
+                            </li>
+                            <li>
+                                <span class="feature-icon"></span>
+                                <div>
+                                    <strong>زنجیره‌ی Proxy:</strong> می‌تونید یه Proxy زنجیره‌ای از نوع VLESS، Trojan، Shadowsocks، Socks یا http اضافه کنید تا IP ثابت بشه.
+                                </div>
+                            </li>
+                            <li>
+                                <span class="feature-icon"></span>
+                                <div>
+                                    <strong>پشتیبانی از برنامه‌های مختلف:</strong> لینک‌های اشتراک برای برنامه‌های با هسته‌های Xray، Sing-box و Clash-Mihomo.
+                                </div>
+                            </li>
+                            <li>
+                                <span class="feature-icon"></span>
+                                <div>
+                                    <strong>پنل امن با رمز عبور:</strong> پنل محافظت شده با رمز عبور.
+                                </div>
+                            </li>
+                            <li>
+                                <span class="feature-icon"></span>
+                                <div>
+                                    <strong>سفارشی‌سازی کامل:</strong> تنظیم IP تمیز، Proxy IP، سرورهای DNS، انتخاب پورت‌ها و پروتکل‌ها، Warp Endpoint و خیلی امکانات دیگه.
+                                </div>
+                            </li>
+                        </ul>
+
+                        <h3>محدودیت‌ها</h3>
+                        <ul class="feature-list">
+                            <li>
+                                <span class="warning-icon" style="background: linear-gradient(135deg, rgba(220, 38, 38, 0.3), rgba(239, 68, 68, 0.15)); backdrop-filter: blur(10px); border: 1px solid rgba(239, 68, 68, 0.4); box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 0.5rem;">
+                                    <svg viewBox="0 0 32 32" fill="#ef4444" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M9.421,13.339C9.753,10.855,11.872,9,14.378,9h3.245c2.506,0,4.625,1.855,4.956,4.339L23.733,22H16V11h-1.587c-1.498,0-2.766,1.105-2.972,2.589L10.277,22h-2.01L9.421,13.339z M13.187,7.436c0.061,0.224,0.263,0.371,0.483,0.371c0.043,0,0.086-0.005,0.129-0.017c0.268-0.071,0.426-0.346,0.354-0.612l-1.035-3.864c-0.072-0.268-0.348-0.424-0.612-0.354c-0.268,0.071-0.426,0.346-0.354,0.612L13.187,7.436z M22.364,10.136c0.128,0,0.256-0.049,0.354-0.146l2.828-2.829c0.195-0.195,0.195-0.512,0-0.707s-0.512-0.195-0.707,0l-2.828,2.829c-0.195,0.195-0.195,0.512,0,0.707C22.108,10.087,22.236,10.136,22.364,10.136z M18.2,7.79c0.043,0.012,0.086,0.017,0.129,0.017c0.221,0,0.423-0.147,0.483-0.371l1.035-3.864c0.071-0.267-0.087-0.541-0.354-0.612c-0.261-0.069-0.54,0.087-0.612,0.354l-1.035,3.864C17.774,7.444,17.933,7.718,18.2,7.79z M8,23c-0.552,0-1,0.448-1,1h18c0-0.552-0.448-1-1-1H8z M9.282,9.99c0.098,0.098,0.226,0.146,0.354,0.146s0.256-0.049,0.354-0.146c0.195-0.195,0.195-0.512,0-0.707L7.161,6.454c-0.195-0.195-0.512-0.195-0.707,0s-0.195,0.512,0,0.707L9.282,9.99z M29.04,12.506c-0.072-0.268-0.343-0.424-0.613-0.354l-3.863,1.035c-0.267,0.071-0.425,0.346-0.354,0.612c0.061,0.224,0.263,0.371,0.483,0.371c0.043,0,0.086-0.005,0.13-0.017l3.863-1.035C28.953,13.047,29.111,12.772,29.04,12.506z M25,25H7c-1.163,0-2.164,0.821-2.392,1.961l-0.369,1.843C4.115,29.423,4.589,30,5.22,30h21.56c0.631,0,1.104-0.577,0.981-1.196l-0.369-1.843C27.164,25.821,26.163,25,25,25z M12.432,13.726L11.286,22H15V12h-0.587C13.42,12,12.568,12.742,12.432,13.726z M7.307,14.17c0.221,0,0.423-0.147,0.483-0.371c0.071-0.267-0.087-0.541-0.354-0.612l-3.863-1.035c-0.27-0.069-0.541,0.087-0.613,0.354c-0.071,0.267,0.087,0.541,0.354,0.612l3.863,1.035C7.221,14.165,7.264,14.17,7.307,14.17z"/>
+                                    </svg>
+                                </span>
+                                <div>
+                                    <strong>اتصال UDP:</strong> پروتکل‌های VLESS و Trojan روی Workerها نمی‌تونن UDP رو به‌خوبی پشتیبانی کنن، برای همین به‌صورت پیش‌فرض غیرفعاله (این روی امکاناتی مثل تماس تصویری تلگرام تأثیر می‌ذاره). DNSهای UDP هم پشتیبانی نمی‌شن. به جاش DoH فعاله که امن‌تره.
+                                </div>
+                            </li>
+                            <li>
+                                <span class="warning-icon" style="background: linear-gradient(135deg, rgba(220, 38, 38, 0.3), rgba(239, 68, 68, 0.15)); backdrop-filter: blur(10px); border: 1px solid rgba(239, 68, 68, 0.4); box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 0.5rem;">
+                                    <svg viewBox="0 0 32 32" fill="#ef4444" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M9.421,13.339C9.753,10.855,11.872,9,14.378,9h3.245c2.506,0,4.625,1.855,4.956,4.339L23.733,22H16V11h-1.587c-1.498,0-2.766,1.105-2.972,2.589L10.277,22h-2.01L9.421,13.339z M13.187,7.436c0.061,0.224,0.263,0.371,0.483,0.371c0.043,0,0.086-0.005,0.129-0.017c0.268-0.071,0.426-0.346,0.354-0.612l-1.035-3.864c-0.072-0.268-0.348-0.424-0.612-0.354c-0.268,0.071-0.426,0.346-0.354,0.612L13.187,7.436z M22.364,10.136c0.128,0,0.256-0.049,0.354-0.146l2.828-2.829c0.195-0.195,0.195-0.512,0-0.707s-0.512-0.195-0.707,0l-2.828,2.829c-0.195,0.195-0.195,0.512,0,0.707C22.108,10.087,22.236,10.136,22.364,10.136z M18.2,7.79c0.043,0.012,0.086,0.017,0.129,0.017c0.221,0,0.423-0.147,0.483-0.371l1.035-3.864c0.071-0.267-0.087-0.541-0.354-0.612c-0.261-0.069-0.54,0.087-0.612,0.354l-1.035,3.864C17.774,7.444,17.933,7.718,18.2,7.79z M8,23c-0.552,0-1,0.448-1,1h18c0-0.552-0.448-1-1-1H8z M9.282,9.99c0.098,0.098,0.226,0.146,0.354,0.146s0.256-0.049,0.354-0.146c0.195-0.195,0.195-0.512,0-0.707L7.161,6.454c-0.195-0.195-0.512-0.195-0.707,0s-0.195,0.512,0,0.707L9.282,9.99z M29.04,12.506c-0.072-0.268-0.343-0.424-0.613-0.354l-3.863,1.035c-0.267,0.071-0.425,0.346-0.354,0.612c0.061,0.224,0.263,0.371,0.483,0.371c0.043,0,0.086-0.005,0.13-0.017l3.863-1.035C28.953,13.047,29.111,12.772,29.04,12.506z M25,25H7c-1.163,0-2.164,0.821-2.392,1.961l-0.369,1.843C4.115,29.423,4.589,30,5.22,30h21.56c0.631,0,1.104-0.577,0.981-1.196l-0.369-1.843C27.164,25.821,26.163,25,25,25z M12.432,13.726L11.286,22H15V12h-0.587C13.42,12,12.568,12.742,12.432,13.726z M7.307,14.17c0.221,0,0.423-0.147,0.483-0.371c0.071-0.267-0.087-0.541-0.354-0.612l-3.863-1.035c-0.27-0.069-0.541,0.087-0.613,0.354c-0.071,0.267,0.087,0.541,0.354,0.612l3.863,1.035C7.221,14.165,7.264,14.17,7.307,14.17z"/>
+                                    </svg>
+                                </span>
+                                <div>
+                                    <strong>محدودیت تعداد درخواست:</strong> هر Worker برای VLESS و Trojan روزانه 100 هزار درخواست پشتیبانی می‌کنه، که برای 2-3 نفر کافیه. برای اتصال نامحدود می‌تونید از کانفیگ‌های Warp استفاده کنید.
+                                </div>
+                            </li>
+                        </ul>
+
+                        <div class="info-box">
+                            <div class="info-icon">
+                                <svg viewBox="0 0 24 24" fill="none">
+                                    <path opacity="0.4" d="M7.37 22H16.62C19.31 22 21.49 19.82 21.49 17.13V8.37C21.49 5.68 19.31 3.5 16.62 3.5H7.37C4.68 3.5 2.5 5.68 2.5 8.37V17.12C2.5 19.82 4.68 22 7.37 22Z" fill="#1f6fd1"/>
+                                    <path d="M8.28906 6.29C7.86906 6.29 7.53906 5.95 7.53906 5.54V2.75C7.53906 2.34 7.86906 2 8.28906 2C8.70906 2 9.03906 2.34 9.03906 2.75V5.53C9.03906 5.95 8.70906 6.29 8.28906 6.29Z" fill="#1f6fd1"/>
+                                    <path d="M15.7109 6.29C15.2909 6.29 14.9609 5.95 14.9609 5.54V2.75C14.9609 2.33 15.3009 2 15.7109 2C16.1309 2 16.4609 2.34 16.4609 2.75V5.53C16.4609 5.95 16.1309 6.29 15.7109 6.29Z" fill="#1f6fd1"/>
+                                    <path d="M14.7794 13.71H7.35938C6.93938 13.71 6.60938 13.37 6.60938 12.96C6.60938 12.55 6.94938 12.21 7.35938 12.21H14.7794C15.1994 12.21 15.5294 12.55 15.5294 12.96C15.5294 13.37 15.1994 13.71 14.7794 13.71Z" fill="#1f6fd1"/>
+                                    <path d="M11.9994 17.4199H7.35938C6.93938 17.4199 6.60938 17.0799 6.60938 16.6699C6.60938 16.2499 6.94938 15.9199 7.35938 15.9199H11.9994C12.4194 15.9199 12.7494 16.2599 12.7494 16.6699C12.7494 17.0799 12.4194 17.4199 11.9994 17.4199Z" fill="#1f6fd1"/>
+                                </svg>
+                            </div>
+                            <div class="info-content">
+                                <strong>نکته مهم:</strong> همیشه به خاطر داشته باشید که استفاده از چنین ابزاری، در صورتی که مسئولان آن‌ها را روی دستگاه‌های شما پیدا کنند، می‌تواند ایجاد مشکل کرده و شما را به خطر بیندازد. لذا بهتر است آن‌ها را روی دستگاه‌های خود با احتیاط عمل کنید.
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- What is BPB Panel Section -->
+                    <section id="what-is-bpb" class="content-section">
+                        <h2>
+                            <div class="yellow-icon" style="display: inline-block; vertical-align: middle; margin-left: 0.5rem;">
+                                <svg viewBox="0 -2.74 60.551 60.551" fill="none">
+                                    <path d="M285.627,90.974a4.947,4.947,0,0,1-4.933-4.914,4.972,4.972,0,0,1,1.445-3.493,5.026,5.026,0,0,1,1.967-1.193l.732-.193L292.6,79.1l-2.1,7.757-.239.9a4.715,4.715,0,0,1-1.141,1.777,4.913,4.913,0,0,1-3.488,1.446Z" fill="#ffffff" transform="translate(-272.53 -60.991)"/>
+                                    <path d="M323.841,111.357a6.548,6.548,0,0,1-4.635-11.166,6.832,6.832,0,0,1,2.6-1.581l.884-.229,10.387-2.787-2.8,10.367-.269,1.015a6.525,6.525,0,0,1-6.174,4.381Z" fill="#ffffff" transform="translate(-272.53 -60.991)"/>
+                                    <path d="M280.114,116.061a7.582,7.582,0,0,1-2.358-14.8l1.024-.272,12.073-3.236L287.6,109.794l-.317,1.163a7.807,7.807,0,0,1-1.8,2.873,7.532,7.532,0,0,1-5.373,2.231Z" fill="#ffffff" transform="translate(-272.53 -60.991)"/>
+                                    <path d="M303.154,106.357a3.344,3.344,0,0,1-2.417-1,3.388,3.388,0,0,1-1.006-2.4,3.4,3.4,0,0,1,2.363-3.249l.509-.133,5.374-1.457-1.452,5.381-.165.625a3.182,3.182,0,0,1-.795,1.234,3.386,3.386,0,0,1-2.411,1Z" fill="#ffffff" transform="translate(-272.53 -60.991)"/>
+                                    <path d="M311.113,87.984a11.206,11.206,0,0,1-7.935-19.119,11.4,11.4,0,0,1,4.452-2.7l1.515-.4,17.786-4.772-4.787,17.758-.463,1.742a11.151,11.151,0,0,1-10.568,7.493Z" fill="#B8D4FF" transform="translate(-272.53 -60.991)"/>
+                                </svg>
+                            </div>
+                            پنل BPB چیست؟
+                        </h2>
+                        <p>BPB Panel یک پنل مدیریتی قدرتمند و رایگان است که بر روی Cloudflare Workers اجرا می‌شود و امکان دسترسی به اینترنت بدون فیلتر را فراهم می‌کند.</p>
+                        
+                        <h3>ویژگی‌های کلیدی:</h3>
+                        <ul class="feature-list">
+                            <li>
+                                <span class="feature-icon"></span>
+                                <div>
+                                    <strong>رایگان و متن‌باز:</strong> کاملاً رایگان و با کد منبع باز
+                                </div>
+                            </li>
+                            <li>
+                                <span class="feature-icon"></span>
+                                <div>
+                                    <strong>بدون نیاز به سرور:</strong> از زیرساخت Cloudflare استفاده می‌کند
+                                </div>
+                            </li>
+                            <li>
+                                <span class="feature-icon"></span>
+                                <div>
+                                    <strong>پشتیبانی از پروتکل‌های مختلف:</strong> VLESS، Trojan، Wireguard
+                                </div>
+                            </li>
+                            <li>
+                                <span class="feature-icon"></span>
+                                <div>
+                                    <strong>رابط کاربری ساده:</strong> پنل مدیریتی آسان و کاربرپسند
+                                </div>
+                            </li>
+                        </ul>
+
+                        <h3 id="worker-vs-pages">تفاوت Worker و Pages</h3>
+                        <p>BPB Panel را می‌توانید به دو روش مختلف راه‌اندازی کنید: Worker یا Pages. تفاوت اصلی این دو در پورت‌های ارائه شده است:</p>
+                        
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin: 2rem 0;">
+                            <!-- Worker -->
+                            <div style="text-align: center;">
+                                <div class="wizard-image-container" style="margin: 0;">
+                                    <img src="/assets/images/bpb/worker.png" alt="Worker Ports" class="wizard-image">
+                                </div>
+                                <p style="margin-top: 1rem; color: #22c55e; font-weight: 600; font-size: 1rem;">
+                                    Worker
+                                </p>
+                                <p style="color: rgba(255, 255, 255, 0.7); font-size: 0.9rem;">
+                                    پورت‌های: 80، 8080، 443، 2053، 2083، 2087، 2096، 8443
+                                </p>
+                            </div>
+
+                            <!-- Pages -->
+                            <div style="text-align: center;">
+                                <div class="wizard-image-container" style="margin: 0;">
+                                    <img src="/assets/images/bpb/pages.png" alt="Pages Ports" class="wizard-image">
+                                </div>
+                                <p style="margin-top: 1rem; color: #22c55e; font-weight: 600; font-size: 1rem;">
+                                    Pages
+                                </p>
+                                <p style="color: rgba(255, 255, 255, 0.7); font-size: 0.9rem;">
+                                    پورت‌های: 443، 2053، 2083، 2087، 2096، 8443
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="info-box">
+                            <div class="info-icon">
+                                <svg viewBox="0 0 24 24" fill="none">
+                                    <path opacity="0.4" d="M7.37 22H16.62C19.31 22 21.49 19.82 21.49 17.13V8.37C21.49 5.68 19.31 3.5 16.62 3.5H7.37C4.68 3.5 2.5 5.68 2.5 8.37V17.12C2.5 19.82 4.68 22 7.37 22Z" fill="#1f6fd1"/>
+                                    <path d="M8.28906 6.29C7.86906 6.29 7.53906 5.95 7.53906 5.54V2.75C7.53906 2.34 7.86906 2 8.28906 2C8.70906 2 9.03906 2.34 9.03906 2.75V5.53C9.03906 5.95 8.70906 6.29 8.28906 6.29Z" fill="#1f6fd1"/>
+                                    <path d="M15.7109 6.29C15.2909 6.29 14.9609 5.95 14.9609 5.54V2.75C14.9609 2.33 15.3009 2 15.7109 2C16.1309 2 16.4609 2.34 16.4609 2.75V5.53C16.4609 5.95 16.1309 6.29 15.7109 6.29Z" fill="#1f6fd1"/>
+                                    <path d="M14.7794 13.71H7.35938C6.93938 13.71 6.60938 13.37 6.60938 12.96C6.60938 12.55 6.94938 12.21 7.35938 12.21H14.7794C15.1994 12.21 15.5294 12.55 15.5294 12.96C15.5294 13.37 15.1994 13.71 14.7794 13.71Z" fill="#1f6fd1"/>
+                                    <path d="M11.9994 17.4199H7.35938C6.93938 17.4199 6.60938 17.0799 6.60938 16.6699C6.60938 16.2499 6.94938 15.9199 7.35938 15.9199H11.9994C12.4194 15.9199 12.7494 16.2599 12.7494 16.6699C12.7494 17.0799 12.4194 17.4199 11.9994 17.4199Z" fill="#1f6fd1"/>
+                                </svg>
+                            </div>
+                            <div class="info-content">
+                                <strong>نکته مهم:</strong> Worker پورت‌های 80 و 8080 را هم ارائه می‌دهد، در حالی که Pages این پورت‌ها را ندارد. این تفاوت می‌تواند در برخی شرایط شبکه مهم باشد.
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- BPB Wizard Section -->
+                    <section id="bpb-wizard" class="content-section">
+                        <h2>
+                            <div class="yellow-icon" style="display: inline-block; vertical-align: middle; margin-left: 0.5rem;">
+                                <svg viewBox="0 -2.74 60.551 60.551" fill="none">
+                                    <path d="M285.627,90.974a4.947,4.947,0,0,1-4.933-4.914,4.972,4.972,0,0,1,1.445-3.493,5.026,5.026,0,0,1,1.967-1.193l.732-.193L292.6,79.1l-2.1,7.757-.239.9a4.715,4.715,0,0,1-1.141,1.777,4.913,4.913,0,0,1-3.488,1.446Z" fill="#ffffff" transform="translate(-272.53 -60.991)"/>
+                                    <path d="M323.841,111.357a6.548,6.548,0,0,1-4.635-11.166,6.832,6.832,0,0,1,2.6-1.581l.884-.229,10.387-2.787-2.8,10.367-.269,1.015a6.525,6.525,0,0,1-6.174,4.381Z" fill="#ffffff" transform="translate(-272.53 -60.991)"/>
+                                    <path d="M280.114,116.061a7.582,7.582,0,0,1-2.358-14.8l1.024-.272,12.073-3.236L287.6,109.794l-.317,1.163a7.807,7.807,0,0,1-1.8,2.873,7.532,7.532,0,0,1-5.373,2.231Z" fill="#ffffff" transform="translate(-272.53 -60.991)"/>
+                                    <path d="M303.154,106.357a3.344,3.344,0,0,1-2.417-1,3.388,3.388,0,0,1-1.006-2.4,3.4,3.4,0,0,1,2.363-3.249l.509-.133,5.374-1.457-1.452,5.381-.165.625a3.182,3.182,0,0,1-.795,1.234,3.386,3.386,0,0,1-2.411,1Z" fill="#ffffff" transform="translate(-272.53 -60.991)"/>
+                                    <path d="M311.113,87.984a11.206,11.206,0,0,1-7.935-19.119,11.4,11.4,0,0,1,4.452-2.7l1.515-.4,17.786-4.772-4.787,17.758-.463,1.742a11.151,11.151,0,0,1-10.568,7.493Z" fill="#B8D4FF" transform="translate(-272.53 -60.991)"/>
+                                </svg>
+                            </div>
+                            ویزارد BPB
+                        </h2>
+                        <p class="wizard-intro">این پروژه با هدف تسهیل فرآیند استقرار و مدیریت BPB Panel و جلوگیری از اشتباهات کاربران در حین استقرار طراحی شده است. این ابزار از هر دو روش Workers و Pages پشتیبانی می‌کند و استفاده از آن به شدت توصیه می‌شود.</p>
+                        
+                        <!-- Wizard Image -->
+                        <div class="wizard-image-container">
+                            <img src="/assets/images/bpb/wizard.jpg" alt="BPB Wizard" class="wizard-image">
+                        </div>
+                        
+                        <h3>درباره ویزارد BPB</h3>
+                        <p>ویزارد BPB یک ابزار کاربرپسند برای نصب و پیکربندی BPB Panel است که تمام مراحل پیچیده را ساده‌سازی می‌کند و از بروز خطاهای رایج جلوگیری می‌کند.</p>
+                        
+                        <div class="info-box">
+                            <div class="info-icon">
+                                <svg viewBox="0 0 24 24" fill="none">
+                                    <path opacity="0.4" d="M7.37 22H16.62C19.31 22 21.49 19.82 21.49 17.13V8.37C21.49 5.68 19.31 3.5 16.62 3.5H7.37C4.68 3.5 2.5 5.68 2.5 8.37V17.12C2.5 19.82 4.68 22 7.37 22Z" fill="#1f6fd1"/>
+                                    <path d="M8.28906 6.29C7.86906 6.29 7.53906 5.95 7.53906 5.54V2.75C7.53906 2.34 7.86906 2 8.28906 2C8.70906 2 9.03906 2.34 9.03906 2.75V5.53C9.03906 5.95 8.70906 6.29 8.28906 6.29Z" fill="#1f6fd1"/>
+                                    <path d="M15.7109 6.29C15.2909 6.29 14.9609 5.95 14.9609 5.54V2.75C14.9609 2.33 15.3009 2 15.7109 2C16.1309 2 16.4609 2.34 16.4609 2.75V5.53C16.4609 5.95 16.1309 6.29 15.7109 6.29Z" fill="#1f6fd1"/>
+                                    <path d="M14.7794 13.71H7.35938C6.93938 13.71 6.60938 13.37 6.60938 12.96C6.60938 12.55 6.94938 12.21 7.35938 12.21H14.7794C15.1994 12.21 15.5294 12.55 15.5294 12.96C15.5294 13.37 15.1994 13.71 14.7794 13.71Z" fill="#1f6fd1"/>
+                                    <path d="M11.9994 17.4199H7.35938C6.93938 17.4199 6.60938 17.0799 6.60938 16.6699C6.60938 16.2499 6.94938 15.9199 7.35938 15.9199H11.9994C12.4194 15.9199 12.7494 16.2599 12.7494 16.6699C12.7494 17.0799 12.4194 17.4199 11.9994 17.4199Z" fill="#1f6fd1"/>
+                                </svg>
+                            </div>
+                            <div class="info-content">
+                                <strong>چرا از ویزارد استفاده کنیم؟</strong>
+                                <ul>
+                                    <li>نصب خودکار و بدون نیاز به دانش فنی پیشرفته</li>
+                                    <li>پیکربندی آسان با رابط کاربری گرافیکی</li>
+                                    <li>جلوگیری از اشتباهات رایج در فرآیند نصب</li>
+                                    <li>پشتیبانی کامل از Workers و Pages</li>
+                                    <li>راهنمای گام به گام برای کاربران مبتدی</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="cta-box">
+                            <h3>دانلود ویزارد BPB</h3>
+                            <p>آخرین نسخه ویزارد BPB را از GitHub دانلود کنید و نصب را با چند کلیک ساده انجام دهید</p>
+                            <a href="https://github.com/bia-pain-bache/BPB-Wizard/releases/tag/v2.1.8" target="_blank" class="cta-button">
+                                دانلود نسخه v2.1.8
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                    <polyline points="7 10 12 15 17 10"></polyline>
+                                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                                </svg>
+                            </a>
+                        </div>
+
+                        <!-- Termux Mobile Installation Guide -->
+                        <h3 id="wizard-termux" style="margin-top: 3rem; display: flex; align-items: center; gap: 0.75rem;">
+                            <img src="/assets/images/bpb/Termux.svg" alt="Termux" style="width: 32px; height: 32px;">
+                            ساخت پنل BPB روی گوشی با ترموکس
+                        </h3>
+                        <p>با استفاده از Termux می‌توانید BPB Panel را مستقیماً روی گوشی اندروید خود نصب کنید و به لینک ساب و کانفیگ V2ray اختصاصی نامحدود دسترسی داشته باشید.</p>
+
+                        <div class="info-box" style="margin-top: 1.5rem; background: rgba(239, 68, 68, 0.1); border-color: rgba(239, 68, 68, 0.3);">
+                            <div class="info-icon" style="background: linear-gradient(135deg, rgba(220, 38, 38, 0.3), rgba(239, 68, 68, 0.15)); backdrop-filter: blur(10px); border: 1px solid rgba(239, 68, 68, 0.4); box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1);">
+                                <svg viewBox="0 0 32 32" fill="#ef4444" xmlns="http://www.w3.org/2000/svg" style="width: 24px; height: 24px;">
+                                    <path d="M9.421,13.339C9.753,10.855,11.872,9,14.378,9h3.245c2.506,0,4.625,1.855,4.956,4.339L23.733,22H16V11h-1.587c-1.498,0-2.766,1.105-2.972,2.589L10.277,22h-2.01L9.421,13.339z M13.187,7.436c0.061,0.224,0.263,0.371,0.483,0.371c0.043,0,0.086-0.005,0.129-0.017c0.268-0.071,0.426-0.346,0.354-0.612l-1.035-3.864c-0.072-0.268-0.348-0.424-0.612-0.354c-0.268,0.071-0.426,0.346-0.354,0.612L13.187,7.436z M22.364,10.136c0.128,0,0.256-0.049,0.354-0.146l2.828-2.829c0.195-0.195,0.195-0.512,0-0.707s-0.512-0.195-0.707,0l-2.828,2.829c-0.195,0.195-0.195,0.512,0,0.707C22.108,10.087,22.236,10.136,22.364,10.136z M18.2,7.79c0.043,0.012,0.086,0.017,0.129,0.017c0.221,0,0.423-0.147,0.483-0.371l1.035-3.864c0.071-0.267-0.087-0.541-0.354-0.612c-0.261-0.069-0.54,0.087-0.612,0.354l-1.035,3.864C17.774,7.444,17.933,7.718,18.2,7.79z M8,23c-0.552,0-1,0.448-1,1h18c0-0.552-0.448-1-1-1H8z M9.282,9.99c0.098,0.098,0.226,0.146,0.354,0.146s0.256-0.049,0.354-0.146c0.195-0.195,0.195-0.512,0-0.707L7.161,6.454c-0.195-0.195-0.512-0.195-0.707,0s-0.195,0.512,0,0.707L9.282,9.99z M29.04,12.506c-0.072-0.268-0.343-0.424-0.613-0.354l-3.863,1.035c-0.267,0.071-0.425,0.346-0.354,0.612c0.061,0.224,0.263,0.371,0.483,0.371c0.043,0,0.086-0.005,0.13-0.017l3.863-1.035C28.953,13.047,29.111,12.772,29.04,12.506z M25,25H7c-1.163,0-2.164,0.821-2.392,1.961l-0.369,1.843C4.115,29.423,4.589,30,5.22,30h21.56c0.631,0,1.104-0.577,0.981-1.196l-0.369-1.843C27.164,25.821,26.163,25,25,25z M12.432,13.726L11.286,22H15V12h-0.587C13.42,12,12.568,12.742,12.432,13.726z M7.307,14.17c0.221,0,0.423-0.147,0.483-0.371c0.071-0.267-0.087-0.541-0.354-0.612l-3.863-1.035c-0.27-0.069-0.541,0.087-0.613,0.354c-0.071,0.267,0.087,0.541,0.354,0.612l3.863,1.035C7.221,14.165,7.264,14.17,7.307,14.17z"/>
+                                </svg>
+                            </div>
+                            <div class="info-content">
+                                <strong style="color: #ef4444;">نکات مهم قبل از شروع:</strong>
+                                <ul style="margin-top: 0.5rem;">
+                                    <li>ابتدا باید با جیمیل خودتون یک اکانت کلودفلر بسازید و تایید کنید</li>
+                                    <li>بعد سه خط بالا رو بزنید و وارد قسمت ورکر بشید</li>
+                                    <li>تمام به هیچی دست نزنید، بقیش طبق مراحل انجام بدید</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div style="background: rgba(20, 20, 20, 0.6); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; padding: 2rem; margin-top: 2rem;">
+                            <h4 style="color: #22c55e; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                    <polyline points="14 2 14 8 20 8"></polyline>
+                                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                                    <polyline points="10 9 9 9 8 9"></polyline>
+                                </svg>
+                                مراحل نصب:
+                            </h4>
+
+                            <!-- Step 1: Create Cloudflare Account -->
+                            <div style="background: rgba(0, 0, 0, 0.3); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; border-right: 4px solid #22c55e;">
+                                <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+                                    <div style="width: 32px; height: 32px; background: rgba(34, 197, 94, 0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #22c55e; font-weight: 700;">۱</div>
+                                    <p style="margin: 0; font-weight: 600; font-size: 1.1rem;">ساخت اکانت کلودفلر</p>
+                                </div>
+                                <p style="margin-bottom: 1rem; color: rgba(255, 255, 255, 0.7);">با استفاده از جیمیل خود یک اکانت Cloudflare بسازید و آن را تایید کنید:</p>
+                                <a href="https://dash.cloudflare.com/sign-up" target="_blank" class="cta-button" style="display: inline-flex; padding: 0.75rem 1.5rem; font-size: 0.9rem;">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                        <polyline points="15 3 21 3 21 9"></polyline>
+                                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                                    </svg>
+                                    ثبت نام در Cloudflare
+                                </a>
+                            </div>
+
+                            <!-- Step 2: Download Termux -->
+                            <div style="background: rgba(0, 0, 0, 0.3); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; border-right: 4px solid #3b82f6;">
+                                <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+                                    <div style="width: 32px; height: 32px; background: rgba(59, 130, 246, 0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #3b82f6; font-weight: 700;">۲</div>
+                                    <p style="margin: 0; font-weight: 600; font-size: 1.1rem;">دانلود و نصب Termux</p>
+                                </div>
+                                <p style="margin-bottom: 1rem; color: rgba(255, 255, 255, 0.7);">ترموکس رو از گیتهاب دانلود و نصب کنید:</p>
+                                <a href="https://github.com/termux/termux-app/releases" target="_blank" class="cta-button" style="display: inline-flex; padding: 0.75rem 1.5rem; font-size: 0.9rem; background: rgba(59, 130, 246, 0.15); border-color: rgba(59, 130, 246, 0.3);">
+                                    <img src="/assets/images/bpb/Termux.svg" alt="Download" style="width: 20px; height: 20px;">
+                                    دانلود Termux از GitHub
+                                </a>
+                            </div>
+
+                            <!-- Step 3: Run Installation Command -->
+                            <div style="background: rgba(0, 0, 0, 0.3); border-radius: 12px; padding: 1.5rem; border-right: 4px solid #eab308;">
+                                <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+                                    <div style="width: 32px; height: 32px; background: rgba(234, 179, 8, 0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #eab308; font-weight: 700;">۳</div>
+                                    <p style="margin: 0; font-weight: 600; font-size: 1.1rem;">اجرای دستور نصب</p>
+                                </div>
+                                <p style="margin-bottom: 1rem; color: rgba(255, 255, 255, 0.7);">پس از باز کردن Termux، دستور زیر را کپی و وارد کنید:</p>
+                                <div style="background: rgba(0, 0, 0, 0.5); border-radius: 8px; padding: 1rem; font-family: monospace; color: #22c55e; position: relative;">
+                                    <button onclick="event.stopPropagation(); navigator.clipboard.writeText('bash <(curl -fsSL https://raw.githubusercontent.com/bia-pain-bache/BPB-Wizard/main/install.sh)'); this.innerHTML='<svg width=\'16\' height=\'16\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'2\'><polyline points=\'20 6 9 17 4 12\'></polyline></svg>'; setTimeout(() => this.innerHTML='<svg width=\'16\' height=\'16\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'2\'><rect x=\'9\' y=\'9\' width=\'13\' height=\'13\' rx=\'2\' ry=\'2\'></rect><path d=\'M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1\'></path></svg>', 2000)" style="position: absolute; left: 0.5rem; top: 0.5rem; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2); color: #ffffff; padding: 0.4rem; border-radius: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 10; transition: all 0.3s ease;">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                        </svg>
+                                    </button>
+                                    <code style="display: block; padding-left: 2.5rem; white-space: pre-wrap; word-break: break-all; line-height: 1.6;">bash &lt;(curl -fsSL https://raw.githubusercontent.com/bia-pain-bache/BPB-Wizard/main/install.sh)</code>
+                                </div>
+                                <p style="margin-top: 1rem; color: rgba(255, 255, 255, 0.6); font-size: 0.9rem;">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline-block; vertical-align: middle; margin-left: 0.25rem;">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <line x1="12" y1="16" x2="12" y2="12"></line>
+                                        <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                                    </svg>
+                                    این دستور به صورت خودکار تمام ابزارهای لازم را نصب و پنل BPB را راه‌اندازی می‌کند
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="info-box" style="margin-top: 2rem;">
+                            <div class="info-icon">
+                                <svg viewBox="0 0 24 24" fill="none">
+                                    <path opacity="0.4" d="M7.37 22H16.62C19.31 22 21.49 19.82 21.49 17.13V8.37C21.49 5.68 19.31 3.5 16.62 3.5H7.37C4.68 3.5 2.5 5.68 2.5 8.37V17.12C2.5 19.82 4.68 22 7.37 22Z" fill="#1f6fd1"/>
+                                    <path d="M8.28906 6.29C7.86906 6.29 7.53906 5.95 7.53906 5.54V2.75C7.53906 2.34 7.86906 2 8.28906 2C8.70906 2 9.03906 2.34 9.03906 2.75V5.53C9.03906 5.95 8.70906 6.29 8.28906 6.29Z" fill="#1f6fd1"/>
+                                    <path d="M15.7109 6.29C15.2909 6.29 14.9609 5.95 14.9609 5.54V2.75C14.9609 2.33 15.3009 2 15.7109 2C16.1309 2 16.4609 2.34 16.4609 2.75V5.53C16.4609 5.95 16.1309 6.29 15.7109 6.29Z" fill="#1f6fd1"/>
+                                    <path d="M14.7794 13.71H7.35938C6.93938 13.71 6.60938 13.37 6.60938 12.96C6.60938 12.55 6.94938 12.21 7.35938 12.21H14.7794C15.1994 12.21 15.5294 12.55 15.5294 12.96C15.5294 13.37 15.1994 13.71 14.7794 13.71Z" fill="#1f6fd1"/>
+                                    <path d="M11.9994 17.4199H7.35938C6.93938 17.4199 6.60938 17.0799 6.60938 16.6699C6.60938 16.2499 6.94938 15.9199 7.35938 15.9199H11.9994C12.4194 15.9199 12.7494 16.2599 12.7494 16.6699C12.7494 17.0799 12.4194 17.4199 11.9994 17.4199Z" fill="#1f6fd1"/>
+                                </svg>
+                            </div>
+                            <div class="info-content">
+                                <strong>مزایای استفاده از Termux:</strong>
+                                <ul style="margin-top: 0.5rem;">
+                                    <li>نصب و راه‌اندازی کامل روی گوشی بدون نیاز به کامپیوتر</li>
+                                    <li>دسترسی به لینک ساب و کانفیگ V2ray اختصاصی نامحدود</li>
+                                    <li>مدیریت آسان پنل از طریق گوشی موبایل</li>
+                                    <li>رایگان و بدون محدودیت</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Warp Section -->
+                    <section id="warp" class="content-section">
+                        <h2>
+                            <div class="yellow-icon" style="display: inline-block; vertical-align: middle; margin-left: 0.5rem;">
+                                <svg viewBox="0 -3.5 31 31" fill="none">
+                                    <path d="m21.462 18.152c.071-.194.112-.417.112-.651 0-.394-.117-.76-.318-1.067l.005.007c-.321-.413-.817-.677-1.376-.677-.002 0-.004 0-.006 0l-11.257-.146c-.001 0-.001 0-.002 0-.071 0-.134-.036-.171-.09v-.001c-.023-.038-.037-.083-.037-.132 0-.025.004-.049.01-.071v.002c.042-.112.143-.192.264-.202h.001l11.353-.146c1.505-.168 2.749-1.135 3.309-2.461l.01-.027.655-1.687c.017-.041.027-.088.027-.138 0-.029-.003-.057-.01-.084v.002c-.765-3.332-3.704-5.78-7.216-5.78-3.234 0-5.983 2.076-6.987 4.968l-.016.052c-.549-.416-1.244-.667-1.997-.667-1.718 0-3.131 1.303-3.306 2.974l-.001.014c-.01.101-.016.218-.016.336 0 .293.036.578.104.85l-.005-.024c-2.551.075-4.59 2.161-4.59 4.722v.006c.002.244.019.481.05.715l-.003-.029c.017.108.108.19.219.192h20.776c.125-.002.23-.086.265-.2l.001-.002z" fill="#ffffff"/>
+                                    <path d="m25.046 10.919c-.101 0-.21 0-.311.008-.077.005-.141.057-.164.127v.001l-.439 1.528c-.071.194-.112.417-.112.651 0 .394.117.76.318 1.067l-.005-.007c.321.413.817.677 1.376.677h.006l2.4.146h.002c.071 0 .134.036.171.09v.001c.023.038.037.084.037.133 0 .024-.003.048-.01.07v-.002c-.042.112-.143.192-.264.202h-.001l-2.496.146c-1.507.162-2.754 1.128-3.315 2.455l-.01.027-.182.467c-.006.015-.01.032-.01.051 0 .073.059.132.132.132h.007 8.578.003c.103 0 .189-.069.216-.163v-.002c.144-.499.227-1.072.228-1.664-.002-3.394-2.754-6.145-6.149-6.145-.002 0-.003 0-.005 0z" fill="#eab308"/>
+                                </svg>
+                            </div>
+                            وارپ (Warp + 1.1.1.1)
+                        </h2>
+                        <p>وارپ یک سرویس VPN رایگان و سریع از کلودفلر است که با استفاده از فناوری WireGuard، امنیت و سرعت بالایی را برای کاربران فراهم می‌کند.</p>
+                        
+                        <h3>ویژگی‌های کلیدی وارپ:</h3>
+                        <ul class="feature-list">
+                            <li>
+                                <span class="feature-icon"></span>
+                                <div>
+                                    <strong>رایگان و بدون محدودیت:</strong> استفاده رایگان بدون محدودیت حجم
+                                </div>
+                            </li>
+                            <li>
+                                <span class="feature-icon"></span>
+                                <div>
+                                    <strong>سرعت بالا:</strong> استفاده از پروتکل WireGuard برای سرعت بهینه
+                                </div>
+                            </li>
+                            <li>
+                                <span class="feature-icon"></span>
+                                <div>
+                                    <strong>حفظ حریم خصوصی:</strong> رمزنگاری قوی و عدم ذخیره لاگ
+                                </div>
+                            </li>
+                            <li>
+                                <span class="feature-icon"></span>
+                                <div>
+                                    <strong>آسان و کاربرپسند:</strong> نصب و استفاده بسیار ساده
+                                </div>
+                            </li>
+                        </ul>
+
+                        <!-- BPB Warp Scanner -->
+                        <div id="warp-scanner" class="cta-box" style="margin-top: 2rem;">
+                            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                                <img src="/assets/images/bpb/cf.svg" alt="BPB" style="width: 48px; height: 48px;">
+                                <h3 style="margin: 0;">BPB Warp Scanner</h3>
+                            </div>
+                            <p>اسکنر اختصاصی برای پیدا کردن بهترین Endpoint های Warp با سرعت و دقت بالا</p>
+                            <a href="https://github.com/bia-pain-bache/BPB-Warp-Scanner/releases/tag/v1.1.1" target="_blank" class="cta-button">
+                                <img src="/assets/images/bpb/cf.svg" alt="Download" style="width: 20px; height: 20px;">
+                                دانلود BPB Warp Scanner
+                            </a>
+                        </div>
+
+                        <!-- Official Warp Application -->
+                        <h3 id="warp-app" style="margin-top: 3rem;">اپلیکیشن رسمی وارپ (1.1.1.1)</h3>
+                        <p>برای استفاده بهینه از وارپ، می‌توانید اپلیکیشن رسمی 1.1.1.1 را بر روی دستگاه‌های مختلف نصب کنید.</p>
+                        
+                        <div class="app-card app-card-multi" style="margin-top: 2rem; padding: 2rem;">
+                            <img src="/assets/images/bpb/app1.webp" alt="Warp 1.1.1.1" class="app-icon-img" style="width: 100px; height: 100px;">
+                            <h4>1.1.1.1: Faster Internet</h4>
+                            <p class="app-desc">اپلیکیشن رسمی Cloudflare Warp برای اتصال</p>
+                            
+                            <div class="app-download-buttons">
+                                <a href="https://apps.apple.com/us/app/1-1-1-1-faster-internet/id1423538627" target="_blank" class="download-btn" style="background: rgba(59, 130, 246, 0.15); border-color: rgba(59, 130, 246, 0.3); color: #3b82f6;">
+                                    <img src="/assets/images/bpb/appstore.png" alt="App Store" style="width: 20px; height: 20px;">
+                                    دانلود از App Store
+                                </a>
+                                <a href="https://play.google.com/store/apps/details?id=com.cloudflare.onedotonedotonedotone&pcampaignid=web_share" target="_blank" class="download-btn">
+                                    <img src="/assets/images/bpb/googleplay.png" alt="Google Play" style="width: 20px; height: 20px;">
+                                    دانلود از Google Play
+                                </a>
+                                <a href="https://one.one.one.one/" target="_blank" class="download-btn" style="background: rgba(156, 163, 175, 0.15); border-color: rgba(156, 163, 175, 0.3); color: #9ca3af;">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801"/>
+                                    </svg>
+                                    دانلود برای Windows
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- WireGuard Applications -->
+                        <h3 id="wireguard-apps" style="margin-top: 3rem;">اپلیکیشن‌های WireGuard</h3>
+                        <p>برای استفاده از کانفیگ‌های WireGuard وارپ، می‌توانید از اپلیکیشن‌های زیر استفاده کنید:</p>
+                        
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 2rem;">
+                            <!-- WireGuard Official App -->
+                            <div class="app-card app-card-multi" style="padding: 1.5rem;">
+                                <img src="/assets/images/bpb/wireguard.png" alt="WireGuard" class="app-icon-img" style="width: 60px; height: 60px;">
+                                <h4 style="font-size: 1rem; margin: 0.5rem 0;">WireGuard</h4>
+                                <p class="app-desc" style="font-size: 0.8rem;">اپلیکیشن رسمی WireGuard</p>
+                                
+                                <div class="app-download-buttons">
+                                    <a href="https://www.wireguard.com/install/" target="_blank" class="download-btn" style="background: rgba(156, 163, 175, 0.15); border-color: rgba(156, 163, 175, 0.3); color: #9ca3af; padding: 0.5rem 0.75rem; font-size: 0.8rem;">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                            <polyline points="7 10 12 15 17 10"></polyline>
+                                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                                        </svg>
+                                        دانلود برای همه پلتفرم‌ها
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- WGTunnel App (Android Only) -->
+                            <div class="app-card app-card-multi" style="padding: 1.5rem;">
+                                <img src="/assets/images/bpb/wgTunnel.png" alt="WGTunnel" class="app-icon-img" style="width: 60px; height: 60px;">
+                                <h4 style="font-size: 1rem; margin: 0.5rem 0;">WGTunnel</h4>
+                                <p class="app-desc" style="font-size: 0.8rem;">نسخه پیشرفته (فقط اندروید)</p>
+                                
+                                <div class="app-download-buttons">
+                                    <a href="https://github.com/wgtunnel/wgtunnel/releases/tag/4.1.5" target="_blank" class="download-btn" style="background: rgba(156, 163, 175, 0.15); border-color: rgba(156, 163, 175, 0.3); color: #9ca3af; padding: 0.5rem 0.75rem; font-size: 0.8rem;">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                                        </svg>
+                                        دانلود از GitHub
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="info-box">
+                            <div class="info-icon">
+                                <svg viewBox="0 0 24 24" fill="none">
+                                    <path opacity="0.4" d="M7.37 22H16.62C19.31 22 21.49 19.82 21.49 17.13V8.37C21.49 5.68 19.31 3.5 16.62 3.5H7.37C4.68 3.5 2.5 5.68 2.5 8.37V17.12C2.5 19.82 4.68 22 7.37 22Z" fill="#1f6fd1"/>
+                                    <path d="M8.28906 6.29C7.86906 6.29 7.53906 5.95 7.53906 5.54V2.75C7.53906 2.34 7.86906 2 8.28906 2C8.70906 2 9.03906 2.34 9.03906 2.75V5.53C9.03906 5.95 8.70906 6.29 8.28906 6.29Z" fill="#1f6fd1"/>
+                                    <path d="M15.7109 6.29C15.2909 6.29 14.9609 5.95 14.9609 5.54V2.75C14.9609 2.33 15.3009 2 15.7109 2C16.1309 2 16.4609 2.34 16.4609 2.75V5.53C16.4609 5.95 16.1309 6.29 15.7109 6.29Z" fill="#1f6fd1"/>
+                                    <path d="M14.7794 13.71H7.35938C6.93938 13.71 6.60938 13.37 6.60938 12.96C6.60938 12.55 6.94938 12.21 7.35938 12.21H14.7794C15.1994 12.21 15.5294 12.55 15.5294 12.96C15.5294 13.37 15.1994 13.71 14.7794 13.71Z" fill="#1f6fd1"/>
+                                    <path d="M11.9994 17.4199H7.35938C6.93938 17.4199 6.60938 17.0799 6.60938 16.6699C6.60938 16.2499 6.94938 15.9199 7.35938 15.9199H11.9994C12.4194 15.9199 12.7494 16.2599 12.7494 16.6699C12.7494 17.0799 12.4194 17.4199 11.9994 17.4199Z" fill="#1f6fd1"/>
+                                </svg>
+                            </div>
+                            <div class="info-content">
+                                <strong>دریافت کانفیگ وارپ:</strong> برای دریافت کانفیگ WireGuard وارپ، می‌توانید از ربات تلگرام <a href="https://t.me/generatewarpplusbot" target="_blank" style="color: #22c55e; text-decoration: none; font-weight: 600;">@generatewarpplusbot</a> استفاده کنید.
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- IP Scanner Section -->
+                    <section id="ip-scanner" class="content-section">
+                        <h2>
+                            <div class="yellow-icon" style="display: inline-block; vertical-align: middle; margin-left: 0.5rem;">
+                                <svg viewBox="0 0 24 24" fill="none">
+                                    <path stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19v-8m-3 7v-7c0-1 .6-3 3-3s3 2 3 3v6m-9-3v-3c0-2 1.2-6 6-6s6 4 6 6m0 4v-1M6.001 17H6M7 3H5a2 2 0 0 0-2 2v2m0 10v2a2 2 0 0 0 2 2h2m10 0h2a2 2 0 0 0 2-2v-2m0-10V5a2 2 0 0 0-2-2h-2"/>
+                                </svg>
+                            </div>
+                            آیپی اسکنر (آیپی تمیز کلودفلر)
+                        </h2>
+                        <p>آیپی اسکنر ابزاری است که به شما کمک می‌کند بهترین و سریع‌ترین آیپی‌های کلودفلر را برای اتصال پیدا کنید.</p>
+                        
+                        <h3>چرا به آیپی تمیز نیاز داریم؟</h3>
+                        <ul class="feature-list">
+                            <li>
+                                <span class="feature-icon"></span>
+                                <div>
+                                    <strong>سرعت بالاتر:</strong> آیپی‌های تمیز سرعت اتصال بهتری دارند
+                                </div>
+                            </li>
+                            <li>
+                                <span class="feature-icon"></span>
+                                <div>
+                                    <strong>پایداری بیشتر:</strong> اتصال پایدارتر و قطعی کمتر
+                                </div>
+                            </li>
+                            <li>
+                                <span class="feature-icon"></span>
+                                <div>
+                                    <strong>دور زدن محدودیت‌ها:</strong> کمک به عبور از فیلترینگ
+                                </div>
+                            </li>
+                        </ul>
+
+                        <h3>ابزارهای اسکن IP</h3>
+                        
+                        <!-- Cloudflare Scanner -->
+                        <div class="cta-box">
+                            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                                <img src="/assets/images/bpb/cf.svg" alt="Cloudflare" style="width: 48px; height: 48px;">
+                                <div>
+                                    <h3 style="margin: 0 0 0.5rem 0;">Cloudflare Scanner</h3>
+                                    <div style="display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;">
+                                        <div style="display: flex; align-items: center; gap: 0.3rem; font-size: 0.85rem; color: rgba(255, 255, 255, 0.7);">
+                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                                                <path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801"/>
+                                            </svg>
+                                            <span>ویندوز</span>
+                                        </div>
+                                        <div style="display: flex; align-items: center; gap: 0.3rem; font-size: 0.85rem; color: rgba(255, 255, 255, 0.7);">
+                                            <svg width="14" height="14" viewBox="0 0 17 17" fill="#000000">
+                                                <path d="M13.849 15.25c-0.509 0.26-1.188 0.832-1.438 1.072-0.188 0.179-0.964 0.269-1.402 0.045-0.509-0.26-0.241-0.671-1.027-0.696-0.393-0.010-0.777-0.010-1.161-0.010-0.339 0.010-0.678 0.027-1.027 0.035-1.178 0.027-1.294 0.787-2.054 0.76-0.518-0.018-1.169-0.429-2.295-0.66-0.786-0.162-1.544-0.205-1.706-0.554-0.16-0.349 0.197-0.741 0.223-1.080 0.027-0.456-0.339-1.072-0.071-1.305 0.232-0.205 0.723-0.054 1.044-0.231 0.339-0.196 0.482-0.349 0.482-0.768 0.125 0.427-0.009 0.775-0.286 0.945-0.17 0.107-0.482 0.161-0.742 0.135-0.205-0.019-0.33 0.008-0.384 0.089-0.080 0.098-0.054 0.277 0.045 0.509 0.098 0.232 0.214 0.384 0.196 0.669-0.009 0.286-0.33 0.626-0.276 0.867 0.018 0.090 0.107 0.17 0.33 0.232 0.357 0.098 1.009 0.196 1.643 0.349 0.706 0.178 1.438 0.499 1.894 0.437 1.357-0.188 0.58-1.643 0.366-1.99-1.152-1.805-1.911-2.983-2.518-2.519-0.152 0.125-0.161-0.304-0.152-0.474 0.027-0.59 0.322-0.803 0.5-1.259 0.339-0.867 0.598-1.857 1.116-2.366 0.387-0.501 0.994-1.313 1.111-1.741-0.099-0.929-0.126-1.911-0.143-2.767-0.018-0.92 0.125-1.725 1.161-2.286 0.249-0.135 0.579-0.188 0.928-0.188 0.616-0.010 1.303 0.17 1.741 0.491 0.697 0.518 1.134 1.616 1.081 2.401-0.036 0.616 0.071 1.25 0.268 1.911 0.232 0.777 0.599 1.321 1.188 1.946 0.706 0.75 1.259 2.223 1.42 3.16 0.143 0.877-0.054 1.421-0.241 1.448-0.286 0.043-0.464 0.945-1.357 0.91-0.571-0.027-0.625-0.366-0.786-0.661-0.259-0.455-0.518-0.312-0.616 0.17-0.054 0.241-0.019 0.599 0.062 0.865 0.161 0.563 0.107 1.090 0.009 1.742-0.188 1.232 0.866 1.464 1.572 0.874 0.696-0.579 0.848-0.669 1.723-0.973 1.33-0.456 0.884-0.857 0.169-1.098-0.643-0.215-0.669-1.296-0.438-1.501 0.054 1.161 0.661 1.331 0.911 1.491 1.098 0.681-0.411 1.244-1.063 1.574zM12.349 10.938c0.241-0.805 0.134-1.125-0.026-1.885-0.125-0.571-0.652-1.349-1.063-1.589 0.107 0.089 0.304 0.348 0.509 0.74 0.357 0.671 0.714 1.661 0.482 2.483-0.089 0.32-0.303 0.365-0.446 0.374-0.625 0.072-0.259-0.75-0.518-1.865-0.295-1.251-0.598-1.34-0.669-1.438-0.368-1.624-0.769-1.463-0.886-2.070-0.098-0.545 0.474-0.991-0.303-1.143-0.241-0.045-0.58-0.286-0.714-0.304-0.134-0.017-0.206-0.902 0.294-0.929 0.491-0.036 0.581 0.554 0.491 0.787-0.142 0.231 0.009 0.321 0.251 0.24 0.196-0.062 0.071-0.58 0.116-0.651-0.125-0.75-0.438-0.857-0.759-0.92-1.233 0.098-0.679 1.456-0.804 1.331-0.179-0.188-0.696-0.018-0.696-0.135 0.009-0.696-0.224-1.098-0.545-1.107-0.357-0.009-0.5 0.491-0.518 0.776-0.027 0.268 0.152 0.832 0.286 0.787 0.089-0.027 0.241-0.206 0.080-0.196-0.080 0-0.205-0.197-0.223-0.429-0.009-0.233 0.081-0.465 0.384-0.456 0.348 0.009 0.348 0.705 0.312 0.732-0.115 0.080-0.259 0.233-0.277 0.259-0.115 0.188-0.338 0.24-0.428 0.322-0.152 0.16-0.187 0.339-0.071 0.401 0.41 0.232 0.276 0.499 0.848 0.519 0.375 0.018 0.651-0.054 0.911-0.134 0.196-0.062 0.831-0.196 0.964-0.429 0.062-0.098 0.134-0.098 0.178-0.071 0.089 0.044 0.107 0.214-0.116 0.268-0.312 0.090-0.625 0.26-0.91 0.367-0.277 0.115-0.366 0.16-0.625 0.204-0.589 0.107-1.026-0.214-0.634 0.17 0.134 0.125 0.259 0.205 0.598 0.197 0.75-0.027 1.581-0.93 1.661-0.528 0.017 0.089-0.233 0.196-0.429 0.295-0.696 0.339-1.187 1.018-1.634 0.785-0.402-0.214-0.803-1.206-0.795-0.758 0.009 0.687-0.902 1.294-0.482 2.080-0.277 0.070-0.893 1.384-0.982 2.062-0.054 0.393 0.036 0.875-0.063 1.143-0.134 0.393-0.741-0.375-0.544-1.312 0.035-0.16 0-0.197-0.045-0.115-0.241 0.437-0.107 1.053 0.089 1.481 0.081 0.188 0.286 0.268 0.438 0.429 0.312 0.356 1.544 1.268 1.759 1.491 0.277 0.259 0.197 0.865-0.375 0.928 0.295 0.554 0.58 0.608 0.572 1.509 0.339-0.178 0.206-0.571 0.062-0.82-0.099-0.18-0.223-0.26-0.197-0.304 0.018-0.027 0.197-0.18 0.295-0.062 0.303 0.339 0.875 0.401 1.482 0.321 0.616-0.072 1.277-0.286 1.58-0.777 0.143-0.232 0.241-0.312 0.304-0.268 0.071 0.035 0.099 0.196 0.089 0.464-0.009 0.286-0.125 0.581-0.205 0.822-0.081 0.277-0.107 0.464 0.161 0.474 0.071-0.501 0.214-0.992 0.25-1.492 0.045-0.571-0.366-1.624 0.081-2.152 0.116-0.143 0.258-0.16 0.455-0.16 0.026-0.715 1.125-0.66 1.491-0.366 0-0.162-0.348-0.313-0.491-0.376zM5.063 8.367c-0.063 0.115-0.223 0.204-0.099 0.223 0.045 0.009 0.17-0.1 0.224-0.223 0.044-0.152 0.089-0.233 0.018-0.26-0.081-0.026-0.063 0.134-0.143 0.26zM7.107 3.527c-0.107-0.027-0.089 0.133-0.035 0.116 0.036 0 0.081 0.054 0.062 0.134-0.018 0.107-0.009 0.18 0.072 0.18 0.009 0 0.026 0 0.026-0.027 0.037-0.225-0.071-0.385-0.125-0.403zM7.349 4.348c-0.089 0.009-0.072-0.197 0.214-0.179-0.179 0.018-0.116 0.179-0.214 0.179zM8.081 4.196c0.259-0.115 0.348 0.063 0.259 0.099-0.090 0.026-0.099-0.144-0.259-0.099zM9.161 3.473c-0.116 0.010-0.080 0.062-0.026 0.080 0.071 0.020 0.143 0.144 0.161 0.277 0 0.018 0.089-0.018 0.089-0.045 0.008-0.213-0.179-0.32-0.224-0.312zM9.679 1.545c-0.071-0.072-0.143-0.135-0.214-0.135-0.179 0.018-0.090 0.205-0.116 0.295-0.036 0.098-0.169 0.179-0.080 0.25 0.081 0.062 0.134-0.098 0.304-0.16 0.044-0.019 0.25 0.008 0.294-0.090 0.008-0.045-0.107-0.098-0.188-0.16zM10.67 5.49c-0.169-0.106-0.205-0.285-0.267-0.223-0.188 0.205 0.232 0.634 0.41 0.671 0.107 0.018 0.188-0.126 0.161-0.251-0.036-0.169-0.161-0.107-0.304-0.197z"/>
+                                            </svg>
+                                            <span>لینوکس</span>
+                                        </div>
+                                        <div style="display: flex; align-items: center; gap: 0.3rem; font-size: 0.85rem; color: rgba(255, 255, 255, 0.7);">
+                                            <svg width="14" height="14" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M56 44v4H8v-4a24 24 0 0 1 48 0z"></path>
+                                                <line x1="46.85" y1="25.15" x2="56" y2="16"></line>
+                                                <line x1="17.15" y1="25.15" x2="8" y2="16"></line>
+                                                <line x1="24" y1="32" x2="24" y2="36"></line>
+                                                <line x1="40" y1="32" x2="40" y2="36"></line>
+                                            </svg>
+                                            <span>اندروید</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <p>ابزار قدرتمند برای اسکن و پیدا کردن بهترین آیپی‌های کلودفلر با قابلیت تست سرعت و تاخیر</p>
+                            <a href="https://github.com/Ptechgithub/CloudflareScanner/releases" target="_blank" class="cta-button">
+                                <img src="/assets/images/bpb/cf.svg" alt="Download" style="width: 20px; height: 20px;">
+                                دانلود Cloudflare Scanner
+                            </a>
+                        </div>
+
+                        <!-- Termux Tutorial -->
+                        <div id="ip-scanner-termux" class="tutorial-box" style="background: rgba(20, 20, 20, 0.6); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; padding: 2rem; margin-top: 2rem; width: 100%; box-sizing: border-box;">
+                            <div style="display: flex; align-items: center; justify-content: space-between; cursor: pointer;" onclick="toggleTermuxTutorial()">
+                                <div style="display: flex; align-items: center; gap: 1rem; flex: 1; min-width: 0;">
+                                    <img src="/assets/images/bpb/Termux.svg" alt="Termux" style="width: 48px; height: 48px; flex-shrink: 0;">
+                                    <h3 style="margin: 0;">آموزش پیدا کردن IP تمیز با ترموکس</h3>
+                                </div>
+                                <div id="termuxArrowContainer" style="width: 40px; height: 40px; flex-shrink: 0; border-radius: 50%; background: rgba(157, 9, 19, 0.2); backdrop-filter: blur(10px); border: 1px solid rgba(157, 9, 19, 0.3); display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;">
+                                    <svg id="termuxArrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9D0913" stroke-width="2.5" style="transition: transform 0.3s ease;">
+                                        <polyline points="6 9 12 15 18 9"></polyline>
+                                    </svg>
+                                </div>
+                            </div>
+                            
+                            <div id="termuxContent" style="display: none; margin-top: 0; max-height: 0; overflow: hidden; opacity: 0; transition: all 0.4s ease; width: 100%; box-sizing: border-box;">
+                                <p style="margin-bottom: 1.5rem;">با استفاده از Termux می‌توانید به راحتی بهترین IP های کلودفلر را پیدا کنید. این روش برای کاربران اندروید بسیار مفید است.</p>
+                                
+                                <div class="tutorial-steps" style="margin-bottom: 1.5rem;">
+                                    <h4 style="color: #22c55e; margin-bottom: 1rem;">مراحل نصب:</h4>
+                                    
+                                    <div style="background: rgba(0, 0, 0, 0.3); border-radius: 12px; padding: 1.5rem; margin-bottom: 1rem;">
+                                        <p style="margin-bottom: 0.5rem;"><strong>۱. نصب Termux:</strong></p>
+                                        <p style="margin-bottom: 1rem; color: rgba(255, 255, 255, 0.7);">ابتدا اپلیکیشن Termux را از GitHub دانلود و نصب کنید</p>
+                                        <a href="https://github.com/termux/termux-app/releases" target="_blank" class="cta-button" style="display: inline-flex; padding: 0.75rem 1.5rem; font-size: 0.9rem;">
+                                            <img src="/assets/images/bpb/Termux.svg" alt="Download" style="width: 16px; height: 16px;">
+                                            دانلود Termux
+                                        </a>
+                                    </div>
+
+                                    <div style="background: rgba(0, 0, 0, 0.3); border-radius: 12px; padding: 1.5rem; margin-bottom: 1rem;">
+                                        <p style="margin-bottom: 0.5rem;"><strong>۲. به‌روزرسانی پکیج‌ها:</strong></p>
+                                        <p style="margin-bottom: 0.5rem; color: rgba(255, 255, 255, 0.7);">پس از نصب Termux، دستور زیر را وارد کنید:</p>
+                                        <div style="background: rgba(0, 0, 0, 0.5); border-radius: 8px; padding: 1rem; font-family: monospace; color: #22c55e; margin-top: 0.5rem; position: relative;">
+                                            <button onclick="event.stopPropagation(); navigator.clipboard.writeText('pkg upgrade'); this.innerHTML='<svg width=\'16\' height=\'16\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'2\'><polyline points=\'20 6 9 17 4 12\'></polyline></svg>'; setTimeout(() => this.innerHTML='<svg width=\'16\' height=\'16\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'2\'><rect x=\'9\' y=\'9\' width=\'13\' height=\'13\' rx=\'2\' ry=\'2\'></rect><path d=\'M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1\'></path></svg>', 2000)" style="position: absolute; left: 0.5rem; top: 0.5rem; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2); color: #ffffff; padding: 0.4rem; border-radius: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 10; transition: all 0.3s ease;">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                                </svg>
+                                            </button>
+                                            <code style="display: block; padding-right: 2.5rem; white-space: pre-wrap; word-break: break-word;">pkg upgrade</code>
+                                        </div>
+                                    </div>
+
+                                    <div style="background: rgba(0, 0, 0, 0.3); border-radius: 12px; padding: 1.5rem; margin-bottom: 1rem;">
+                                        <p style="margin-bottom: 0.5rem;"><strong>۳. نصب اسکریپت:</strong></p>
+                                        <p style="margin-bottom: 0.5rem; color: rgba(255, 255, 255, 0.7);">دستور زیر را برای نصب اسکریپت اسکنر وارد کنید:</p>
+                                        <div style="background: rgba(0, 0, 0, 0.5); border-radius: 8px; padding: 1rem; font-family: monospace; color: #22c55e; margin-top: 0.5rem; position: relative;">
+                                            <button onclick="event.stopPropagation(); navigator.clipboard.writeText('bash <(curl -fsSL https://raw.githubusercontent.com/Ptechgithub/warp/main/endip/install.sh)'); this.innerHTML='<svg width=\'16\' height=\'16\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'2\'><polyline points=\'20 6 9 17 4 12\'></polyline></svg>'; setTimeout(() => this.innerHTML='<svg width=\'16\' height=\'16\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'2\'><rect x=\'9\' y=\'9\' width=\'13\' height=\'13\' rx=\'2\' ry=\'2\'></rect><path d=\'M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1\'></path></svg>', 2000)" style="position: absolute; left: 0.5rem; top: 0.5rem; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2); color: #ffffff; padding: 0.4rem; border-radius: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 10; transition: all 0.3s ease;">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                                </svg>
+                                            </button>
+                                            <code style="display: block; padding-right: 2.5rem; white-space: pre-wrap; word-break: break-word; user-select: all;">bash &lt;(curl -fsSL https://raw.githubusercontent.com/Ptechgithub/warp/main/endip/install.sh)</code>
+                                        </div>
+                                    </div>
+
+                                <div style="background: rgba(0, 0, 0, 0.3); border-radius: 12px; padding: 1.5rem;">
+                                    <p style="margin-bottom: 0.5rem;"><strong>۴. انتخاب نوع IP:</strong></p>
+                                    <p style="margin-bottom: 1rem; color: rgba(255, 255, 255, 0.7);">پس از اجرای اسکریپت، یکی از گزینه‌های زیر را انتخاب کنید:</p>
+                                    <ul style="list-style: none; padding: 0; margin: 0;">
+                                        <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
+                                            <code style="color: #22c55e;">[1]</code> <strong>Preferred IPV4</strong> - برای اسکن IPv4
+                                        </li>
+                                        <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
+                                            <code style="color: #22c55e;">[2]</code> <strong>Preferred IPV6</strong> - برای اسکن IPv6
+                                        </li>
+                                        <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
+                                            <code style="color: #22c55e;">[3]</code> <strong>Free Config Wgcf</strong> - دریافت کانفیگ رایگان
+                                        </li>
+                                        <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
+                                            <code style="color: #22c55e;">[4]</code> <strong>Install wire-g</strong> - نصب wire-g
+                                        </li>
+                                        <li style="padding: 0.5rem 0;">
+                                            <code style="color: #22c55e;">[5]</code> <strong>License Cloner</strong> - کلون کردن لایسنس
+                                        </li>
+                                    </ul>
+                                </div>
+                                </div>
+
+                                <div class="info-box" style="margin-top: 1.5rem;">
+                                    <div class="info-icon">
+                                <svg viewBox="0 0 24 24" fill="none">
+                                    <path opacity="0.4" d="M7.37 22H16.62C19.31 22 21.49 19.82 21.49 17.13V8.37C21.49 5.68 19.31 3.5 16.62 3.5H7.37C4.68 3.5 2.5 5.68 2.5 8.37V17.12C2.5 19.82 4.68 22 7.37 22Z" fill="#1f6fd1"/>
+                                    <path d="M8.28906 6.29C7.86906 6.29 7.53906 5.95 7.53906 5.54V2.75C7.53906 2.34 7.86906 2 8.28906 2C8.70906 2 9.03906 2.34 9.03906 2.75V5.53C9.03906 5.95 8.70906 6.29 8.28906 6.29Z" fill="#1f6fd1"/>
+                                    <path d="M15.7109 6.29C15.2909 6.29 14.9609 5.95 14.9609 5.54V2.75C14.9609 2.33 15.3009 2 15.7109 2C16.1309 2 16.4609 2.34 16.4609 2.75V5.53C16.4609 5.95 16.1309 6.29 15.7109 6.29Z" fill="#1f6fd1"/>
+                                    <path d="M14.7794 13.71H7.35938C6.93938 13.71 6.60938 13.37 6.60938 12.96C6.60938 12.55 6.94938 12.21 7.35938 12.21H14.7794C15.1994 12.21 15.5294 12.55 15.5294 12.96C15.5294 13.37 15.1994 13.71 14.7794 13.71Z" fill="#1f6fd1"/>
+                                    <path d="M11.9994 17.4199H7.35938C6.93938 17.4199 6.60938 17.0799 6.60938 16.6699C6.60938 16.2499 6.94938 15.9199 7.35938 15.9199H11.9994C12.4194 15.9199 12.7494 16.2599 12.7494 16.6699C12.7494 17.0799 12.4194 17.4199 11.9994 17.4199Z" fill="#1f6fd1"/>
+                                </svg>
+                            </div>
+                                    <div class="info-content">
+                                        <strong>نکته:</strong> برای اکثر کاربران، انتخاب گزینه <code style="color: #22c55e;">[1]</code> برای IPv4 توصیه می‌شود. پس از اسکن، بهترین IP ها به شما نمایش داده می‌شوند.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="info-box" style="margin-top: 2rem;">
+                            <div class="info-icon">
+                                <svg viewBox="0 0 24 24" fill="none">
+                                    <path opacity="0.4" d="M7.37 22H16.62C19.31 22 21.49 19.82 21.49 17.13V8.37C21.49 5.68 19.31 3.5 16.62 3.5H7.37C4.68 3.5 2.5 5.68 2.5 8.37V17.12C2.5 19.82 4.68 22 7.37 22Z" fill="#1f6fd1"/>
+                                    <path d="M8.28906 6.29C7.86906 6.29 7.53906 5.95 7.53906 5.54V2.75C7.53906 2.34 7.86906 2 8.28906 2C8.70906 2 9.03906 2.34 9.03906 2.75V5.53C9.03906 5.95 8.70906 6.29 8.28906 6.29Z" fill="#1f6fd1"/>
+                                    <path d="M15.7109 6.29C15.2909 6.29 14.9609 5.95 14.9609 5.54V2.75C14.9609 2.33 15.3009 2 15.7109 2C16.1309 2 16.4609 2.34 16.4609 2.75V5.53C16.4609 5.95 16.1309 6.29 15.7109 6.29Z" fill="#1f6fd1"/>
+                                    <path d="M14.7794 13.71H7.35938C6.93938 13.71 6.60938 13.37 6.60938 12.96C6.60938 12.55 6.94938 12.21 7.35938 12.21H14.7794C15.1994 12.21 15.5294 12.55 15.5294 12.96C15.5294 13.37 15.1994 13.71 14.7794 13.71Z" fill="#1f6fd1"/>
+                                    <path d="M11.9994 17.4199H7.35938C6.93938 17.4199 6.60938 17.0799 6.60938 16.6699C6.60938 16.2499 6.94938 15.9199 7.35938 15.9199H11.9994C12.4194 15.9199 12.7494 16.2599 12.7494 16.6699C12.7494 17.0799 12.4194 17.4199 11.9994 17.4199Z" fill="#1f6fd1"/>
+                                </svg>
+                            </div>
+                            <div class="info-content">
+                                <strong>نکته:</strong> برای یافتن بهترین آیپی، از ابزارهای اسکنر استفاده کنید و آیپی‌های مختلف را تست کنید تا بهترین گزینه را پیدا کنید.
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Proxy IP Section -->
+                    <section id="proxy-ip" class="content-section">
+                        <h2>
+                            <div class="yellow-icon" style="display: inline-block; vertical-align: middle; margin-left: 0.5rem;">
+                                <svg viewBox="0 0 32 32" fill="none">
+                                    <path d="M12,31H10a5,5,0,0,1-5-5V16H7V26a3,3,0,0,0,3,3h2a3,3,0,0,0,3-3V6a5,5,0,0,1,5-5h2a5,5,0,0,1,5,5V16H25V6a3,3,0,0,0-3-3H20a3,3,0,0,0-3,3V26A5,5,0,0,1,12,31Z" fill="#ffffff"/>
+                                    <path d="M10,5H2A1,1,0,0,0,1,6v6a5,5,0,0,0,10,0V6A1,1,0,0,0,10,5Z" fill="#ffffff"/>
+                                    <rect height="6" rx="1" ry="1" width="7" x="2.5" y="1" fill="#ffffff"/>
+                                    <path d="M10,5H2A1,1,0,0,0,1,6V9H11V6A1,1,0,0,0,10,5Z" fill="#eab308"/>
+                                    <path d="M26,15a5,5,0,0,0-5,5v6a1,1,0,0,0,1,1h8a1,1,0,0,0,1-1V20A5,5,0,0,0,26,15Z" fill="#ffffff"/>
+                                    <rect height="6" rx="1" ry="1" width="7" x="22.5" y="25" fill="#ffffff"/>
+                                    <path d="M21,23v3a1,1,0,0,0,1,1h8a1,1,0,0,0,1-1V23Z" fill="#eab308"/>
+                                </svg>
+                            </div>
+                            فیکس آیپی (پروکسی)
+                        </h2>
+                        <p>زنجیره‌ی Proxy یکی از قابلیت‌های پیشرفته BPB Panel است که به شما امکان می‌دهد یک IP ثابت برای اتصالات خود داشته باشید.</p>
+                        
+                        <h3>چرا به Proxy IP نیاز داریم؟</h3>
+                        <ul class="feature-list">
+                            <li>
+                                <span class="feature-icon"></span>
+                                <div>
+                                    <strong>IP ثابت:</strong> با استفاده از Proxy زنجیره‌ای، IP شما ثابت می‌ماند
+                                </div>
+                            </li>
+                            <li>
+                                <span class="feature-icon"></span>
+                                <div>
+                                    <strong>امنیت بیشتر:</strong> لایه امنیتی اضافی برای اتصال شما
+                                </div>
+                            </li>
+                            <li>
+                                <span class="feature-icon"></span>
+                                <div>
+                                    <strong>دور زدن محدودیت‌ها:</strong> عبور از محدودیت‌های IP-based
+                                </div>
+                            </li>
+                        </ul>
+
+                        <h3>نحوه وارد کردن Proxy در پنل BPB</h3>
+                        <p>برای ست کردن پروکسی روی پنل BPB، باید اطلاعات Proxy را در قسمت مشخص شده در پنل وارد کنید به صورت هر خط یک آدرس:</p>
+                        
+                        <!-- Proxy Setup Image -->
+                        <div class="wizard-image-container" style="margin: 2rem 0; max-width: 600px;">
+                            <img src="/assets/images/bpb/proxy1.png" alt="نحوه وارد کردن Proxy در پنل BPB" class="wizard-image" style="max-width: 100%;">
+                            <p style="text-align: center; color: rgba(255, 255, 255, 0.7); font-size: 0.9rem; margin-top: 1rem;">
+                                محل وارد کردن اطلاعات Proxy در پنل BPB
+                            </p>
+                        </div>
+
+                        <h3>ابزارهای پیدا کردن Proxy IP</h3>
+                        <p>برای پیدا کردن و استفاده از Proxy IP مناسب، می‌توانید از ابزارهای زیر استفاده کنید:</p>
+                        
+                        <div class="cta-box">
+                            <h3>🌐 Proxy IPs Finder</h3>
+                            <p>ابزار جامع برای پیدا کردن و تست Proxy IP های مختلف با قابلیت فیلتر بر اساس کشور، سرعت و پروتکل</p>
+                            <a href="https://proxy-ips.pages.dev/" target="_blank" class="cta-button">
+                                دسترسی به Proxy IPs Finder
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                    <polyline points="15 3 21 3 21 9"></polyline>
+                                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                                </svg>
+                            </a>
+                        </div>
+
+                        <div class="cta-box">
+                            <h3>🔍 Smart IP Scanner</h3>
+                            <p>اسکنر هوشمند برای یافتن بهترین IP ها با قابلیت تست سرعت و پینگ به صورت خودکار</p>
+                            <a href="https://smart-ip-scanner.10-354.workers.dev/" target="_blank" class="cta-button">
+                                دسترسی به Smart IP Scanner
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                    <polyline points="15 3 21 3 21 9"></polyline>
+                                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                                </svg>
+                            </a>
+                        </div>
+
+                        <div class="info-box">
+                            <div class="info-icon">
+                                <svg viewBox="0 0 24 24" fill="none">
+                                    <path opacity="0.4" d="M7.37 22H16.62C19.31 22 21.49 19.82 21.49 17.13V8.37C21.49 5.68 19.31 3.5 16.62 3.5H7.37C4.68 3.5 2.5 5.68 2.5 8.37V17.12C2.5 19.82 4.68 22 7.37 22Z" fill="#1f6fd1"/>
+                                    <path d="M8.28906 6.29C7.86906 6.29 7.53906 5.95 7.53906 5.54V2.75C7.53906 2.34 7.86906 2 8.28906 2C8.70906 2 9.03906 2.34 9.03906 2.75V5.53C9.03906 5.95 8.70906 6.29 8.28906 6.29Z" fill="#1f6fd1"/>
+                                    <path d="M15.7109 6.29C15.2909 6.29 14.9609 5.95 14.9609 5.54V2.75C14.9609 2.33 15.3009 2 15.7109 2C16.1309 2 16.4609 2.34 16.4609 2.75V5.53C16.4609 5.95 16.1309 6.29 15.7109 6.29Z" fill="#1f6fd1"/>
+                                    <path d="M14.7794 13.71H7.35938C6.93938 13.71 6.60938 13.37 6.60938 12.96C6.60938 12.55 6.94938 12.21 7.35938 12.21H14.7794C15.1994 12.21 15.5294 12.55 15.5294 12.96C15.5294 13.37 15.1994 13.71 14.7794 13.71Z" fill="#1f6fd1"/>
+                                    <path d="M11.9994 17.4199H7.35938C6.93938 17.4199 6.60938 17.0799 6.60938 16.6699C6.60938 16.2499 6.94938 15.9199 7.35938 15.9199H11.9994C12.4194 15.9199 12.7494 16.2599 12.7494 16.6699C12.7494 17.0799 12.4194 17.4199 11.9994 17.4199Z" fill="#1f6fd1"/>
+                                </svg>
+                            </div>
+                            <div class="info-content">
+                                <strong>نکته:</strong> استفاده از Proxy زنجیره‌ای می‌تواند سرعت اتصال را کمی کاهش دهد، اما در عوض امنیت و پایداری بیشتری به شما می‌دهد.
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Apps Section -->
+                    <section id="apps" class="content-section">
+                        <h2>
+                            <div class="yellow-icon" style="display: inline-block; vertical-align: middle; margin-left: 0.5rem;">
+                                <svg viewBox="0 0 48 48" fill="none">
+                                    <g style="isolation:isolate;">
+                                        <polygon points="40.9004 14.2733 40.8452 33.7266 24.0605 43.5 24.0605 24.0467 40.9004 14.2733" fill="none" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+                                        <polygon points="24.0605 24.0467 24.0605 43.5 7.0996 33.7267 7.1548 14.2734 24.0605 24.0467" fill="none" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+                                        <polygon points="40.9004 14.2733 24.0605 24.0467 7.1548 14.2734 23.9726 4.5 40.9004 14.2733" fill="none" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+                                    </g>
+                                    <polyline points="20.0826 6.7606 20.0826 27.2473 13.5602 27.2473 24.0605 37.7228 34.2361 27.2592 28.0826 27.2473 28.0826 6.8729" fill="none" stroke="#eab308" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+                                </svg>
+                            </div>
+                            برنامه‌های مورد نیاز
+                        </h2>
+                        <p>برای استفاده از سرور‌های پنل BPB، به اپلیکیشن‌های زیر نیاز دارید:</p>
+                        
+                        <div class="apps-grid">
+                            <!-- iOS Apps -->
+                            <a href="https://apps.apple.com/us/app/happ-proxy-utility/id6504287215" target="_blank" class="app-card">
+                                <img src="/assets/images/app-icon/Happ.webp" alt="Happ" class="app-icon-img">
+                                <h4>Happ</h4>
+                                <div class="app-platform-wrapper">
+                                    <svg class="platform-icon" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+                                    </svg>
+                                    <span>iOS</span>
+                                </div>
+                            </a>
+                            
+                            <a href="https://apps.apple.com/us/app/streisand/id6450534064" target="_blank" class="app-card">
+                                <img src="/assets/images/app-icon/streisand.webp" alt="Streisand" class="app-icon-img">
+                                <h4>Streisand</h4>
+                                <div class="app-platform-wrapper">
+                                    <svg class="platform-icon" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+                                    </svg>
+                                    <span>iOS</span>
+                                </div>
+                            </a>
+                            
+                            <a href="https://apps.apple.com/us/app/v2box-v2ray-client/id6446814690" target="_blank" class="app-card">
+                                <img src="/assets/images/app-icon/v2box.png" alt="V2Box" class="app-icon-img">
+                                <h4>V2Box</h4>
+                                <div class="app-platform-wrapper">
+                                    <svg class="platform-icon" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+                                    </svg>
+                                    <span>iOS</span>
+                                </div>
+                            </a>
+                            
+                            <!-- Windows App -->
+                            <a href="https://github.com/lowercase78/V2RayN-PRO/releases/tag/V2RayN-PROV1.9" target="_blank" class="app-card">
+                                <img src="/assets/images/app-icon/v2rayN-Pro.png" alt="v2rayN-Pro" class="app-icon-img">
+                                <h4>v2rayN-Pro</h4>
+                                <div class="app-platform-wrapper">
+                                    <svg class="platform-icon" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801"/>
+                                    </svg>
+                                    <span>ویندوز</span>
+                                </div>
+                            </a>
+                            
+                            <!-- Android Apps -->
+                            <a href="https://github.com/2dust/v2rayNG/releases" target="_blank" class="app-card">
+                                <img src="/assets/images/app-icon/v2rayNG.png" alt="v2rayNG" class="app-icon-img">
+                                <h4>v2rayNG</h4>
+                                <div class="app-platform-wrapper">
+                                    <svg class="platform-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M56 44v4H8v-4a24 24 0 0 1 48 0z"></path>
+                                        <line x1="46.85" y1="25.15" x2="56" y2="16"></line>
+                                        <line x1="17.15" y1="25.15" x2="8" y2="16"></line>
+                                        <line x1="24" y1="32" x2="24" y2="36"></line>
+                                        <line x1="40" y1="32" x2="40" y2="36"></line>
+                                    </svg>
+                                    <span>اندروید</span>
+                                </div>
+                            </a>
+                            
+                            <a href="https://play.google.com/store/apps/details?id=com.happproxy&pcampaignid=web_share" target="_blank" class="app-card">
+                                <img src="/assets/images/app-icon/Happ.webp" alt="Happ" class="app-icon-img">
+                                <h4>Happ</h4>
+                                <div class="app-platform-wrapper">
+                                    <svg class="platform-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M56 44v4H8v-4a24 24 0 0 1 48 0z"></path>
+                                        <line x1="46.85" y1="25.15" x2="56" y2="16"></line>
+                                        <line x1="17.15" y1="25.15" x2="8" y2="16"></line>
+                                        <line x1="24" y1="32" x2="24" y2="36"></line>
+                                        <line x1="40" y1="32" x2="40" y2="36"></line>
+                                    </svg>
+                                    <span>اندروید</span>
+                                </div>
+                            </a>
+                            
+                            <div class="app-card app-card-multi">
+                                <img src="/assets/images/app-icon/hiddify.png" alt="Hiddify" class="app-icon-img">
+                                <h4>Hiddify</h4>
+                                <div class="app-platform-wrapper">
+                                    <svg class="platform-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M56 44v4H8v-4a24 24 0 0 1 48 0z"></path>
+                                        <line x1="46.85" y1="25.15" x2="56" y2="16"></line>
+                                        <line x1="17.15" y1="25.15" x2="8" y2="16"></line>
+                                        <line x1="24" y1="32" x2="24" y2="36"></line>
+                                        <line x1="40" y1="32" x2="40" y2="36"></line>
+                                    </svg>
+                                    <span>اندروید</span>
+                                </div>
+                                <div class="app-download-buttons">
+                                    <a href="https://play.google.com/store/apps/details?id=app.hiddify.com" target="_blank" class="download-btn">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                            <polyline points="7 10 12 15 17 10"></polyline>
+                                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                                        </svg>
+                                        گوگل پلی
+                                    </a>
+                                    <a href="https://hiddify.com/fa/" target="_blank" class="download-btn download-btn-secondary">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <circle cx="12" cy="12" r="10"></circle>
+                                            <line x1="2" y1="12" x2="22" y2="12"></line>
+                                            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                                        </svg>
+                                        سایت رسمی
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="info-box">
+                            <div class="info-icon">
+                                <svg viewBox="0 0 24 24" fill="none">
+                                    <path opacity="0.4" d="M7.37 22H16.62C19.31 22 21.49 19.82 21.49 17.13V8.37C21.49 5.68 19.31 3.5 16.62 3.5H7.37C4.68 3.5 2.5 5.68 2.5 8.37V17.12C2.5 19.82 4.68 22 7.37 22Z" fill="#1f6fd1"/>
+                                    <path d="M8.28906 6.29C7.86906 6.29 7.53906 5.95 7.53906 5.54V2.75C7.53906 2.34 7.86906 2 8.28906 2C8.70906 2 9.03906 2.34 9.03906 2.75V5.53C9.03906 5.95 8.70906 6.29 8.28906 6.29Z" fill="#1f6fd1"/>
+                                    <path d="M15.7109 6.29C15.2909 6.29 14.9609 5.95 14.9609 5.54V2.75C14.9609 2.33 15.3009 2 15.7109 2C16.1309 2 16.4609 2.34 16.4609 2.75V5.53C16.4609 5.95 16.1309 6.29 15.7109 6.29Z" fill="#1f6fd1"/>
+                                    <path d="M14.7794 13.71H7.35938C6.93938 13.71 6.60938 13.37 6.60938 12.96C6.60938 12.55 6.94938 12.21 7.35938 12.21H14.7794C15.1994 12.21 15.5294 12.55 15.5294 12.96C15.5294 13.37 15.1994 13.71 14.7794 13.71Z" fill="#1f6fd1"/>
+                                    <path d="M11.9994 17.4199H7.35938C6.93938 17.4199 6.60938 17.0799 6.60938 16.6699C6.60938 16.2499 6.94938 15.9199 7.35938 15.9199H11.9994C12.4194 15.9199 12.7494 16.2599 12.7494 16.6699C12.7494 17.0799 12.4194 17.4199 11.9994 17.4199Z" fill="#1f6fd1"/>
+                                </svg>
+                            </div>
+                            <div class="info-content">
+                                <strong>توصیه:</strong> برای بهترین تجربه، از آخرین نسخه اپلیکیشن‌ها استفاده کنید و آن‌ها را از منابع معتبر دانلود نمایید.
+                            </div>
+                        </div>
+                    </section>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="/pwa/pwa-init.js"></script>
+    <script src="/js/bpb-guide.js"></script>
+    
+    <!-- Mobile Menu & Sidebar Script -->
+    <script>
+        // Run immediately and also on DOMContentLoaded
+        function initMenus() {
+            // Mobile Menu Toggle
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const mainNav = document.getElementById('mainNav');
+            
+            if (mobileMenuBtn && mainNav) {
+                
+                // Remove existing event listeners (if any)
+                const newMobileMenuBtn = mobileMenuBtn.cloneNode(true);
+                mobileMenuBtn.parentNode.replaceChild(newMobileMenuBtn, mobileMenuBtn);
+                
+                // Add new event listeners
+                newMobileMenuBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.classList.toggle('active');
+                    mainNav.classList.toggle('active');
+                });
+
+                // Close menu when clicking on a link
+                const navItems = mainNav.querySelectorAll('.nav-item');
+                navItems.forEach(item => {
+                    item.addEventListener('click', function() {
+                        newMobileMenuBtn.classList.remove('active');
+                        mainNav.classList.remove('active');
+                    });
+                });
+
+                // Close menu when clicking outside
+                document.addEventListener('click', function(event) {
+                    if (!mainNav.contains(event.target) && !newMobileMenuBtn.contains(event.target)) {
+                        newMobileMenuBtn.classList.remove('active');
+                        mainNav.classList.remove('active');
+                    }
+                });
+            }
+            
+            // Mobile Sidebar Toggle
+            const mobileSidebarToggle = document.getElementById('mobileSidebarToggle');
+            const sidebar = document.querySelector('.bpb-sidebar');
+            const sidebarOverlay = document.getElementById('sidebarOverlay');
+            
+            if (mobileSidebarToggle && sidebar && sidebarOverlay) {
+                
+                // Remove existing event listeners (if any)
+                const newMobileSidebarToggle = mobileSidebarToggle.cloneNode(true);
+                mobileSidebarToggle.parentNode.replaceChild(newMobileSidebarToggle, mobileSidebarToggle);
+                
+                // Add new event listeners
+                newMobileSidebarToggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    sidebar.classList.toggle('active');
+                    sidebarOverlay.classList.toggle('active');
+                    document.body.classList.toggle('sidebar-open');
+                });
+                
+                // Also add touchstart for better mobile support
+                newMobileSidebarToggle.addEventListener('touchstart', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    sidebar.classList.toggle('active');
+                    sidebarOverlay.classList.toggle('active');
+                    document.body.classList.toggle('sidebar-open');
+                }, { passive: false });
+                
+                // Close sidebar when clicking overlay
+                sidebarOverlay.addEventListener('click', function() {
+                    sidebar.classList.remove('active');
+                    sidebarOverlay.classList.remove('active');
+                    document.body.classList.remove('sidebar-open');
+                });
+                
+                // Also add touchstart for better mobile support
+                sidebarOverlay.addEventListener('touchstart', function(e) {
+                    e.preventDefault();
+                    sidebar.classList.remove('active');
+                    sidebarOverlay.classList.remove('active');
+                    document.body.classList.remove('sidebar-open');
+                }, { passive: false });
+            } else {
+                console.error('Sidebar elements not found');
+            }
+        }
+        
+        // Run immediately
+        initMenus();
+        
+        // Also run on DOMContentLoaded
+        document.addEventListener('DOMContentLoaded', initMenus);
+        
+        // Active link detection on scroll
+        const sections = document.querySelectorAll('section[id], h3[id], div[id]');
+        const navLinks = document.querySelectorAll('.sidebar-link');
+        
+        function setActiveLink() {
+            let currentSection = '';
+            let closestDistance = Infinity;
+            const scrollPosition = window.scrollY + 150;
+            
+            // Find the closest section to current scroll position
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                const distance = Math.abs(scrollPosition - sectionTop);
+                
+                // If we're within this section and it's closer than previous matches
+                if (scrollPosition >= sectionTop - 100 && scrollPosition < sectionTop + sectionHeight) {
+                    if (distance < closestDistance) {
+                        closestDistance = distance;
+                        currentSection = section.getAttribute('id');
+                    }
+                }
+            });
+            
+            // Update active state for all links
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                const href = link.getAttribute('href');
+                if (href === '#' + currentSection) {
+                    link.classList.add('active');
+                }
+            });
+            
+            // Update URL hash without scrolling
+            if (currentSection && window.location.hash !== '#' + currentSection) {
+                history.replaceState(null, null, '#' + currentSection);
+            }
+        }
+        
+        // Smooth scroll to section when clicking sidebar links
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                
+                if (targetElement) {
+                    targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    history.pushState(null, null, '#' + targetId);
+                    
+                    // Update active state immediately
+                    setTimeout(() => {
+                        navLinks.forEach(l => l.classList.remove('active'));
+                        this.classList.add('active');
+                    }, 100);
+                }
+            });
+        });
+        
+        // Run on scroll with debounce
+        let scrollTimeout;
+        window.addEventListener('scroll', function() {
+            if (scrollTimeout) {
+                clearTimeout(scrollTimeout);
+            }
+            scrollTimeout = setTimeout(setActiveLink, 50);
+        });
+        
+        // Run on load
+        window.addEventListener('load', function() {
+            // Check if there's a hash in URL
+            if (window.location.hash) {
+                const targetId = window.location.hash.substring(1);
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    setTimeout(() => {
+                        targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        setActiveLink();
+                    }, 100);
+                }
+            } else {
+                setActiveLink();
+            }
+        });
+        
+        // Run immediately
+        setActiveLink();
+        
+        // Toggle Termux Tutorial
+        function toggleTermuxTutorial() {
+            const content = document.getElementById('termuxContent');
+            const arrow = document.getElementById('termuxArrow');
+            const container = document.getElementById('termuxArrowContainer');
+            
+            if (content.style.display === 'none' || content.style.display === '') {
+                // باز کردن
+                content.style.display = 'block';
+                content.style.overflow = 'hidden';
+                setTimeout(() => {
+                    content.style.maxHeight = '3000px';
+                    content.style.opacity = '1';
+                    content.style.marginTop = '1.5rem';
+                    setTimeout(() => {
+                        content.style.overflow = 'visible';
+                    }, 400);
+                }, 10);
+                arrow.style.transform = 'rotate(180deg)';
+                container.style.background = 'rgba(157, 9, 19, 0.3)';
+                container.style.borderColor = 'rgba(157, 9, 19, 0.5)';
+            } else {
+                // بستن
+                content.style.overflow = 'hidden';
+                content.style.maxHeight = '0';
+                content.style.opacity = '0';
+                content.style.marginTop = '0';
+                setTimeout(() => {
+                    content.style.display = 'none';
+                }, 400);
+                arrow.style.transform = 'rotate(0deg)';
+                container.style.background = 'rgba(157, 9, 19, 0.2)';
+                container.style.borderColor = 'rgba(157, 9, 19, 0.3)';
+            }
+        }
+    </script>
+
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+
+    <!-- Component Loader -->
+    <script src="/js/component-loader.js"></script>
+    <script src="/js/ai-notification.js"></script>
+    
+    <!-- Search Script -->
+    <script src="/js/search.js"></script>
+</body>
+</html>

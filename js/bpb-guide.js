@@ -1,0 +1,245 @@
+// BPB Guide Page JavaScript
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Common elements
+    const sidebar = document.querySelector('.bpb-sidebar');
+    const sidebarOverlay = document.getElementById('sidebarOverlay');
+    const sidebarNav = document.getElementById('sidebarNav');
+    const sidebarLinks = document.querySelectorAll('.sidebar-link');
+    
+    // Force sticky positioning on desktop
+    function updateSidebarPosition() {
+        const isMobile = window.innerWidth <= 1024;
+        
+        if (sidebar) {
+            // Get all parent elements
+            const container = document.querySelector('.bpb-container');
+            const layout = document.querySelector('.bpb-guide-layout');
+            const mainElement = document.querySelector('.bpb-guide-page');
+            
+            if (isMobile) {
+                // Mobile: fixed positioning
+                sidebar.style.position = 'fixed';
+                sidebar.style.top = '0';
+                sidebar.style.right = '-100%';
+            } else {
+                // Desktop: sticky positioning
+                // Fix body and html overflow
+                document.body.style.overflowX = 'visible';
+                document.documentElement.style.overflowX = 'visible';
+                
+                // Fix all parent overflow issues
+                if (container) {
+                    container.style.overflow = 'visible';
+                    container.style.overflowX = 'visible';
+                    container.style.overflowY = 'visible';
+                }
+                
+                if (layout) {
+                    layout.style.overflow = 'visible';
+                    layout.style.overflowX = 'visible';
+                    layout.style.overflowY = 'visible';
+                }
+                
+                if (mainElement) {
+                    mainElement.style.overflow = 'visible';
+                    mainElement.style.overflowX = 'visible';
+                    mainElement.style.overflowY = 'visible';
+                }
+                
+                // Set sidebar to sticky
+                sidebar.style.position = 'sticky';
+                sidebar.style.top = '2rem';
+                sidebar.style.right = 'auto';
+                sidebar.style.zIndex = '10';
+                sidebar.style.maxHeight = 'calc(100vh - 4rem)';
+                sidebar.style.overflowY = 'auto';
+                sidebar.style.overflowX = 'hidden';
+                sidebar.style.scrollbarWidth = 'none'; // Firefox
+                sidebar.style.msOverflowStyle = 'none'; // IE/Edge
+            }
+        }
+    }
+    
+    // Run on load
+    updateSidebarPosition();
+    
+    // Run on resize
+    window.addEventListener('resize', updateSidebarPosition);
+    
+    // Make sure all sidebar links are clickable
+    sidebarLinks.forEach(link => {
+        link.style.pointerEvents = 'auto';
+        link.style.cursor = 'pointer';
+    });
+    
+    // Toggle sidebar visibility (Desktop collapse/expand)
+    const toggleBtn = document.getElementById('toggleSidebar');
+    
+    if (toggleBtn && sidebarNav) {
+        toggleBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const isMobile = window.innerWidth <= 1024;
+            
+            if (isMobile) {
+                // On mobile, close the sidebar
+                if (sidebar && sidebarOverlay) {
+                    sidebar.classList.remove('active');
+                    sidebarOverlay.classList.remove('active');
+                    document.body.classList.remove('sidebar-open');
+                }
+            } else {
+                // On desktop, toggle collapse/expand
+                sidebarNav.classList.toggle('hidden');
+                
+                // Change button text
+                if (sidebarNav.classList.contains('hidden')) {
+                    toggleBtn.textContent = '[نمایش]';
+                } else {
+                    toggleBtn.textContent = '[پنهان]';
+                }
+            }
+        });
+    }
+    
+    // Smooth scrolling for sidebar links
+    function handleSidebarLinkClick(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        const link = e.currentTarget;
+        const targetId = link.getAttribute('href');
+        
+        // Remove active class from all links
+        sidebarLinks.forEach(l => l.classList.remove('active'));
+        
+        // Add active class to clicked link
+        link.classList.add('active');
+        
+        // Get target section
+        const targetSection = document.querySelector(targetId);
+        
+        if (targetSection) {
+            const isMobile = window.innerWidth <= 1024;
+            
+            // Function to perform scroll
+            const performScroll = () => {
+                const headerOffset = 120;
+                const elementPosition = targetSection.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.scrollY - headerOffset;
+                
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            };
+            
+            if (isMobile) {
+                // On mobile, close the sidebar first
+                if (sidebar && sidebarOverlay) {
+                    sidebar.classList.remove('active');
+                    sidebarOverlay.classList.remove('active');
+                    document.body.classList.remove('sidebar-open');
+                }
+                
+                // Scroll to the section after sidebar closes
+                setTimeout(performScroll, 350);
+            } else {
+                // On desktop, scroll immediately
+                performScroll();
+            }
+        }
+    }
+    
+    sidebarLinks.forEach(link => {
+        link.addEventListener('click', handleSidebarLinkClick);
+        // Ensure links are clickable
+        link.style.pointerEvents = 'auto';
+        link.style.cursor = 'pointer';
+    });
+    
+    // Update active link on scroll
+    const sections = document.querySelectorAll('.content-section');
+    
+    function updateActiveLink() {
+        let currentSection = '';
+        
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop - 150;
+            const sectionHeight = section.offsetHeight;
+            
+            if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
+                currentSection = section.getAttribute('id');
+            }
+        });
+        
+        sidebarLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === `#${currentSection}`) {
+                link.classList.add('active');
+            }
+        });
+    }
+    
+    // Throttle scroll event
+    let scrollTimeout;
+    window.addEventListener('scroll', function() {
+        if (scrollTimeout) {
+            window.cancelAnimationFrame(scrollTimeout);
+        }
+        
+        scrollTimeout = window.requestAnimationFrame(function() {
+            updateActiveLink();
+        });
+    });
+    
+    // Mobile menu functionality is now handled by inline script in HTML
+    // to avoid conflicts and ensure proper execution order
+    
+    // Mobile sidebar toggle functionality is now handled by inline script in HTML
+    // to avoid conflicts and ensure proper execution order
+    
+    // Close sidebar when clicking overlay is now handled by inline script in HTML
+    // to avoid conflicts and ensure proper execution order
+    
+    // We're removing the automatic closing of sidebar when clicking links
+    // This allows users to navigate through the sidebar without it closing
+    // The sidebar will only close when clicking the overlay or the close button
+    
+    // Optional: If you still want to close the sidebar after a delay when clicking a link
+    // Uncomment the following code:
+    /*
+    const closeSidebarOnMobile = function() {
+        if (window.innerWidth <= 1024 && sidebar && sidebarOverlay) {
+            setTimeout(() => {
+                sidebar.classList.remove('active');
+                sidebarOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }, 1000); // Longer delay to allow the user to see where they're navigating
+        }
+    };
+    
+    document.querySelectorAll('.sidebar-link').forEach(link => {
+        link.addEventListener('click', closeSidebarOnMobile);
+    });
+    */
+    
+    // Copy code functionality (if needed in future)
+    const codeBlocks = document.querySelectorAll('pre code');
+    codeBlocks.forEach(block => {
+        const button = document.createElement('button');
+        button.className = 'copy-button';
+        button.textContent = 'کپی';
+        button.addEventListener('click', function() {
+            navigator.clipboard.writeText(block.textContent);
+            button.textContent = 'کپی شد!';
+            setTimeout(() => {
+                button.textContent = 'کپی';
+            }, 2000);
+        });
+        block.parentElement.style.position = 'relative';
+        block.parentElement.appendChild(button);
+    });
+});

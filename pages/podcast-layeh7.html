@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <script>
+        // Redirect to coming soon page
+        window.location.replace('coming-soon.html');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>در حال توسعه - پادکست لایه هفتم</title>
+    <meta name="description" content="پادکست لایه هفتم به زودی در دسترس خواهد بود">
+    
+    <!-- PWA -->
+    <link rel="manifest" href="/pwa/manifest.json">
+    <meta name="theme-color" content="#9D0913">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/assets/logo/logo.svg">
+    <link rel="apple-touch-icon" href="/assets/logo/favicon.svg">
+    <link rel="shortcut icon" href="/assets/logo/favicon.svg">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="/assets/Font/fontiran.css">
+    <!-- <link rel="stylesheet" href="/css/loading.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/layout.css">
+    <link rel="stylesheet" href="/css/components.css">
+    <link rel="stylesheet" href="/css/dropdown.css">
+    <link rel="stylesheet" href="/css/ai-notification.css">
+    <link rel="stylesheet" href="/css/search.css">
+    <link rel="stylesheet" href="/css/responsive.css"> -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'IRANSans', sans-serif;
+            background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .container {
+            text-align: center;
+            max-width: 600px;
+        }
+
+        .icon {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .icon svg {
+            width: 60px;
+            height: 60px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ffffff 0%, #cccccc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        p {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            color: white;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .back-btn svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            p {
+                font-size: 1rem;
+            }
+
+            .icon {
+                width: 100px;
+                height: 100px;
+            }
+
+            .icon svg {
+                width: 50px;
+                height: 50px;
+            }
+        }
+    </style>
+        .podcast-hero {
+            display: grid;
+            grid-template-columns: 1fr 420px;
+            gap: 2rem;
+            align-items: stretch;
+        }
+
+        .podcast-info-card {
+            background: rgba(3, 3, 3, 0.98);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 40px;
+            padding: 2rem 2rem 2.5rem 2rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.95);
+        }
+
+        .podcast-episodes-card {
+            padding-bottom: 2rem;
+        }
+
+        .podcast-hero-content {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            align-items: flex-start;
+            text-align: right;
+        }
+
+        .podcast-logo {
+            display: none;
+        }
+
+        .podcast-info h1 {
+            font-size: 1.8rem;
+            color: white;
+            margin-bottom: 1rem;
+            margin-top: 1rem;
+            text-align: right;
+            font-weight: 700;
+            line-height: 1.4;
+            letter-spacing: -0.01em;
+        }
+
+        .podcast-info p {
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.8;
+            margin-bottom: 0;
+            text-align: right;
+            letter-spacing: 0.015em;
+            font-weight: 400;
+            max-width: 100%;
+        }
+
+        .podcast-icon {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 0;
+        }
+
+        .podcast-icon svg {
+            width: 50px;
+            height: 50px;
+            color: rgba(255, 255, 255, 0.95);
+        }
+
+        .podcast-info {
+            width: 100%;
+        }
+
+        .podcast-stats {
+            display: none;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .stat-item svg {
+            color: #ff8c00;
+        }
+
+        .episodes-section {
+            margin-top: 3rem;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .section-header h2 {
+            font-size: 1.75rem;
+            color: white;
+        }
+
+        .episodes-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .episode-card {
+            background: rgba(20, 20, 20, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: row-reverse;
+            gap: 1.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            margin-bottom: 1rem;
+            align-items: center;
+        }
+
+        .episode-card:hover {
+            border-color: rgba(255, 140, 0, 0.3);
+            transform: translateX(-4px);
+            box-shadow: 0 4px 16px rgba(255, 140, 0, 0.15);
+        }
+
+        .episode-thumbnail {
+            width: 120px;
+            height: 120px;
+            border-radius: 12px;
+            overflow: hidden;
+            flex-shrink: 0;
+            position: relative;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+        }
+
+        .episode-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .episode-card:hover .episode-thumbnail img {
+            transform: scale(1.05);
+        }
+
+        .play-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .episode-card:hover .play-overlay {
+            opacity: 1;
+        }
+
+        .play-overlay svg {
+            width: 40px;
+            height: 40px;
+            color: white;
+        }
+
+        .episode-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .episode-header {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .episode-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: white;
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        .episode-date {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.5);
+            margin: 0;
+        }
+
+        .episode-description,
+        .episode-meta {
+            display: none;
+        }
+
+        @media (max-width: 1024px) {
+            .podcast-hero {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .podcast-episodes-card {
+                order: 2;
+                max-height: none;
+            }
+
+            .podcast-info-card {
+                order: 1;
+                margin-bottom: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem;
+            }
+
+            .podcast-hero {
+                gap: 1.5rem;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .podcast-info-card {
+                padding: 1.5rem 1rem;
+                margin-bottom: 1.5rem;
+                position: relative;
+                top: auto;
+                z-index: 1;
+                order: -1;
+                align-self: auto;
+                max-height: none;
+                overflow-y: visible;
+            }
+
+            .podcast-icon {
+                width: 60px;
+                height: 60px;
+            }
+
+            .podcast-icon svg {
+                width: 50px;
+                height: 50px;
+            }
+
+            .podcast-hero-content {
+                text-align: right;
+                gap: 0;
+                align-items: flex-start;
+            }
+
+            .podcast-logo {
+                width: 150px;
+                height: 150px;
+                margin: 0 auto;
+            }
+
+            .podcast-info h1 {
+                font-size: 1.4rem;
+                margin-bottom: 1rem;
+                margin-top: 1rem;
+            }
+
+            .podcast-info p {
+                font-size: 0.85rem;
+                line-height: 1.8;
+                display: -webkit-box;
+                -webkit-line-clamp: 3;
+                line-clamp: 3;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+            }
+
+            .podcast-stats {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            .podcast-episodes-card {
+                order: 1;
+            }
+
+            .episode-card {
+                padding: 1rem;
+                margin-bottom: 1rem;
+                gap: 1rem;
+            }
+
+            .episode-thumbnail {
+                width: 100px;
+                height: 100px;
+            }
+
+            .episode-title {
+                font-size: 1rem;
+            }
+            
+            .episode-date {
+                font-size: 0.85rem;
+            }
+        }
+        
+        /* Podcast page specific styles */
+        body {
+            background: #000000;
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="page-loader" id="loadingScreen">
+        <div class="loader-content">
+            <div class="loader-logo">
+                <img src="/assets/logo/logo.svg" alt="فیلتربین">
+            </div>
+            <div class="loader-spinner">
+                <div class="spinner-ring"></div>
+            </div>
+            <div class="loader-text">
+                در حال بارگذاری<span class="loader-dots"></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header Placeholder -->
+    <div id="header-placeholder"></div>
+
+    <!-- Search Modal Placeholder -->
+    <div id="search-modal-placeholder"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Podcast Hero -->
+            <div class="podcast-hero">
+                <!-- Episodes Card (Left) -->
+                <div class="podcast-episodes-card">
+                    <h3 style="color: white; margin-bottom: 1.5rem; font-size: 1.25rem;">اپیزودها</h3>
+                    <div id="episodesList">
+                        <!-- Episodes will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Info Card (Right) -->
+                <div class="podcast-info-card">
+                    <div class="podcast-hero-content">
+                        <div class="podcast-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+                                <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                                <line x1="12" y1="19" x2="12" y2="23"></line>
+                                <line x1="8" y1="23" x2="16" y2="23"></line>
+                            </svg>
+                        </div>
+                        <div class="podcast-info">
+                            <h1>پادکست لایه هفتم</h1>
+                            <p>پادکست «لایه هفتم» کار مشترکی از گروه فیلتربان و رادیو فردا است. در این پادکست در مورد فیلترینگ در ایران، راه‌های دسترسی به اینترنت، نگرانی‌‌های امنیت دیجیتال شهروندان، حمله‌های سایبری و امثال اینها صحبت خواهیم کرد. لایه هفتم در علوم کامپیوتر به لایه‌ای گفته می‌شود که به امنیت سایبری مربوط است و این لایه شبکه، بین کاربر و سیستم عامل ارتباط برقرار می‌کند. پادکست «لایه هفتم» علاوه بر وبسایت فیلتربان و رادیو فردا از همه پادگیرها منتشر می‌شود.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+
+    <!-- Scripts -->
+    <script src="/js/component-loader.js"></script>
+    <script>
+        // Hide loading screen when components are loaded
+        document.addEventListener('componentsLoaded', function() {
+            setTimeout(function() {
+                const loadingScreen = document.getElementById('loadingScreen');
+                if (loadingScreen) {
+                    loadingScreen.classList.add('hidden');
+                    document.body.classList.add('loaded');
+                }
+            }, 300);
+        });
+    </script>
+    <script src="/js/ai-notification.js"></script>
+    <script src="/js/auto-optimize.js"></script>
+    <script src="/js/components.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/pwa/pwa-init.js"></script>
+    <script src="/js/podcast-episodes.js"></script>
+</body>
+</html>

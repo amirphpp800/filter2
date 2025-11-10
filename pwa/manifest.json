@@ -1,0 +1,110 @@
+{
+  "name": "فیلتربین - مرجع کامل ابزارها و مقالات کاربردی",
+  "short_name": "فیلتربین",
+  "description": "فیلتربین - مرجع کامل ابزارها و مقالات کاربردی برای توسعه‌دهندگان و طراحان",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "theme_color": "#9D0913",
+  "background_color": "#020203",
+  "dir": "rtl",
+  "lang": "fa",
+  "icons": [
+    {
+      "src": "/pwa/icons/72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/pwa/icons/96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/pwa/icons/128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/pwa/icons/144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/pwa/icons/152.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/pwa/icons/192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/pwa/icons/256.png",
+      "sizes": "256x256",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/pwa/icons/384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/pwa/icons/512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/assets/logo/logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "categories": ["productivity", "education", "utilities"],
+  "shortcuts": [
+    {
+      "name": "مقالات",
+      "short_name": "مقالات",
+      "description": "مشاهده مقالات ویژه",
+      "url": "/#articles",
+      "icons": [
+        {
+          "src": "/pwa/icons/256.png",
+          "sizes": "256x256"
+        }
+      ]
+    },
+    {
+      "name": "ابزارها",
+      "short_name": "ابزارها",
+      "description": "استفاده از ابزارهای کاربردی",
+      "url": "/#tools",
+      "icons": [
+        {
+          "src": "/pwa/icons/256.png",
+          "sizes": "256x256"
+        }
+      ]
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false,
+  "protocol_handlers": [
+    {
+      "protocol": "web+filterbin",
+      "url": "/?article=%s"
+    }
+  ]
+}
