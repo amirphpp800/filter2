@@ -109,8 +109,8 @@
     <link rel="preload" href="/assets/logo/logotype.svg" as="image">
     
     <!-- Preload Critical Fonts -->
-    <link rel="preload" href="/assets/Font/woff2/IRANSansWeb(FaNum)_Medium.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="/assets/Font/woff2/IRANSansWeb(FaNum).woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/assets/Font/woff2/AbarMidFaNum-Regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/assets/Font/woff2/AbarMidFaNum-SemiBold.woff2" as="font" type="font/woff2" crossorigin>
 
     <!-- Critical CSS - Inline for faster render -->
     <style>
@@ -118,7 +118,7 @@
             margin: 0;
             padding: 0;
             background: #000;
-            font-family: IRANSans, sans-serif;
+            font-family: 'AbarMidFaNum', 'Tahoma', sans-serif;
             opacity: 1;
             font-display: swap;
         }
@@ -152,13 +152,13 @@
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/layout.css">
     <link rel="stylesheet" href="/css/components.css">
+    <link rel="stylesheet" href="/css/search.css">
     
     <!-- Non-Critical Stylesheets - Async Load -->
     <link rel="stylesheet" href="/css/unified-loader.css" media="print" onload="this.media='all'">
     <link rel="stylesheet" href="/css/loading.css" media="print" onload="this.media='all'">
     <link rel="stylesheet" href="/css/dropdown.css" media="print" onload="this.media='all'">
     <link rel="stylesheet" href="/css/ai-notification.css" media="print" onload="this.media='all'">
-    <link rel="stylesheet" href="/css/search.css" media="print" onload="this.media='all'">
     <link rel="stylesheet" href="/css/responsive.css" media="print" onload="this.media='all'">
     <link rel="stylesheet" href="/css/lazy-loading.css" media="print" onload="this.media='all'">
     <link rel="stylesheet" href="/css/accessibility.css" media="print" onload="this.media='all'">
@@ -203,40 +203,16 @@
     <main class="main-content">
         <div class="container">
             <div class="content-grid">
-                <!-- Top Cards -->
-                <section class="top-cards">
-                    <a href="pages/coming-soon.html" class="feature-card podcast-card"
-                        style="text-decoration: none; transform: none !important;">
-                        <div class="podcast-icon-wrapper">
-                            <div class="podcast-icon-bg"></div>
-                            <img src="assets/images/audio.png" alt="Podcast Icon" class="podcast-icon" loading="lazy">
-                        </div>
-                        <div class="card-content">
-                            <h3>پادکست لایه هفتم</h3>
-                            <p>در مورد فیلترینگ در ایران، راه‌های دسترسی به اینترنت، نگرانی‌های امنیت دیجیتال شهروندان،
-                                حمله‌های سایبری</p>
-                        </div>
+                <!-- Header Banners -->
+                <section class="header-banners">
+                    <a href="pages/coming-soon.html" class="header-banner-item">
+                        <img src="assets/images/head-banner/H1.png" alt="پادکست لایه هفتم" loading="eager">
                     </a>
-
-                    <a href="pages/iran-off.html" class="feature-card privacy-card" style="text-decoration: none; transform: none !important;">
-                        <div class="privacy-banner">
-                            <img src="assets/images/globe.svg" alt="Globe" class="privacy-banner-img" loading="lazy"
-                                onerror="this.style.display='none'">
-                        </div>
-                        <div class="card-content">
-                            <h3>ایران در خاموشی</h3>
-                            <p>خودتان را پیش از آن‌که دیر شود برای قطعی یا اختلال اینترنت آماده کنید</p>
-                        </div>
+                    <a href="pages/iran-off.html" class="header-banner-item">
+                        <img src="assets/images/head-banner/H2.png" alt="ایران در خاموشی" loading="eager">
                     </a>
-
-                    <a href="pages/bpb-guide.html" class="feature-card cloudflare-card" style="text-decoration: none; transform: none !important;">
-                        <div class="cloudflare-bg-icon">
-                            <img src="assets/images/BPB-card.svg" alt="BPB Icon" loading="lazy">
-                        </div>
-                        <div class="card-content">
-                            <h3>دسترسی به اینترنت آزاد با کلودفلر</h3>
-                            <p>دسترسی به اینترنت بدون فیلتر با استفاده از پنل BPB و Cloudflare Workers</p>
-                        </div>
+                    <a href="pages/bpb-guide.html" class="header-banner-item">
+                        <img src="assets/images/head-banner/H3.png" alt="دسترسی به اینترنت آزاد" loading="eager">
                     </a>
                 </section>
 

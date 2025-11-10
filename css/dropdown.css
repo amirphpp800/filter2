@@ -6,6 +6,7 @@
     align-items: center;
     z-index: 10000 !important;
     vertical-align: middle;
+    flex-shrink: 0;
 }
 
 .dropdown-trigger {
