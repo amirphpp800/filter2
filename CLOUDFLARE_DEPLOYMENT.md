@@ -448,14 +448,15 @@ git push origin main
 ### CloudFlare Docs
 
 - [Pages Docs](https://developers.cloudflare.com/pages/)
-- [Functions](https://developers.cloudflare.com/pages/functions/)
-- [Build Configuration](https://developers.cloudflare.com/pages/configuration/)
+- [Functions](https://developers.cloudflare.com/functions/)
+- [Build Configuration](https://developers.cloudflare.com/configuration/)
 
 ### مستندات پروژه
 
-- [DEPLOYMENT.md](DEPLOYMENT.md) - راهنمای عمومی
-- [README.md](README.md) - معرفی پروژه
+- [README.md](README.md) - معرفی پروژه و راهنمای استفاده
+- [DEPLOYMENT.md](DEPLOYMENT.md) - راهنمای عمومی Deploy
 - [CHANGELOG.md](CHANGELOG.md) - تاریخچه تغییرات
+- [CLOUDFLARE_READY.md](CLOUDFLARE_READY.md) - شروع سریع CloudFlare
 
 ---
 

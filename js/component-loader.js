@@ -2,15 +2,11 @@
 (function() {
     'use strict';
 
-    // تشخیص مسیر اصلی
+    // تشخیص مسیر اصلی - استفاده از مسیر مطلق
     function getBasePath() {
         const path = window.location.pathname;
-        // اگر در پوشه pages هستیم
-        if (path.includes('/pages/')) {
-            return '../';
-        }
-        // اگر در ریشه سایت هستیم
-        return '';
+        // همیشه از مسیر مطلق استفاده می‌کنیم
+        return '/';
     }
 
     // بارگذاری یک کامپوننت

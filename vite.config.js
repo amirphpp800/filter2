@@ -4,62 +4,95 @@ import viteCompression from 'vite-plugin-compression';
 import { visualizer } from 'rollup-plugin-visualizer';
 import autoprefixer from 'autoprefixer';
 import cssnano from 'cssnano';
+import { copyFileSync, mkdirSync, readdirSync, statSync } from 'fs';
+import { join } from 'path';
+
+// Plugin to copy static files
+function copyStaticFiles() {
+  return {
+    name: 'copy-static-files',
+    closeBundle() {
+      const copyDir = (src, dest) => {
+        mkdirSync(dest, { recursive: true });
+        const entries = readdirSync(src, { withFileTypes: true });
+        
+        for (const entry of entries) {
+          const srcPath = join(src, entry.name);
+          const destPath = join(dest, entry.name);
+          
+          if (entry.isDirectory()) {
+            copyDir(srcPath, destPath);
+          } else {
+            copyFileSync(srcPath, destPath);
+          }
+        }
+      };
+      
+      // Copy all necessary directories
+      const dirsToCopy = [
+        { src: 'components', dest: 'dist/components' },
+        { src: 'pages', dest: 'dist/pages' },
+        { src: 'js', dest: 'dist/js' },
+        { src: 'css', dest: 'dist/css' },
+        { src: 'assets', dest: 'dist/assets' },
+        { src: 'pwa', dest: 'dist/pwa' },
+        { src: 'data', dest: 'dist/data' },
+        { src: 'admin', dest: 'dist/admin' },
+        { src: 'functions', dest: 'dist/functions' }
+      ];
+      
+      dirsToCopy.forEach(({ src, dest }) => {
+        try {
+          copyDir(src, dest);
+          console.log(`✓ Copied ${src} to ${dest}`);
+        } catch (err) {
+          console.log(`⚠ Could not copy ${src}:`, err.message);
+        }
+      });
+      
+      // Copy root files
+      const filesToCopy = ['404.html', 'download.html', 'robots.txt', 'sitemap.xml', '_headers', '_redirects'];
+      filesToCopy.forEach(file => {
+        try {
+          copyFileSync(file, `dist/${file}`);
+          console.log(`✓ Copied ${file}`);
+        } catch (err) {
+          console.log(`⚠ Could not copy ${file}:`, err.message);
+        }
+      });
+      
+      // Copy public/_redirects if exists
+      try {
+        copyFileSync('public/_redirects', 'dist/_redirects');
+        console.log('✓ Copied public/_redirects');
+      } catch (err) {
+        console.log('⚠ Could not copy public/_redirects:', err.message);
+      }
+    }
+  };
+}
 
 export default defineConfig({
   base: '/',
   build: {
     outDir: 'dist',
-    assetsDir: 'assets',
     sourcemap: false,
-    minify: 'terser',
+    minify: false, // Disable minification to preserve file structure
     emptyOutDir: true,
-    terserOptions: {
-      compress: {
-        drop_console: true,
-        drop_debugger: true,
-        pure_funcs: ['console.log', 'console.info', 'console.debug', 'console.warn']
-      },
-      format: {
-        comments: false
-      }
-    },
     rollupOptions: {
-      output: {
-        manualChunks: {
-          'vendor': ['./js/components.js'],
-          'search': ['./js/search.js'],
-          'articles': ['./js/articles-loader.js']
-        },
-        assetFileNames: (assetInfo) => {
-          let extType = assetInfo.name.split('.').at(1);
-          if (/png|jpe?g|svg|gif|tiff|bmp|ico/i.test(extType)) {
-            extType = 'images';
-          } else if (/woff|woff2|eot|ttf|otf/i.test(extType)) {
-            extType = 'fonts';
-          }
-          return `assets/${extType}/[name]-[hash][extname]`;
-        },
-        chunkFileNames: 'assets/js/[name]-[hash].js',
-        entryFileNames: 'assets/js/[name]-[hash].js'
+      input: {
+        main: 'index.html'
       }
     },
-    cssCodeSplit: true,
+    cssCodeSplit: false,
     chunkSizeWarningLimit: 1000,
     reportCompressedSize: true,
-    assetsInlineLimit: 4096
+    assetsInlineLimit: 0 // Don't inline any assets
   },
   plugins: [
+    copyStaticFiles(),
     createHtmlPlugin({
-      minify: {
-        collapseWhitespace: true,
-        removeComments: true,
-        removeRedundantAttributes: true,
-        removeScriptTypeAttributes: true,
-        removeStyleLinkTypeAttributes: true,
-        useShortDoctype: true,
-        minifyCSS: true,
-        minifyJS: true
-      }
+      minify: false // Disable HTML minification
     }),
     viteCompression({
       verbose: true,
@@ -76,12 +109,6 @@ export default defineConfig({
       algorithm: 'brotliCompress',
       ext: '.br',
       deleteOriginFile: false
-    }),
-    visualizer({
-      filename: './dist/stats.html',
-      open: false,
-      gzipSize: true,
-      brotliSize: true
     })
   ],
   server: {
@@ -92,15 +119,7 @@ export default defineConfig({
   css: {
     postcss: {
       plugins: [
-        autoprefixer,
-        cssnano({
-          preset: ['default', {
-            discardComments: {
-              removeAll: true,
-            },
-            normalizeWhitespace: true
-          }]
-        })
+        autoprefixer
       ]
     }
   }

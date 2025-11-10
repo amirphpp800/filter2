@@ -104,9 +104,13 @@
     <link rel="shortcut icon" href="assets/logo/favicon.svg">
 
     <!-- Preload Critical Resources -->
-    <link rel="preload" href="assets/Font/fontiran.css" as="style">
-    <link rel="preload" href="css/main.css" as="style">
-    <link rel="preload" href="assets/logo/logo.svg" as="image">
+    <link rel="preload" href="/assets/Font/fontiran.css" as="style">
+    <link rel="preload" href="/css/main.css" as="style">
+    <link rel="preload" href="/assets/logo/logotype.svg" as="image">
+    
+    <!-- Preload Critical Fonts -->
+    <link rel="preload" href="/assets/Font/woff2/IRANSansWeb(FaNum)_Medium.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/assets/Font/woff2/IRANSansWeb(FaNum).woff2" as="font" type="font/woff2" crossorigin>
 
     <!-- Critical CSS - Inline for faster render -->
     <style>
@@ -115,7 +119,8 @@
             padding: 0;
             background: #000;
             font-family: IRANSans, sans-serif;
-            opacity: 1
+            opacity: 1;
+            font-display: swap;
         }
 
         .page-loader {
@@ -142,22 +147,33 @@
         }
     </style>
 
-    <!-- Stylesheets -->
-    <link rel="stylesheet" href="assets/Font/fontiran.css">
-    <link rel="stylesheet" href="css/unified-loader.css">
-    <link rel="stylesheet" href="css/loading.css">
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/layout.css">
-    <link rel="stylesheet" href="css/components.css">
-    <link rel="stylesheet" href="css/dropdown.css">
-    <link rel="stylesheet" href="css/ai-notification.css">
-    <link rel="stylesheet" href="css/search.css">
-    <link rel="stylesheet" href="css/responsive.css">
-    <link rel="stylesheet" href="css/lazy-loading.css">
-    <link rel="stylesheet" href="css/accessibility.css">
-    <link rel="stylesheet" href="pwa/pwa-styles.css" media="print" onload="this.media='all'">
+    <!-- Critical Stylesheets - Load First -->
+    <link rel="stylesheet" href="/assets/Font/fontiran.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/layout.css">
+    <link rel="stylesheet" href="/css/components.css">
+    
+    <!-- Non-Critical Stylesheets - Async Load -->
+    <link rel="stylesheet" href="/css/unified-loader.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="/css/loading.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="/css/dropdown.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="/css/ai-notification.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="/css/search.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="/css/responsive.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="/css/lazy-loading.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="/css/accessibility.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="/pwa/pwa-styles.css" media="print" onload="this.media='all'">
+    
     <noscript>
-        <link rel="stylesheet" href="pwa/pwa-styles.css">
+        <link rel="stylesheet" href="/css/unified-loader.css">
+        <link rel="stylesheet" href="/css/loading.css">
+        <link rel="stylesheet" href="/css/dropdown.css">
+        <link rel="stylesheet" href="/css/ai-notification.css">
+        <link rel="stylesheet" href="/css/search.css">
+        <link rel="stylesheet" href="/css/responsive.css">
+        <link rel="stylesheet" href="/css/lazy-loading.css">
+        <link rel="stylesheet" href="/css/accessibility.css">
+        <link rel="stylesheet" href="/pwa/pwa-styles.css">
     </noscript>
 
     <!-- Fallback for no JavaScript -->
@@ -387,23 +403,25 @@
     <!-- Footer Placeholder -->
     <div id="footer-placeholder"></div>
 
-    <!-- Scripts -->
-    <!-- Unified Loading & Routing System -->
-    <script src="js/unified-loader.js"></script>
-    <script src="js/spa-router.js"></script>
+    <!-- Scripts - Optimized Loading -->
+    <!-- Critical Scripts - Load First -->
+    <script src="/js/component-loader.js"></script>
     
-    <!-- Component Loader - باید قبل از بقیه اسکریپت‌ها لود بشه -->
-    <script src="js/component-loader.js"></script>
-    <script src="js/ai-notification.js"></script>
-    <script src="js/notifications.js"></script>
-    <script src="js/auto-optimize.js"></script>
-    <script src="js/lazy-loading.js"></script>
-    <script src="js/rate-limiter.js"></script>
-    <script src="js/seo-enhancer.js"></script>
-    <script src="js/components.js"></script>
-    <script src="js/search.js"></script>
-    <script src="js/main.js"></script>
-    <script src="pwa/pwa-init.js"></script>
+    <!-- Unified Loading & Routing System -->
+    <script src="/js/unified-loader.js" defer></script>
+    <script src="/js/spa-router.js" defer></script>
+    
+    <!-- Non-Critical Scripts - Deferred -->
+    <script src="/js/ai-notification.js" defer></script>
+    <script src="/js/notifications.js" defer></script>
+    <script src="/js/auto-optimize.js" defer></script>
+    <script src="/js/lazy-loading.js" defer></script>
+    <script src="/js/rate-limiter.js" defer></script>
+    <script src="/js/seo-enhancer.js" defer></script>
+    <script src="/js/components.js" defer></script>
+    <script src="/js/search.js" defer></script>
+    <script src="/js/main.js" defer></script>
+    <script src="/pwa/pwa-init.js" defer></script>
 
     <!-- Auto Load Latest Articles -->
     <script>
