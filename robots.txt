@@ -1,0 +1,47 @@
+# فیلتربین - Robots.txt
+# Website: https://filterbin.space
+
+# Allow all search engines
+User-agent: *
+Allow: /
+
+# Disallow admin and internal directories
+Disallow: /admin/
+Disallow: /.vscode/
+Disallow: /.git/
+
+# Disallow specific files
+Disallow: /DROPDOWN-FAVICON-FIX.md
+Disallow: /README.md
+
+# Crawl delay (optional - helps with server load)
+Crawl-delay: 1
+
+# Sitemap location
+Sitemap: https://filterbin.space/sitemap.xml
+
+# Specific rules for major search engines
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Slurp
+Allow: /
+Crawl-delay: 1
+
+# Block bad bots (optional)
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /

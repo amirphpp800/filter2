@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>صفحه یافت نشد - فیلتربین</title>
+  <link rel="icon" type="image/svg+xml" href="assets/logo/logo.svg">
+  <link rel="stylesheet" href="assets/Font/fontiran.css">
+  <style>
+    :root {
+      --primary: #c70812;
+      --primary-dark: #9D0913;
+      --bg-gradient: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+      --text-muted: rgba(255, 255, 255, 0.7);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'AbarLowFaNum', 'AbarMidFaNum', Arial, sans-serif;
+      background: var(--bg-gradient);
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      overflow: hidden;
+    }
+
+    .error-container {
+      text-align: center;
+      max-width: 600px;
+      position: relative;
+      animation: fadeIn 1s ease forwards;
+    }
+
+    .logo {
+      width: 90px;
+      height: 90px;
+      margin: 0 auto 2rem;
+      filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.1));
+      transition: transform 0.3s ease;
+    }
+
+    .logo:hover {
+      transform: scale(1.05);
+    }
+
+    .error-code {
+      font-size: clamp(5rem, 12vw, 10rem);
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 1rem;
+      letter-spacing: -2px;
+      animation: pulse 3s infinite ease-in-out;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      font-weight: 700;
+    }
+
+    p {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      margin-bottom: 2.5rem;
+      line-height: 1.8;
+    }
+
+    .back-btn {
+      display: inline-block;
+      padding: 1rem 2.8rem;
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+      color: white;
+      text-decoration: none;
+      border-radius: 50px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 6px 18px rgba(199, 8, 18, 0.3);
+    }
+
+    .back-btn:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 25px rgba(199, 8, 18, 0.4);
+    }
+
+    /* subtle animation background */
+    .bg-shape {
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(199,8,18,0.25), transparent 70%);
+      border-radius: 50%;
+      top: -100px;
+      right: -100px;
+      filter: blur(100px);
+      animation: move 10s infinite alternate ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.8; transform: scale(1.05); }
+    }
+
+    @keyframes move {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(-50px, 50px); }
+    }
+
+    @media (max-width: 480px) {
+      p {
+        font-size: 1rem;
+      }
+      .back-btn {
+        padding: 0.9rem 2rem;
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="error-container">
+    <div class="bg-shape"></div>
+    <img src="assets/logo/logo.svg" alt="فیلتربین" class="logo">
+    <div class="error-code">404</div>
+    <h1>صفحه یافت نشد</h1>
+    <p>متأسفانه صفحه‌ای که به دنبال آن هستید پیدا نشد یا منتقل شده است.</p>
+    <a href="index.html" class="back-btn">بازگشت به صفحه اصلی</a>
+  </div>
+</body>
+</html>

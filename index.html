@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>فیلتربین - پلتفرم ابزارهای دیجیتال | امنیت، فیلترشکنی، پادکست</title>
+    <meta name="description" content="فیلتربین - مرجع کامل ابزارهای دیجیتال، امنیت سایبری، فیلترشکنی، پادکست لایه هفتم، آمادگی برای قطع اینترنت و مقالات تخصصی در حوزه فناوری و امنیت.">
+    <meta name="keywords" content="فیلتربین, امنیت دیجیتال, فیلترشکن, VPN, پادکست لایه هفتم, قطع اینترنت, حریم خصوصی, ابزارهای محافظتی, ایران در خاموشی, اختلال اینترنت">
+    <meta name="author" content="فیلتربین">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="googlebot" content="index, follow">
+    <link rel="canonical" href="https://filterbin.space/">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://filterbin.space/">
+    <meta property="og:title" content="فیلتربین - پلتفرم ابزارهای دیجیتال و امنیت">
+    <meta property="og:description" content="مرجع کامل ابزارهای دیجیتال، امنیت سایبری، فیلترشکنی، پادکست لایه هفتم، و آمادگی برای قطع اینترنت.">
+    <meta property="og:image" content="https://filterbin.space/assets/logo/logo.svg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="لوگوی فیلتربین">
+    <meta property="og:locale" content="fa_IR">
+    <meta property="og:site_name" content="فیلتربین">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://filterbin.space/">
+    <meta name="twitter:title" content="فیلتربین - پلتفرم ابزارهای دیجیتال و امنیت">
+    <meta name="twitter:description" content="مرجع کامل ابزارهای دیجیتال، امنیت سایبری، فیلترشکنی، پادکست لایه هفتم، و آمادگی برای قطع اینترنت.">
+    <meta name="twitter:image" content="https://filterbin.space/assets/logo/logo.svg">
+    <meta name="twitter:image:alt" content="فیلتربین">
+    
+    <!-- Additional SEO Tags -->
+    <meta name="language" content="Persian">
+    <meta name="geo.region" content="IR">
+    <meta name="geo.placename" content="Iran">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="فیلتربین">
+    <meta name="format-detection" content="telephone=no">
+
+    <!-- DNS Prefetch & Preconnect for faster loading -->
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "فیلتربین",
+      "alternateName": "Filterbin",
+      "url": "https://filterbin.space",
+      "description": "مرجع کامل ابزارهای دیجیتال، امنیت سایبری، فیلترشکنی، و پادکست",
+      "inLanguage": "fa",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://filterbin.space/?s={search_term_string}",
+        "query-input": "required name=search_term_string"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "فیلتربین",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://filterbin.space/assets/logo/logo.svg",
+          "width": 512,
+          "height": 512
+        }
+      },
+      "about": [
+        {
+          "@type": "Thing",
+          "name": "امنیت دیجیتال",
+          "description": "ابزارها و راهکارهای امنیت سایبری"
+        },
+        {
+          "@type": "Thing",
+          "name": "فیلترشکنی",
+          "description": "روش‌ها و ابزارهای دور زدن فیلتر اینترنت"
+        },
+        {
+          "@type": "Thing",
+          "name": "قطع اینترنت",
+          "description": "آمادگی و راهکارهای مقابله با قطع اینترنت"
+        }
+      ]
+    }
+    </script>
+    
+    <!-- PWA -->
+    <link rel="manifest" href="pwa/manifest.json">
+    <meta name="theme-color" content="#9D0913">
+    <meta name="msapplication-TileColor" content="#9D0913">
+    <meta name="msapplication-navbutton-color" content="#9D0913">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="assets/logo/logo.svg">
+    <link rel="apple-touch-icon" href="assets/logo/favicon.svg">
+    <link rel="shortcut icon" href="assets/logo/favicon.svg">
+
+    <!-- Preload Critical Resources -->
+    <link rel="preload" href="assets/Font/fontiran.css" as="style">
+    <link rel="preload" href="css/main.css" as="style">
+    <link rel="preload" href="assets/logo/logo.svg" as="image">
+
+    <!-- Critical CSS - Inline for faster render -->
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #000;
+            font-family: IRANSans, sans-serif;
+            opacity: 1
+        }
+
+        .page-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999
+        }
+
+        /* Prevent white screen - show content by default */
+        html {
+            background: #000
+        }
+
+        .logo-text {
+            font-family: AbarLowFaNum, sans-serif !important;
+            font-weight: bold;
+        }
+    </style>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="assets/Font/fontiran.css">
+    <link rel="stylesheet" href="css/unified-loader.css">
+    <link rel="stylesheet" href="css/loading.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/dropdown.css">
+    <link rel="stylesheet" href="css/ai-notification.css">
+    <link rel="stylesheet" href="css/search.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/lazy-loading.css">
+    <link rel="stylesheet" href="css/accessibility.css">
+    <link rel="stylesheet" href="pwa/pwa-styles.css" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="pwa/pwa-styles.css">
+    </noscript>
+
+    <!-- Fallback for no JavaScript -->
+    <noscript>
+        <style>
+            body {
+                opacity: 1 !important
+            }
+
+            .page-loader {
+                display: none !important
+            }
+        </style>
+    </noscript>
+</head>
+
+<body>
+    <!-- Unified Loader will be created automatically by unified-loader.js -->
+
+    <!-- Header Placeholder -->
+    <div id="header-placeholder"></div>
+
+    <!-- Search Modal Placeholder -->
+    <div id="search-modal-placeholder"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <div class="content-grid">
+                <!-- Top Cards -->
+                <section class="top-cards">
+                    <a href="pages/coming-soon.html" class="feature-card podcast-card"
+                        style="text-decoration: none; transform: none !important;">
+                        <div class="podcast-icon-wrapper">
+                            <div class="podcast-icon-bg"></div>
+                            <img src="assets/images/audio.png" alt="Podcast Icon" class="podcast-icon" loading="lazy">
+                        </div>
+                        <div class="card-content">
+                            <h3>پادکست لایه هفتم</h3>
+                            <p>در مورد فیلترینگ در ایران، راه‌های دسترسی به اینترنت، نگرانی‌های امنیت دیجیتال شهروندان،
+                                حمله‌های سایبری</p>
+                        </div>
+                    </a>
+
+                    <a href="pages/iran-off.html" class="feature-card privacy-card" style="text-decoration: none; transform: none !important;">
+                        <div class="privacy-banner">
+                            <img src="assets/images/globe.svg" alt="Globe" class="privacy-banner-img" loading="lazy"
+                                onerror="this.style.display='none'">
+                        </div>
+                        <div class="card-content">
+                            <h3>ایران در خاموشی</h3>
+                            <p>خودتان را پیش از آن‌که دیر شود برای قطعی یا اختلال اینترنت آماده کنید</p>
+                        </div>
+                    </a>
+
+                    <a href="pages/bpb-guide.html" class="feature-card cloudflare-card" style="text-decoration: none; transform: none !important;">
+                        <div class="cloudflare-bg-icon">
+                            <img src="assets/images/BPB-card.svg" alt="BPB Icon" loading="lazy">
+                        </div>
+                        <div class="card-content">
+                            <h3>دسترسی به اینترنت آزاد با کلودفلر</h3>
+                            <p>دسترسی به اینترنت بدون فیلتر با استفاده از پنل BPB و Cloudflare Workers</p>
+                        </div>
+                    </a>
+                </section>
+
+                <!-- Sidebar -->
+                <aside class="main-sidebar">
+                    <div class="sidebar-header">
+                        <h3>یادداشت‌های پیشنهادی</h3>
+                    </div>
+
+                    <div class="suggested-articles">
+                        <a href="/pages/article.html?id=1" class="suggested-item">
+                            <div class="suggested-thumbnail">
+                                <img src="assets/images/ai.png" alt="هوش مصنوعی" loading="lazy">
+                            </div>
+                            <div class="suggested-content">
+                                <h4>کنترل به جای نوآوری؛ روایت توسعه نامتوازن هوش مصنوعی در ایران</h4>
+                                <span class="suggested-date">۱۴۰۳/۸/۱۸</span>
+                            </div>
+                        </a>
+
+                        <a href="/pages/article.html?id=2" class="suggested-item">
+                            <div class="suggested-thumbnail">
+                                <img src="assets/images/war.png" alt="جنگ دیجیتال" loading="lazy">
+                            </div>
+                            <div class="suggested-content">
+                                <h4>میراث جنگ ۱۲ روزه: غلبه نگاه امنیتی بر اکوسیستم دیجیتال و شبکه اینترنت</h4>
+                                <span class="suggested-date">۱۴۰۳/۸/۱۴</span>
+                            </div>
+                        </a>
+
+                        <a href="/pages/article.html?id=3" class="suggested-item">
+                            <div class="suggested-thumbnail">
+                                <img src="assets/images/sms.png" alt="سانسور پیامک" loading="lazy">
+                            </div>
+                            <div class="suggested-content">
+                                <h4>از اینترنت تا پیامک؛ گسترش سانسور به آخرین کانال ارتباطی</h4>
+                                <span class="suggested-date">۱۴۰۳/۸/۱۳</span>
+                            </div>
+                        </a>
+                    </div>
+                </aside>
+
+                <!-- Main Article Section -->
+                <section class="main-article-section">
+                    <div class="article-hero">
+                        <div class="article-visual">
+                            <img src="assets/images/network.png" alt="از اینترنت طبقاتی تا اعلام شروط رفع فیلتر تلگرام"
+                                class="article-hero-image" loading="eager">
+                        </div>
+                        <div class="article-content">
+                            <h1 class="main-title">از اینترنت طبقاتی تا اعلام شروط رفع فیلتر تلگرام؛ اجرای گام به گام
+                                مصوبه‌ای که انتشار عمومی نیافت</h1>
+                            <p class="article-summary">بررسی اجرای گام به گام مصوبه‌ای که انتشار عمومی نیافت و تأثیر آن
+                                بر اینترنت ایران و رفع فیلتر تلگرام.</p>
+                            <a href="/pages/article.html?id=6" target="_blank" class="read-more-btn">مطالعه</a>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Network and Policy Section -->
+            <section class="cyber-threats-section network-policy-section">
+                <div class="cyber-header">
+                    <h3>شبکه و سیاستگذاری</h3>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
+                        <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
+                    </svg>
+                </div>
+                <a href="/pages/article.html?id=5" class="cyber-main-card">
+                    <img src="assets/images/network.png" alt="شبکه و سیاستگذاری" class="cyber-image" loading="lazy">
+                    <div class="cyber-content">
+                        <div class="cyber-badge network-badge">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2">
+                                </path>
+                                <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
+                            </svg>
+                            گزارش شبکه و سیاستگذاری
+                        </div>
+                        <h4>از اینترنت طبقاتی تا اعلام شروط رفع فیلتر تلگرام؛ اجرای گام به گام مصوبه‌ای که انتشار عمومی
+                            نیافت</h4>
+                        <div class="cyber-meta">
+                            <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline-block; vertical-align: middle; margin-left: 4px;">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                <line x1="16" y1="2" x2="16" y2="6"></line>
+                                <line x1="8" y1="2" x2="8" y2="6"></line>
+                                <line x1="3" y1="10" x2="21" y2="10"></line>
+                            </svg> ۱۶ آبان ۱۴۰۴</span>
+                            <span>مطالعه بیشتر ←</span>
+                        </div>
+                    </div>
+                </a>
+                <div class="cyber-list" id="latest-articles-list">
+                    <!-- این بخش به صورت خودکار با جدیدترین مقالات پر می‌شود -->
+                </div>
+                <a href="pages/articles.html" class="cyber-more">مطالعه بیشتر ←</a>
+            </section>
+
+            <!-- Cyber Threats Section -->
+            <section class="cyber-threats-section">
+                <div class="cyber-header">
+                    <h3>تهدیدات سایبری</h3>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                    </svg>
+                </div>
+                <div class="cyber-main-card">
+                    <img src="assets/images/cyber.png" alt="تهدیدات سایبری" class="cyber-image" loading="lazy">
+                    <div class="cyber-content">
+                        <div class="cyber-badge">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                            </svg>
+                            گزارش تهدیدات سایبری
+                        </div>
+                        <h4>بررسی تهدیدات سایبری و شناسایی نرم‌افزارهای مخرب در ایران</h4>
+                        <div class="cyber-meta">
+                            <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline-block; vertical-align: middle; margin-left: 4px;">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                <line x1="16" y1="2" x2="16" y2="6"></line>
+                                <line x1="8" y1="2" x2="8" y2="6"></line>
+                                <line x1="3" y1="10" x2="21" y2="10"></line>
+                            </svg> ۳۱ می ۲۰۲۴</span>
+                            <span>مطالعه بیشتر ←</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="cyber-list">
+                    <div class="cyber-item">
+                        <span class="cyber-number">۱</span>
+                        <div class="cyber-item-content">
+                            <h5>گزارش تهدیدات سایبری در ایران و تأثیر آن بر امنیت دیجیتال کاربران</h5>
+                            <span class="cyber-date">۱۷ می ۲۰۲۴</span>
+                        </div>
+                    </div>
+                    <div class="cyber-item">
+                        <span class="cyber-number">۲</span>
+                        <div class="cyber-item-content">
+                            <h5>بررسی محتوای نامناسب در کانال‌های تلگرامی و تأثیر آن بر امنیت کاربران</h5>
+                            <span class="cyber-date">۱۵ دسامبر ۲۰۲۳</span>
+                        </div>
+                    </div>
+                    <div class="cyber-item">
+                        <span class="cyber-number">۳</span>
+                        <div class="cyber-item-content">
+                            <h5>وصول هویت همچنان در مدار حمله‌های سایبری</h5>
+                            <span class="cyber-date">۱ اسفند ۱۴۰۲</span>
+                        </div>
+                    </div>
+                    <div class="cyber-item">
+                        <span class="cyber-number">۴</span>
+                        <div class="cyber-item-content">
+                            <h5>گزارش سالانه امنیت سایبری ایران و چالش‌های حقوق دیجیتال شهروندان</h5>
+                            <span class="cyber-date">۱ می ۲۰۲۴</span>
+                        </div>
+                    </div>
+                </div>
+                <a href="pages/articles.html" class="cyber-more">مطالعه بیشتر ←</a>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+
+    <!-- Scripts -->
+    <!-- Unified Loading & Routing System -->
+    <script src="js/unified-loader.js"></script>
+    <script src="js/spa-router.js"></script>
+    
+    <!-- Component Loader - باید قبل از بقیه اسکریپت‌ها لود بشه -->
+    <script src="js/component-loader.js"></script>
+    <script src="js/ai-notification.js"></script>
+    <script src="js/notifications.js"></script>
+    <script src="js/auto-optimize.js"></script>
+    <script src="js/lazy-loading.js"></script>
+    <script src="js/rate-limiter.js"></script>
+    <script src="js/seo-enhancer.js"></script>
+    <script src="js/components.js"></script>
+    <script src="js/search.js"></script>
+    <script src="js/main.js"></script>
+    <script src="pwa/pwa-init.js"></script>
+
+    <!-- Auto Load Latest Articles -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // لیست مقالات با اطلاعات کامل (شامل تصویر و خلاصه)
+            const allArticles = [
+                {
+                    id: 5,
+                    title: 'از اینترنت طبقاتی تا اعلام شروط رفع فیلتر تلگرام؛ اجرای گام به گام مصوبه‌ای که انتشار عمومی نیافت',
+                    excerpt: 'بررسی اجرای گام به گام مصوبه‌ای که انتشار عمومی نیافت و تأثیر آن بر اینترنت ایران و رفع فیلتر تلگرام.',
+                    date: '۱۶ آبان ۱۴۰۴',
+                    image: 'assets/images/network.png'
+                },
+                {
+                    id: 4,
+                    title: 'رمز‌ارز جدیدترین ابزار ایران برای تاب‌آوری در مقابل تحریم‌ها',
+                    excerpt: 'بررسی نقش رمزارزها در اقتصاد ایران و چگونگی استفاده از آن برای دور زدن تحریم‌های بین‌المللی.',
+                    date: '۱۵ مهر ۱۴۰۴',
+                    image: 'assets/images/ramzarz/cover.png'
+                },
+                {
+                    id: 3,
+                    title: 'از اینترنت تا پیامک؛ گسترش سانسور به آخرین کانال ارتباطی',
+                    excerpt: 'بررسی گسترش سانسور از اینترنت به پیامک و تأثیر آن بر آخرین کانال‌های ارتباطی شهروندان.',
+                    date: '۲۳ مرداد ۱۴۰۴',
+                    image: 'assets/images/sms.png'
+                },
+                {
+                    id: 2,
+                    title: 'میراث جنگ ۱۲ روزه: غلبه نگاه امنیتی بر اکوسیستم دیجیتال و شبکه اینترنت',
+                    excerpt: 'بررسی تأثیرات جنگ ۱۲ روزه بر اکوسیستم دیجیتال ایران و چگونگی تبدیل نگاه امنیتی به رویکرد غالب در مدیریت فضای مجازی و شبکه اینترنت کشور.',
+                    date: '۱۰ مرداد ۱۴۰۴',
+                    image: 'assets/images/war.png'
+                },
+                {
+                    id: 1,
+                    title: 'کنترل به جای نوآوری؛ روایت توسعه نامتوازن هوش مصنوعی در ایران',
+                    excerpt: 'بررسی چالش‌های توسعه هوش مصنوعی در ایران و تمرکز بر کنترل به جای نوآوری.',
+                    date: '۱۸ آبان ۱۴۰۳',
+                    image: 'assets/images/ai.png'
+                }
+            ];
+
+            // مرتب‌سازی بر اساس ID (جدیدترین‌ها اول)
+            allArticles.sort((a, b) => b.id - a.id);
+
+            // لود خودکار آخرین مقاله در بخش Hero
+            const latestArticle = allArticles[0];
+            const heroSection = document.querySelector('.main-article-section .article-hero');
+
+            if (heroSection && latestArticle) {
+                // به‌روزرسانی تصویر
+                const heroImage = heroSection.querySelector('.article-hero-image');
+                if (heroImage) {
+                    heroImage.src = latestArticle.image;
+                    heroImage.alt = latestArticle.title;
+                }
+
+                // به‌روزرسانی عنوان
+                const heroTitle = heroSection.querySelector('.main-title');
+                if (heroTitle) {
+                    heroTitle.textContent = latestArticle.title;
+                }
+
+                // به‌روزرسانی خلاصه
+                const heroSummary = heroSection.querySelector('.article-summary');
+                if (heroSummary) {
+                    heroSummary.textContent = latestArticle.excerpt;
+                }
+
+                // به‌روزرسانی لینک
+                const heroLink = heroSection.querySelector('.read-more-btn');
+                if (heroLink) {
+                    heroLink.href = `/pages/article.html?id=${latestArticle.id}`;
+                }
+            }
+
+            // لود خودکار جدیدترین مقالات در بخش یادداشت‌های پیشنهادی
+            const listContainer = document.getElementById('latest-articles-list');
+
+            if (listContainer) {
+                // نمایش 3 مقاله جدید (بعد از آخرین مقاله که در hero نمایش داده شد)
+                const latestArticles = allArticles.slice(0, 3);
+
+                // ساخت HTML برای هر مقاله با استایل جدید
+                const articlesHTML = latestArticles.map((article, index) => `
+                    <a href="/pages/article.html?id=${article.id}" class="cyber-item">
+                        <span class="cyber-number">${['۱', '۲', '۳'][index]}</span>
+                        <div class="cyber-item-content">
+                            <h5>${article.title}</h5>
+                            <span class="cyber-date">${article.date}</span>
+                        </div>
+                    </a>
+                `).join('');
+
+                listContainer.innerHTML = articlesHTML;
+            }
+        });
+    </script>
+</body>
+
+</html>

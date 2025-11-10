@@ -1,0 +1,32 @@
+{
+  "name": "filterbin",
+  "version": "2.0.0",
+  "description": "فیلتربین - پلتفرم ابزارهای دیجیتال و امنیت سایبری",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "optimize-images": "node scripts/optimize-images.js"
+  },
+  "keywords": [
+    "security",
+    "privacy",
+    "iran",
+    "vpn",
+    "censorship"
+  ],
+  "author": "Filterbin Team",
+  "license": "MIT",
+  "devDependencies": {
+    "vite": "^5.0.0",
+    "vite-plugin-compression": "^0.5.1",
+    "vite-plugin-html": "^3.2.0",
+    "rollup-plugin-visualizer": "^5.12.0",
+    "terser": "^5.26.0",
+    "cssnano": "^6.0.3",
+    "postcss": "^8.4.32",
+    "autoprefixer": "^10.4.16"
+  },
+  "dependencies": {}
+}
